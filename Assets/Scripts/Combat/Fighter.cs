@@ -17,15 +17,13 @@ namespace RPG.Combat
         Animator _animator;
         ActionScheduler _scheduler;
 
-        float _timeSinceLastAttack;
+        float _timeSinceLastAttack = Mathf.Infinity;
 
         private void Start()
         {
             _mover = GetComponent<Mover>();
             _animator = GetComponent<Animator>();
             _scheduler = GetComponent<ActionScheduler>();
-
-            _timeSinceLastAttack = _timeBetweenAttacks;
         }
 
         private void Update()
@@ -40,8 +38,10 @@ namespace RPG.Combat
                     AttackBehaviour();
                 }
                 else
+                {
                     Cancel();
-                
+                    _mover.Cancel();
+                }
             }
         }
         
@@ -63,7 +63,7 @@ namespace RPG.Combat
             }
         }
 
-        public void Attack(CombatTarget combatTarget)
+        public void Attack(GameObject combatTarget)
         {
             _scheduler.StartAction(this);
 
@@ -81,6 +81,12 @@ namespace RPG.Combat
 
             _animator.ResetTrigger("attack");
             _animator.SetTrigger("stopAttack");
+        }
+
+        private void Kill()
+        {
+            Cancel();
+            this.enabled = false;
         }
 
         //Animation Event(s)

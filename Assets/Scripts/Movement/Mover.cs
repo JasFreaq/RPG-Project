@@ -49,5 +49,11 @@ namespace RPG.Movement
             float speed = localVelocity.z;
             _animator.SetFloat("forwardSpeed", speed);
         }
+
+        private void Kill()
+        {
+            Cancel();
+            this.enabled = false;
+        }
     }
 }

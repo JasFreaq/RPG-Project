@@ -20,5 +20,10 @@ namespace RPG.Core
             }
             _action = newAction;
         }
+
+        private void Kill()
+        {
+            this.enabled = false;
+        }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Combat
+namespace RPG.Core
 {
     public class Health : MonoBehaviour
     {
@@ -24,7 +24,8 @@ namespace RPG.Combat
             {
                 _animator.SetTrigger("death");
                 _isAlive = false;
-                BroadcastMessage("KillCollider");
+
+                BroadcastMessage("Kill", 0.1f);
             }
         }
 

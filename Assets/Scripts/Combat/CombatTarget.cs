@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using RPG.Core;
 using UnityEngine;
 
 namespace RPG.Combat
@@ -14,7 +15,7 @@ namespace RPG.Combat
             _collider = GetComponent<Collider>();
         }
 
-        private void KillCollider()
+        private void Kill()
         {
             Destroy(_collider);
         }
