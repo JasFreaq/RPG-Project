@@ -27,6 +27,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chaseRange: 5
+  _path: {fileID: 0}
+  _pathTolerance: 1
+  _chaseSpeed: 4.5296
+  _patrolSpeed: 3.774667
+  _suspicionTime: 2
+  _dwellingTime: 2
 --- !u!114 &8535220854422936541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,7 +60,7 @@ PrefabInstance:
     - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
         type: 3}
       propertyPath: _healthPoints
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1993987367173071957, guid: 00d7cf4d771565848bc088b67e50af4e,
         type: 3}

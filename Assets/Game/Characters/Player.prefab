@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!136 &4760057654770705280
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4933133480506062964}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.15
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &5621188402327997494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,8 +85,7 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bfbe2e8b331e2cc42be1591f949c0e41, type: 2}
-    m_RemovedComponents:
-    - {fileID: 9505156, guid: 679ff741e12a7e740819ede24a7000b7, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 679ff741e12a7e740819ede24a7000b7, type: 3}
 --- !u!1001 &6906852981762808865
 PrefabInstance:
@@ -85,40 +98,50 @@ PrefabInstance:
       propertyPath: _timeBetweenAttacks
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: _healthPoints
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 1993987367173071957, guid: 00d7cf4d771565848bc088b67e50af4e,
         type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1993987367173071957, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1993987367173071977, guid: 00d7cf4d771565848bc088b67e50af4e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 26.645123
       objectReference: {fileID: 0}
     - target: {fileID: 1993987367173071977, guid: 00d7cf4d771565848bc088b67e50af4e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 6.2232494
       objectReference: {fileID: 0}
     - target: {fileID: 1993987367173071977, guid: 00d7cf4d771565848bc088b67e50af4e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 50.31034
       objectReference: {fileID: 0}
     - target: {fileID: 1993987367173071977, guid: 00d7cf4d771565848bc088b67e50af4e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1993987367173071977, guid: 00d7cf4d771565848bc088b67e50af4e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1993987367173071977, guid: 00d7cf4d771565848bc088b67e50af4e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1993987367173071977, guid: 00d7cf4d771565848bc088b67e50af4e,
         type: 3}

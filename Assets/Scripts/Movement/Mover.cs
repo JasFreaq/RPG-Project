@@ -50,6 +50,12 @@ namespace RPG.Movement
             _animator.SetFloat("forwardSpeed", speed);
         }
 
+        //Speed
+        public void SetSpeed(float speed)
+        {
+            _navMeshAgent.speed = speed;
+        }
+
         private void Kill()
         {
             Cancel();

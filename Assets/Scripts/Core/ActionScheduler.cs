@@ -15,10 +15,15 @@ namespace RPG.Core
                     return;
                 else
                 {
-                    _action.Cancel();                    
+                    CancelCurrentAction();
                 }
             }
             _action = newAction;
+        }
+
+        public void CancelCurrentAction()
+        {
+            _action.Cancel();
         }
 
         private void Kill()

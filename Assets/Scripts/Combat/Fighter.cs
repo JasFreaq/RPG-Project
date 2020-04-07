@@ -32,15 +32,15 @@ namespace RPG.Combat
 
             if (_target && GetIsInRange())
             {
+                _mover.Cancel();
+
                 if (_target.IsAlive())
                 {
-                    _mover.Cancel();
                     AttackBehaviour();
                 }
                 else
                 {
                     Cancel();
-                    _mover.Cancel();
                 }
             }
         }
@@ -69,7 +69,7 @@ namespace RPG.Combat
 
             _target = combatTarget.GetComponent<Health>();
 
-            if (_target != null)
+            if (_target)
             {
                 _mover.MoveTo(_target.transform.position);
             }
@@ -89,6 +89,10 @@ namespace RPG.Combat
             this.enabled = false;
         }
 
+        public float GetWeaponsRange()
+        {
+            return _weaponsRange;
+        }
         //Animation Event(s)
         public void Hit()
         {

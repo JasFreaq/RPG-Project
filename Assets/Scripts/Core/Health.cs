@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Core
+
+namespace RPG.Combat
 {
+    [SelectionBase]
     public class Health : MonoBehaviour
     {
         [SerializeField] float _healthPoints = 100;

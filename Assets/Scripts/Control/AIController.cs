@@ -11,16 +11,19 @@ namespace RPG.Control
     {
         Mover _mover;
         Fighter _fighter;
-        Transform _player;
+        Health _player;
 
-        //Basic Parameters
+        //Basic
         [SerializeField] float _chaseRange = 5f;
         Vector3 _guardLocation;
+        float _weaponsRange;
         
         [Header("Patrolling")]
         [SerializeField] PatrolPath _path = null;
         [SerializeField] float _pathTolerance = 1f;
         int _pathIndex = 0;
+        [SerializeField] float _chaseSpeed, _patrolSpeed;
+        
 
         [Header("Timers")]
         [SerializeField] float _suspicionTime = 2f;
@@ -38,9 +41,10 @@ namespace RPG.Control
             _mover = GetComponent<Mover>();
             _fighter = GetComponent<Fighter>();
 
-            _player = GameObject.FindGameObjectWithTag("Player").transform;
+            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
 
             _guardLocation = transform.position;
+            _weaponsRange=_fighter.GetWeaponsRange();
         }
 
         // Update is called once per frame
@@ -49,9 +53,14 @@ namespace RPG.Control
             _timeSinceLastSawPlayer += Time.deltaTime;
             _timeSinceLastPatrolled += Time.deltaTime;
 
-            if (Vector3.Distance(transform.position, _player.position) - _chaseRange <= Mathf.Epsilon)
+            if (_player.IsAlive() && Vector3.Distance(transform.position, _player.transform.position) - _chaseRange <= Mathf.Epsilon)
             {
-                _fighter.Attack(_player.gameObject);
+                if (Vector3.Distance(transform.position, _player.transform.position) - _weaponsRange >= Mathf.Epsilon)
+                {
+                    _fighter.Attack(_player.gameObject);
+                    _mover.SetSpeed(_chaseSpeed);
+                }
+
                 _timeSinceLastSawPlayer = 0;
             }
             else if (_timeSinceLastSawPlayer - _suspicionTime <= Mathf.Epsilon)
@@ -65,6 +74,7 @@ namespace RPG.Control
         private void PatrolBehaviour()
         {
             Vector3 pos = Vector3.zero;
+            _mover.SetSpeed(_patrolSpeed);
 
             if (_path != null)
             {
