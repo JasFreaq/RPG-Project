@@ -1,19 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPG.Core.Saving;
 
 
-namespace RPG.Combat
+namespace RPG.Core
 {
     [SelectionBase]
-    public class Health : MonoBehaviour
+    public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float _healthPoints = 100;
         bool _isAlive = true;
 
         Animator _animator;
 
-        private void Start()
+        private void Awake()
         {
             _animator = GetComponent<Animator>();
         }
@@ -24,16 +25,34 @@ namespace RPG.Combat
 
             if (_isAlive && _healthPoints <= Mathf.Epsilon)
             {
-                _animator.SetTrigger("death");
-                _isAlive = false;
-
-                BroadcastMessage("Kill", 0.1f);
+                Death();
             }
+        }
+
+        private void Death()
+        {
+            _animator.SetTrigger("death");
+            _isAlive = false;
+
+            BroadcastMessage("Kill");
         }
 
         public bool IsAlive()
         {
             return _isAlive;
+        }
+
+        public object CaptureState()
+        {
+            return _healthPoints;
+        }
+
+        public void RestoreState(object state)
+        {
+            _healthPoints = (float)state;
+
+            if (_healthPoints <= Mathf.Epsilon)
+                Death();
         }
     }
 }

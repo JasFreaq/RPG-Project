@@ -98,6 +98,11 @@ PrefabInstance:
       propertyPath: _timeBetweenAttacks
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 554229365781571245, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: _uniqueIdentifier
+      value: player
+      objectReference: {fileID: 0}
     - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
         type: 3}
       propertyPath: _healthPoints

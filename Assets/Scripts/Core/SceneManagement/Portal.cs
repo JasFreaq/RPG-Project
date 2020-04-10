@@ -19,10 +19,13 @@ namespace RPG.Core.SceneManagement
         Fader _fader;
 
         NavMeshAgent _playerAgent;
+        SavingWrapper _savingWrapper;
 
-        private void Start()
+
+        private void Awake()
         {
             _fader = FindObjectOfType<Fader>();
+            _savingWrapper = FindObjectOfType<SavingWrapper>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -30,6 +33,7 @@ namespace RPG.Core.SceneManagement
             if (other.tag == "Player")
             {
                 DontDestroyOnLoad(gameObject);
+                
                 StartCoroutine(TransitionRoutine());
             }
         }
@@ -37,7 +41,7 @@ namespace RPG.Core.SceneManagement
         IEnumerator TransitionRoutine()
         {
             yield return _fader.FadeOutRoutine(_fadeOutTime);
-            
+            _savingWrapper.Save();
             yield return SceneManager.LoadSceneAsync(_sceneToLoad);
 
             Portal[] portals = FindObjectsOfType<Portal>();
@@ -47,11 +51,13 @@ namespace RPG.Core.SceneManagement
 
                 if (portal.GetIdentifier() == _identifier)
                 {
+                    _savingWrapper.Load();
                     HandlePlayer(portal);
 
                     yield return null;
 
                     _playerAgent.enabled = false;
+                    _savingWrapper.Save();
                 }
             }
 

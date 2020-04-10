@@ -85,7 +85,6 @@ namespace RPG.Combat
 
         private void Kill()
         {
-            Cancel();
             this.enabled = false;
         }
 

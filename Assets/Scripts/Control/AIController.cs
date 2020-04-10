@@ -4,6 +4,7 @@ using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
 using System;
+using RPG.Core;
 
 namespace RPG.Control
 {

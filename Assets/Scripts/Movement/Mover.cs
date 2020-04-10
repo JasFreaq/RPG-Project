@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using RPG.Core;
+using RPG.Core.Saving;
 
 namespace RPG.Movement
 {
-    public class Mover : MonoBehaviour, IAction
+    public class Mover : MonoBehaviour, IAction, ISaveable
     {
         NavMeshAgent _navMeshAgent;
         Animator _animator;
         ActionScheduler _scheduler;
 
-        void Start()
+        void Awake()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _animator = GetComponent<Animator>();
@@ -63,6 +64,23 @@ namespace RPG.Movement
         {
             Cancel();
             this.enabled = false;
+        }
+
+        public object CaptureState()
+        {
+            return new SerializableVector3(transform.position);
+        }
+
+        public void RestoreState(object state)
+        {
+            SerializableVector3 serializableVector3 = state as SerializableVector3;
+
+            _navMeshAgent.enabled = false;
+            
+            transform.position = serializableVector3.ToVector3();
+
+            _navMeshAgent.enabled = true;
+            _scheduler.CancelCurrentAction();
         }
     }
 }

@@ -23,7 +23,8 @@ namespace RPG.Core
 
         public void CancelCurrentAction()
         {
-            _action.Cancel();
+            if(_action!=null)
+                _action.Cancel();
         }
 
         private void Kill()
