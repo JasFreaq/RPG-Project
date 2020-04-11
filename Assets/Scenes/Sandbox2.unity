@@ -502,11 +502,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -14.714697
       objectReference: {fileID: 0}
-    - target: {fileID: 3350495626821995473, guid: aad7363143cff2b4b90e96dc97b5baa8,
-        type: 3}
-      propertyPath: m_DeadZoneHeight
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 4315880216508541238, guid: aad7363143cff2b4b90e96dc97b5baa8,
         type: 3}
       propertyPath: m_LocalPosition.x

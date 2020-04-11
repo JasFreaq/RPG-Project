@@ -8,22 +8,31 @@ namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, IAction
     {
-        [SerializeField] float _weaponsRange = 2f;
-        [SerializeField] float _timeBetweenAttacks = 1f;
-        [SerializeField] float _weaponsDamage = 2f;
-
         Health _target;
         Mover _mover;
         Animator _animator;
         ActionScheduler _scheduler;
+                
+        Weapon.WeaponProperties _weaponProperties;
+        [Header("Weapon System")]
 
+        [Tooltip("Place left-hand transform at index 0, and right-hand transform at index 1.")]
+        [SerializeField] Transform[] _handTransforms = new Transform[2];
+        [SerializeField] Weapon _defaultWeapon;
+
+        Weapon _currentWeapon = null;
         float _timeSinceLastAttack = Mathf.Infinity;
 
-        private void Start()
+        private void Awake()
         {
             _mover = GetComponent<Mover>();
             _animator = GetComponent<Animator>();
             _scheduler = GetComponent<ActionScheduler>();
+        }
+
+        private void Start()
+        {
+            EquipWeapon(_defaultWeapon);
         }
 
         private void Update()
@@ -44,17 +53,26 @@ namespace RPG.Combat
                 }
             }
         }
-        
+
+        public void EquipWeapon(Weapon weapon)
+        {
+            if (_currentWeapon)
+                _currentWeapon.DestroyWeapon();
+
+            _currentWeapon = weapon;
+            _weaponProperties = weapon.Spawn(_handTransforms, _animator);
+        }
+
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, _target.transform.position) - _weaponsRange <= Mathf.Epsilon;
+            return Vector3.Distance(transform.position, _target.transform.position) - _weaponProperties.weaponsRange <= Mathf.Epsilon;
         }
 
         private void AttackBehaviour()
         {
             transform.LookAt(_target.transform);
 
-            if (_timeSinceLastAttack - _timeBetweenAttacks >= Mathf.Epsilon)
+            if (_timeSinceLastAttack - _weaponProperties.timeBetweenAttacks >= Mathf.Epsilon)
             {
                 _animator.ResetTrigger("stopAttack");
                 _animator.SetTrigger("attack");
@@ -90,13 +108,19 @@ namespace RPG.Combat
 
         public float GetWeaponsRange()
         {
-            return _weaponsRange;
+            return _weaponProperties.weaponsRange;
         }
-        //Animation Event(s)
-        public void Hit()
+        //Animation Events
+        void Hit()
         {
-            if (_target != null) 
-                _target.SetDamage(_weaponsDamage);
+            if (_target) 
+                _target.SetDamage(_weaponProperties.weaponsDamage);
+        }
+
+        void Shoot()
+        {
+            if(_target)
+                _currentWeapon.SpawnProjectile(_target);
         }
     }
 }

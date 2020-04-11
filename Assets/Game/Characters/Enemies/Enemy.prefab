@@ -10,7 +10,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.35
+  m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
@@ -52,6 +52,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1301889657, guid: 00d7cf4d771565848bc088b67e50af4e, type: 3}
+      propertyPath: _handTransform
+      value: 
+      objectReference: {fileID: 8401309116370135702}
+    - target: {fileID: 1301889657, guid: 00d7cf4d771565848bc088b67e50af4e, type: 3}
+      propertyPath: _handTransforms.Array.data[1]
+      value: 
+      objectReference: {fileID: 8401309116370135702}
+    - target: {fileID: 1301889657, guid: 00d7cf4d771565848bc088b67e50af4e, type: 3}
+      propertyPath: _handTransforms.Array.data[0]
+      value: 
+      objectReference: {fileID: 8401309116370193044}
     - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
         type: 3}
       propertyPath: _health
@@ -203,3 +215,15 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 9572094, guid: 30cf93deff988e74e88a144bd2127c18, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 30cf93deff988e74e88a144bd2127c18, type: 3}
+--- !u!4 &8401309116370193044 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 481036, guid: 30cf93deff988e74e88a144bd2127c18,
+    type: 3}
+  m_PrefabInstance: {fileID: 8401309116369755544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8401309116370135702 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 423694, guid: 30cf93deff988e74e88a144bd2127c18,
+    type: 3}
+  m_PrefabInstance: {fileID: 8401309116369755544}
+  m_PrefabAsset: {fileID: 0}
