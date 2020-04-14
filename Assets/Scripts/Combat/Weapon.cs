@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using RPG.Core;
+﻿using RPG.Resources;
 using UnityEngine;
 
 namespace RPG.Combat
@@ -30,17 +28,22 @@ namespace RPG.Combat
 
         public WeaponProperties Spawn(Transform[] handTransforms, Animator animator)
         {
+            _handTransforms = handTransforms;
+
             if (_weaponPrefab)
             {
-                _handTransforms = handTransforms;
-
                 _weaponInstance = Instantiate(_weaponPrefab, _handTransforms[_handIndex].position, _handTransforms[_handIndex].rotation);
                 _weaponInstance.transform.SetParent(_handTransforms[_handIndex]);
             }
 
-            if (_weaponsOverrideController) 
-            { 
+            AnimatorOverrideController overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
+            if (_weaponsOverrideController)
+            {
                 animator.runtimeAnimatorController = _weaponsOverrideController;
+            }
+            else if (overrideController) 
+            {
+                animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;
             }
 
             return _properties;
@@ -57,7 +60,19 @@ namespace RPG.Combat
 
         public void DestroyWeapon()
         {
-            Destroy(_weaponInstance);
+            //Debug.Log($"{name} is Destroying old weapons");
+            for (int i = 0; i < 2; i++)
+            {
+                //Debug.Log($"{name} checking {_handTransforms[i]}");
+                foreach (Transform transform in _handTransforms[i])
+                {
+                    //Debug.Log($"{ name} -> { transform.name}/{ transform.tag}");
+                    if (transform.tag == "Weapon Prefab")
+                    {
+                        Destroy(transform.gameObject);                     
+                    }
+                }
+            }
         }
     }
 }

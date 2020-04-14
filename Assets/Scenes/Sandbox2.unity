@@ -412,6 +412,12 @@ PrefabInstance:
       propertyPath: _uniqueIdentifier
       value: fcbff805-fb5d-4cc5-831c-cb7b3bbe543f
       objectReference: {fileID: 0}
+    - target: {fileID: 2326398116318564134, guid: aad7363143cff2b4b90e96dc97b5baa8,
+        type: 3}
+      propertyPath: _defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: ba2702009e0fe2d44a1ff18db3611143,
+        type: 2}
     - target: {fileID: 3350495625393917728, guid: aad7363143cff2b4b90e96dc97b5baa8,
         type: 3}
       propertyPath: m_LocalPosition.x

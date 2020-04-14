@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
-using System;
 
 namespace RPG.Control
 {
@@ -26,7 +23,7 @@ namespace RPG.Control
 
             if (InteractWithMovement()) return;
 
-            print("Nothing to do...");
+            //Nothing to do...
         }
 
         private bool InteractWithCombat()
