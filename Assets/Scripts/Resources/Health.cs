@@ -11,20 +11,27 @@ namespace RPG.Resources
         bool _isAlive = true;
 
         Animator _animator;
+        BaseStats _baseStats;
+        Experience _experience;
 
         private void Awake()
         {
             _animator = GetComponent<Animator>();
-            _healthPoints = GetComponent<BaseStats>().GetHealth();
+            _baseStats = GetComponent<BaseStats>();
+            _healthPoints = _baseStats.GetStat(Stat.Health);
         }
 
 
-        public void SetDamage(float damage)
+        public void SetDamage(float damage, GameObject instigator)
         {
             _healthPoints = Mathf.Max(_healthPoints - damage, 0);
 
             if (_isAlive && _healthPoints <= Mathf.Epsilon)
             {
+                _experience = instigator.GetComponent<Experience>();
+                if (_experience) 
+                    _experience.GainXP(_baseStats.GetStat(Stat.ExperienceReward));
+
                 Death();
             }
         }
@@ -35,6 +42,11 @@ namespace RPG.Resources
             _isAlive = false;
 
             BroadcastMessage("Kill");
+        }
+
+        public float GetHealth()
+        {
+            return _healthPoints;
         }
 
         public bool IsAlive()

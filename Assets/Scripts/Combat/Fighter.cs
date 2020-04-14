@@ -111,17 +111,22 @@ namespace RPG.Combat
         {
             return _weaponProperties.weaponsRange;
         }
+
+        public Health GetTarget()
+        {
+            return _target;
+        }
         //Animation Events
         void Hit()
         {
-            if (_target) 
-                _target.SetDamage(_weaponProperties.weaponsDamage);
+            if (_target)
+                _target.SetDamage(_weaponProperties.weaponsDamage, gameObject);
         }
 
         void Shoot()
         {
             if(_target)
-                _currentWeapon.SpawnProjectile(_target);
+                _currentWeapon.SpawnProjectile(_target, gameObject);
         }
 
         public object CaptureState()

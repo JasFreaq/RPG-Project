@@ -6,6 +6,7 @@ namespace RPG.Combat
     public class Projectile : MonoBehaviour
     {
         Health _target;
+        GameObject _instigator = null;
         float _damage;
 
         [SerializeField] float _speed = 3f;
@@ -21,26 +22,27 @@ namespace RPG.Combat
         CapsuleCollider _collider;
 
         // Start is called before the first frame update
-        public void InitiateTarget(Health target, float damage)
+        public void InitiateTarget(Health target, float damage, GameObject instigator)
         {
             _target = target;
             _damage = damage;
+            _instigator = instigator;
 
-            if(!_isHoming)
+            if (!_isHoming) 
                 SetAimLocation();
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (_isHoming)
+                SetAimLocation();
+
             if (_target)
                 transform.Translate(Vector3.forward * _speed * Time.deltaTime);
 
             if (!_target.IsAlive() || _timer > _lifetime) 
                 Destroy(gameObject);
-
-            if (_isHoming)
-                SetAimLocation();
 
             _timer += Time.deltaTime;
         }
@@ -65,7 +67,7 @@ namespace RPG.Combat
         {
             if (other.GetComponent<Health>() == _target) 
             {
-                _target.SetDamage(_damage);
+                _target.SetDamage( _damage, _instigator);
 
                 if (_hitEffects)
                 {

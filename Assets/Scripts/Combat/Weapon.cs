@@ -49,12 +49,12 @@ namespace RPG.Combat
             return _properties;
         }
 
-        public void SpawnProjectile(Health target)
+        public void SpawnProjectile(Health target, GameObject instigator)
         {
             if(_projectile)
             {
                 Projectile projectile = Instantiate(_projectile, _handTransforms[_handIndex].position, _handTransforms[_handIndex].rotation);
-                projectile.InitiateTarget(target, _properties.weaponsDamage);
+                projectile.InitiateTarget(target, _properties.weaponsDamage, instigator);
             }
         }
 
