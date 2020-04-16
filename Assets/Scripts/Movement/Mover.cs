@@ -11,6 +11,13 @@ namespace RPG.Movement
         Animator _animator;
         ActionScheduler _scheduler;
 
+        [System.Serializable]
+        struct Orientation
+        {
+            public SerializableVector3 position;
+            public SerializableVector3 rotation;
+        }
+
         void Awake()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -60,25 +67,31 @@ namespace RPG.Movement
 
         private void Kill()
         {
-            Cancel();
+            GetComponent<NavMeshAgent>().isStopped = true;
             this.enabled = false;
         }
 
         public object CaptureState()
         {
-            return new SerializableVector3(transform.position);
+            Orientation orientation = new Orientation();
+
+            orientation.position = new SerializableVector3(transform.position);
+            orientation.rotation = new SerializableVector3(transform.eulerAngles);
+
+            return orientation;
         }
 
         public void RestoreState(object state)
         {
-            SerializableVector3 serializableVector3 = state as SerializableVector3;
+            Orientation orientation = (Orientation)state;
 
-            _navMeshAgent.enabled = false;
+            GetComponent<NavMeshAgent>().enabled = false;
             
-            transform.position = serializableVector3.ToVector3();
+            transform.position = orientation.position.ToVector3();
+            transform.eulerAngles = orientation.rotation.ToVector3();
 
-            _navMeshAgent.enabled = true;
-            _scheduler.CancelCurrentAction();
+            GetComponent<NavMeshAgent>().enabled = true;
+            GetComponent<ActionScheduler>().CancelCurrentAction();
         }
     }
 }

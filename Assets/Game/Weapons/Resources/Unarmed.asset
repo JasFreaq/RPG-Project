@@ -16,6 +16,7 @@ MonoBehaviour:
     weaponsRange: 2
     timeBetweenAttacks: 1
     weaponsDamage: 10
+    weaponsDamageModifier: 1
   _weaponPrefab: {fileID: 0}
   _weaponsOverrideController: {fileID: 0}
   _projectile: {fileID: 0}

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -14,16 +15,14 @@ namespace RPG.Saving
         public IEnumerator LoadLastSceneRoutine(string saveFile)
         {
             Dictionary<string, object> state = LoadFile(saveFile);
+            int index = SceneManager.GetActiveScene().buildIndex;
 
             if (state.ContainsKey("lastScene"))
             {
-                int index = (int)state["lastScene"];
-
-                if (SceneManager.GetActiveScene().buildIndex != index)
-                {
-                    yield return SceneManager.LoadSceneAsync(index);
-                }
+                index = (int)state["lastScene"];
             }
+
+            yield return SceneManager.LoadSceneAsync(index);
             RestoreState(LoadFile(saveFile));
         }
 
@@ -38,7 +37,12 @@ namespace RPG.Saving
         {
             RestoreState(LoadFile(saveFile));
         }
-                
+
+        public void Delete(string defaultSaveFile)
+        {
+            File.Delete(GetSaveFilePath(defaultSaveFile));
+        }
+
         private void SaveFile(string saveFile, object state)
         {
             string path = GetSaveFilePath(saveFile);

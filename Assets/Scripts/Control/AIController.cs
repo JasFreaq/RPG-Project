@@ -2,6 +2,7 @@
 using RPG.Movement;
 using RPG.Combat;
 using RPG.Resources;
+using GameDevTV.Utils;
 
 namespace RPG.Control
 {
@@ -13,7 +14,7 @@ namespace RPG.Control
 
         //Basic
         [SerializeField] float _chaseRange = 5f;
-        Vector3 _guardLocation;
+        LazyValue<Vector3> _guardLocation;
         float _weaponsRange;
         
         [Header("Patrolling")]
@@ -29,23 +30,22 @@ namespace RPG.Control
         [SerializeField] float _dwellingTime = 2f;
         float _timeSinceLastPatrolled = Mathf.Infinity;
 
-
-
-
-
-        // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             _mover = GetComponent<Mover>();
             _fighter = GetComponent<Fighter>();
 
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
 
-            _guardLocation = transform.position;
-            _weaponsRange=_fighter.GetWeaponsRange();
+            _guardLocation = new LazyValue<Vector3>(GetInitialLocation);
+            _weaponsRange = _fighter.GetWeaponsRange();
         }
 
-        // Update is called once per frame
+        private void Start()
+        {
+            _guardLocation.ForceInit();
+        }
+
         void Update()
         {
             _timeSinceLastSawPlayer += Time.deltaTime;
@@ -69,6 +69,11 @@ namespace RPG.Control
                 PatrolBehaviour();
         }
 
+        private Vector3 GetInitialLocation()
+        {
+            return transform.position;
+        }
+
         private void PatrolBehaviour()
         {
             Vector3 pos = Vector3.zero;
@@ -86,7 +91,7 @@ namespace RPG.Control
                     pos = _path.GetWaypoint(_pathIndex);
             }
             else
-                pos = _guardLocation;
+                pos = _guardLocation.value;
             
             _mover.MoveTo(pos);
         }

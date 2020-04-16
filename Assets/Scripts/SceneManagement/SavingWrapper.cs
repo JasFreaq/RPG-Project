@@ -17,9 +17,11 @@ namespace RPG.SceneManagement
         {
             _savingSystem = GetComponent<SavingSystem>();
             _fader = FindObjectOfType<Fader>();
+
+            StartCoroutine(LoadLastSceneRoutine());
         }
 
-        private IEnumerator Start()
+        private IEnumerator LoadLastSceneRoutine()
         {
             _fader.FadeOutImmediate();
             yield return _savingSystem.LoadLastSceneRoutine(_DefaultSaveFile);
@@ -33,6 +35,8 @@ namespace RPG.SceneManagement
                 Save();
             else if (Input.GetKeyDown(KeyCode.L))
                 Load();
+            else if (Input.GetKeyDown(KeyCode.Delete))
+                Delete();
         }
 
         public void Save()
@@ -43,6 +47,11 @@ namespace RPG.SceneManagement
         public void Load()
         {
             _savingSystem.Load(_DefaultSaveFile);
+        }
+
+        public void Delete()
+        {
+            _savingSystem.Delete(_DefaultSaveFile);
         }
     }
 }

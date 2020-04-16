@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,25 +24,43 @@ namespace RPG.Stats
 
         [SerializeField] ProgressionCharacter[] _progressionCharacters = null;
 
-        public float GetStats(Stat stat, CharacterClass characterClass, int level)
+        Dictionary<CharacterClass, Dictionary<Stat, float[]>> _lookupTable = null;
+
+        public float GetStats(CharacterClass characterClass, Stat stat, int level)
         {
-            foreach (ProgressionCharacter progressionCharacter in _progressionCharacters) 
+            BuildTable();
+
+            float[] levels = _lookupTable[characterClass][stat];
+
+            if (levels.Length >= level)
+                return levels[level - 1];
+
+            if (stat == Stat.ExperienceToLevelUp)
+                Debug.LogWarning("Highest level reached.");
+            else
+                Debug.LogError("Stat value not found");
+
+            return 0;
+        }
+
+        private void BuildTable()
+        {
+            if (_lookupTable == null)
             {
-                if (characterClass == progressionCharacter._class) 
+                _lookupTable = new Dictionary<CharacterClass, Dictionary<Stat, float[]>>();
+
+                foreach (ProgressionCharacter progressionCharacter in _progressionCharacters)
                 {
-                    foreach (ProgressionStats progressionStat in progressionCharacter._stats) 
+                    Dictionary<Stat, float[]> statLookupTable = new Dictionary<Stat, float[]>();
+
+                    foreach (ProgressionStats progressionStat in progressionCharacter._stats)
                     {
-                        if (stat == progressionStat._stat)
-                        {
-                            if (progressionStat._levels.Length >= level)
-                                return progressionStat._levels[level - 1];
-                        }
+                        statLookupTable[progressionStat._stat] = progressionStat._levels;
                     }
+
+                    _lookupTable[progressionCharacter._class] = statLookupTable;
                 }
             }
-
-            Debug.LogError(stat + " not found.");
-            return 0;
         }
     }
 }

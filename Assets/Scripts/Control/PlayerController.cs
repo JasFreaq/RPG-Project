@@ -10,7 +10,7 @@ namespace RPG.Control
         Fighter _fighter;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             _mover = GetComponent<Mover>();
             _fighter = GetComponent<Fighter>();

@@ -22,6 +22,19 @@ MonoBehaviour:
       - 200
       - 400
       - 800
+    - _stat: 3
+      _levels:
+      - 20
+      - 40
+      - 80
+      - 160
+    - _stat: 1
+      _levels:
+      - 5
+      - 10
+      - 20
+      - 40
+      - 80
   - _class: 1
     _stats:
     - _stat: 0
@@ -29,11 +42,16 @@ MonoBehaviour:
       - 20
       - 40
       - 80
-    - _stat: 1
+    - _stat: 2
       _levels:
       - 10
       - 20
       - 40
+    - _stat: 1
+      _levels:
+      - 5
+      - 10
+      - 20
   - _class: 2
     _stats:
     - _stat: 0
@@ -41,11 +59,16 @@ MonoBehaviour:
       - 20
       - 40
       - 80
-    - _stat: 1
+    - _stat: 2
       _levels:
       - 15
       - 30
       - 60
+    - _stat: 1
+      _levels:
+      - 5
+      - 10
+      - 20
   - _class: 3
     _stats:
     - _stat: 0
@@ -53,8 +76,13 @@ MonoBehaviour:
       - 20
       - 40
       - 80
-    - _stat: 1
+    - _stat: 2
       _levels:
       - 20
       - 40
       - 80
+    - _stat: 1
+      _levels:
+      - 5
+      - 10
+      - 20

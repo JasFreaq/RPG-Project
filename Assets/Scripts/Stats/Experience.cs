@@ -3,15 +3,27 @@ using System.Collections.Generic;
 using RPG.Saving;
 using UnityEngine;
 
-namespace RPG.Resources
+namespace RPG.Stats
 {
     public class Experience : MonoBehaviour, ISaveable
     {
-        [SerializeField] float _xPPoints = 0;
+        float _xPPoints = 0;
+        BaseStats _baseStats;
+
+        private void Awake()
+        {
+            _baseStats = GetComponent<BaseStats>();
+        }
 
         public void GainXP(float xP)
         {
             _xPPoints += xP;
+            StartCoroutine(_baseStats.SetLevelRoutine(_xPPoints));
+        }
+
+        public float GetXP()
+        {
+            return _xPPoints;
         }
 
         public object CaptureState()
@@ -22,6 +34,7 @@ namespace RPG.Resources
         public void RestoreState(object state)
         {
             _xPPoints = (float)state;
+            StartCoroutine(GetComponent<BaseStats>().SetLevelRoutine(_xPPoints));
         }
     }
 }

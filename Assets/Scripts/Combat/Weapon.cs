@@ -12,6 +12,7 @@ namespace RPG.Combat
             public float weaponsRange;
             public float timeBetweenAttacks;
             public float weaponsDamage;
+            public float weaponsDamageModifier;
         }
 
         [SerializeField] WeaponProperties _properties;
@@ -24,7 +25,6 @@ namespace RPG.Combat
         [SerializeField] [Range(0, 1)] int _handIndex = -1;
 
         Transform[] _handTransforms = new Transform[2];
-        GameObject _weaponInstance;
 
         public WeaponProperties Spawn(Transform[] handTransforms, Animator animator)
         {
@@ -32,8 +32,7 @@ namespace RPG.Combat
 
             if (_weaponPrefab)
             {
-                _weaponInstance = Instantiate(_weaponPrefab, _handTransforms[_handIndex].position, _handTransforms[_handIndex].rotation);
-                _weaponInstance.transform.SetParent(_handTransforms[_handIndex]);
+                Instantiate(_weaponPrefab, _handTransforms[_handIndex]);
             }
 
             AnimatorOverrideController overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
@@ -49,12 +48,12 @@ namespace RPG.Combat
             return _properties;
         }
 
-        public void SpawnProjectile(Health target, GameObject instigator)
+        public void SpawnProjectile(Health target, float damage, GameObject instigator)
         {
             if(_projectile)
             {
                 Projectile projectile = Instantiate(_projectile, _handTransforms[_handIndex].position, _handTransforms[_handIndex].rotation);
-                projectile.InitiateTarget(target, _properties.weaponsDamage, instigator);
+                projectile.InitiateTarget(target, damage, instigator);
             }
         }
 

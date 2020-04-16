@@ -15,8 +15,9 @@ MonoBehaviour:
   _properties:
     weaponsRange: 12.5
     timeBetweenAttacks: 1.25
-    weaponsDamage: 20
-  _weaponPrefab: {fileID: 1180427517044381171, guid: 063801efed42800438db9faa769e0423,
+    weaponsDamage: 2.5
+    weaponsDamageModifier: 1.25
+  _weaponPrefab: {fileID: 321706675263791567, guid: 063801efed42800438db9faa769e0423,
     type: 3}
   _weaponsOverrideController: {fileID: 22100000, guid: 528feefdebb685b419141506bb39a9ab,
     type: 2}

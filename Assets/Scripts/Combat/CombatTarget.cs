@@ -8,7 +8,7 @@ namespace RPG.Combat
     {
         Collider _collider;
 
-        private void Start()
+        private void Awake()
         {
             _collider = GetComponent<Collider>();
         }
