@@ -5,7 +5,7 @@ using UnityEngine;
 namespace RPG.Combat
 {
     [SelectionBase]
-    public class WeaponPickup : MonoBehaviour, IInteractable
+    public class WeaponPickup : MonoBehaviour, IRaycastable
     {
         [SerializeField] Weapon _weapon;
 
@@ -23,9 +23,19 @@ namespace RPG.Combat
             return true;
         }
 
+        public bool HandleRaycast(PlayerController callingController)
+        {
+            return true;
+        }
+
         public CursorType GetCursorType()
         {
-            return CursorType.Interactable_Pickup;
+            return CursorType.Pickup;
+        }
+
+        public bool IsMovementRequired()
+        {
+            return true;
         }
     }
 }

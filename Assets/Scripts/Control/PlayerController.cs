@@ -36,11 +36,7 @@ namespace RPG.Control
         {
             if (!InteractWithUI())
             {
-                RaycastHit[] hits = RaycastHitSorted();
-
-                _cursorOverInteractable = InteractWithComponent(hits);
-
-                if (InteractWithCombat(hits)) return;
+                if (_cursorOverInteractable = InteractWithComponent()) return;
 
                 if (InteractWithMovement()) return;
 
@@ -59,46 +55,29 @@ namespace RPG.Control
             return false;
         }
 
-        private bool InteractWithComponent(RaycastHit[] hits)
+        private bool InteractWithComponent()
         {
+            RaycastHit[] hits = RaycastAllSorted();
             foreach (RaycastHit hit in hits)
             {
-                IInteractable[] interactables = hit.transform.GetComponents<IInteractable>();
-                if (interactables != null)
+                IRaycastable[] raycastables = hit.transform.GetComponents<IRaycastable>();
+                foreach (IRaycastable raycastable in raycastables)
                 {
-                    foreach (IInteractable interactable in interactables)
+                    if (raycastable.HandleRaycast(this))
                     {
-                        if (interactable.HandleRaycast())
-                        {
-                            SetCursor(interactable.GetCursorType());
+                        SetCursor(raycastable.GetCursorType());
 
-                            return true;
-                        }
+                        if (raycastable.IsMovementRequired())
+                            InteractWithMovement();
+
+                        return true;
                     }
                 }
             }
-
             return false;
         }
 
-        private bool InteractWithCombat(RaycastHit[] hits)
-        {
-            foreach(RaycastHit hit in hits)
-            {
-                CombatTarget target = hit.transform.GetComponent<CombatTarget>();
-                if (target)
-                {
-                    if (Input.GetMouseButtonDown(0))
-                        _fighter.Attack(target.gameObject);
-
-                    SetCursor(CursorType.Combat);
-                    return true;
-                }
-            }
-            return false;
-        }
-             
-        RaycastHit[] RaycastHitSorted()
+        RaycastHit[] RaycastAllSorted()
         {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
 

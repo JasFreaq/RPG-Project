@@ -6,6 +6,6 @@
         Movement,
         Combat,
         UI,
-        Interactable_Pickup
+        Pickup
     }
 }
