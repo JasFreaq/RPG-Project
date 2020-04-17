@@ -1,12 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using RPG.Control;
+using RPG.Core;
 using UnityEngine;
 
 namespace RPG.Combat
 {
-    public class WeaponPickup : MonoBehaviour
+    [SelectionBase]
+    public class WeaponPickup : MonoBehaviour, IInteractable
     {
         [SerializeField] Weapon _weapon;
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Player")
@@ -14,6 +16,16 @@ namespace RPG.Combat
                 other.GetComponent<Fighter>().EquipWeapon(_weapon);
                 Destroy(gameObject);
             }
+        }
+
+        public bool HandleRaycast()
+        {
+            return true;
+        }
+
+        public CursorType GetCursorType()
+        {
+            return CursorType.Interactable_Pickup;
         }
     }
 }

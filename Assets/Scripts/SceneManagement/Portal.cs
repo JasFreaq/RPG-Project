@@ -18,7 +18,6 @@ namespace RPG.SceneManagement
         [SerializeField] float _fadeInTime = 1f, _fadeWaitTime = 0.5f;
         Fader _fader;
 
-        NavMeshAgent _playerAgent;
         SavingWrapper _savingWrapper;
 
 
@@ -56,15 +55,12 @@ namespace RPG.SceneManagement
 
                     yield return null;
 
-                    _playerAgent.enabled = false;
                     _savingWrapper.Save();
                 }
             }
 
             yield return new WaitForSeconds(_fadeWaitTime);
             yield return _fader.FadeInRoutine(_fadeInTime);
-
-            _playerAgent.enabled = true;
 
             Destroy(gameObject);
         }
@@ -74,9 +70,7 @@ namespace RPG.SceneManagement
             Transform player = GameObject.FindGameObjectWithTag("Player").transform;
             Transform spawnPoint = portal.GetSpawnPoint();
 
-            _playerAgent = player.GetComponent<NavMeshAgent>();
-
-            _playerAgent.Warp(spawnPoint.position);
+            player.GetComponent<NavMeshAgent>().Warp(spawnPoint.position);
             player.rotation = spawnPoint.rotation;
         }
 

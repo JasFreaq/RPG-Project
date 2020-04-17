@@ -16,10 +16,16 @@ namespace RPG.SceneManagement
         public void FadeOutImmediate()
         {
             _canvasGroup.alpha = 1;
+
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
         }
 
         public IEnumerator FadeOutRoutine(float time)
         {
+            _canvasGroup.interactable = true;
+            _canvasGroup.blocksRaycasts = true;
+
             while (_canvasGroup.alpha < 1) 
             {
                 _canvasGroup.alpha += Time.deltaTime / time;
@@ -36,6 +42,9 @@ namespace RPG.SceneManagement
 
                 yield return null;
             }
+
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
         }
     }
 }
