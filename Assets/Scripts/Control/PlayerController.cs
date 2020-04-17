@@ -4,6 +4,7 @@ using RPG.Combat;
 using UnityEngine.EventSystems;
 using RPG.Core;
 using System;
+using UnityEngine.AI;
 
 namespace RPG.Control
 {
@@ -21,6 +22,7 @@ namespace RPG.Control
 
         [Header("Cursor Config")]
         [SerializeField] CursorMapping[] _cursorMappings;
+        [SerializeField] float _maxNavMeshProjectionDist = 1f, _maxNavPathLength = 40f;
 
         bool _cursorOverInteractable = false;
 
@@ -94,14 +96,13 @@ namespace RPG.Control
 
         private bool InteractWithMovement()
         {
-            RaycastHit hit;
-            bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
-            
-            if (hasHit)
+            Vector3 target;
+
+            if (RaycastNavMesh(out target))
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    _mover.MoveToCursor(hit.point);
+                    _mover.MoveToCursor(target);
                 }
 
                 if (!_cursorOverInteractable) 
@@ -113,6 +114,43 @@ namespace RPG.Control
             return false;
         }
         
+        bool RaycastNavMesh(out Vector3 target)
+        {
+            RaycastHit hit;
+            bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
+            target = hit.point;
+
+            if (!hasHit) return false;
+
+            NavMeshHit navMeshHit;
+            bool hasHitNavMesh = NavMesh.SamplePosition(target, out navMeshHit, _maxNavMeshProjectionDist, NavMesh.AllAreas);
+
+            if (!hasHitNavMesh) return false;
+
+            NavMeshPath path = new NavMeshPath();
+            bool hasPath = NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path);
+
+            if (!hasPath) return false;
+            if (path.status != NavMeshPathStatus.PathComplete) return false;
+            if (GetNavPathLength(path) > _maxNavPathLength) return false;
+
+            return true;
+        }
+
+        private float GetNavPathLength(NavMeshPath path)
+        {
+            float distance = 0;
+
+            if (path.corners.Length < 2) return Mathf.Infinity;
+
+            for (int i = 0; i < path.corners.Length - 1; i++)
+            {
+                distance += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+            }
+
+            return distance;
+        }
+
         private void SetCursor(CursorType cursorType)
         {
             CursorMapping mapping = GetCursorMapping(cursorType);
