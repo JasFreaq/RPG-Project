@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Core.CameraOrientation
+namespace RPG.UI
 {
-    public class CameraFacing : MonoBehaviour
+    public class InGameUI : MonoBehaviour
     {
         void Update()
         {
             transform.forward = Camera.main.transform.forward;
+        }
+
+        public void Destroy()
+        {
+            Destroy(gameObject);
         }
     }
 }

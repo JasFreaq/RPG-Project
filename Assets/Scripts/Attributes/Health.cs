@@ -2,18 +2,30 @@
 using RPG.Stats;
 using RPG.Saving;
 using GameDevTV.Utils;
+using UnityEngine.Events;
 
-namespace RPG.Resources
+namespace RPG.Attributes
 {
     [SelectionBase]
     public class Health : MonoBehaviour, ISaveable
     {
-        LazyValue<float> _healthPoints;
+        [System.Serializable]
+        struct HealthPointSystem
+        {
+            public float healthPoints;
+            public float totalHealthPoints;
+        }
+
+        public LazyValue<float> _healthPoints;
+        HealthPointSystem _healthPointSystem;
         bool _isAlive = true;
 
         Animator _animator;
         BaseStats _baseStats;
         Experience _experience;
+
+        [System.Serializable] public class OnTakeDamage : UnityEvent<float> { }
+        [SerializeField] OnTakeDamage _onTakeDamage;
 
         private void Awake()
         {
@@ -33,6 +45,9 @@ namespace RPG.Resources
         private void Start()
         {
             _healthPoints.ForceInit();
+
+            if(_healthPointSystem.totalHealthPoints < _healthPoints.value)
+                _healthPointSystem.totalHealthPoints = _healthPoints.value;
         }
 
         private void OnDisable()
@@ -55,6 +70,7 @@ namespace RPG.Resources
         public void SetDamage(float damage, GameObject instigator)
         {
             _healthPoints.value = Mathf.Max(_healthPoints.value - damage, 0);
+            _onTakeDamage.Invoke(damage);
 
             if (_isAlive && _healthPoints.value <= Mathf.Epsilon)
             {
@@ -88,6 +104,11 @@ namespace RPG.Resources
             return _healthPoints.value;
         }
 
+        public float GetTotalHealth()
+        {
+            return _healthPointSystem.totalHealthPoints;
+        }
+
         public bool IsAlive()
         {
             return _isAlive;
@@ -97,17 +118,22 @@ namespace RPG.Resources
         private void LevelUpUpdate()
         {
             _healthPoints.value = _baseStats.GetStat(Stat.Health);
+            _healthPointSystem.totalHealthPoints = _healthPoints.value;
         }
 
         //Save System
         public object CaptureState()
         {
-            return _healthPoints.value;
+            _healthPointSystem.healthPoints = _healthPoints.value;
+            return _healthPointSystem;
         }
 
         public void RestoreState(object state)
         {
-            _healthPoints.value = (float)state;
+            HealthPointSystem healthPointSystem = (HealthPointSystem)state;
+
+            _healthPoints.value = healthPointSystem.healthPoints;
+            _healthPointSystem.totalHealthPoints = healthPointSystem.totalHealthPoints;
 
             if (_healthPoints.value <= Mathf.Epsilon)
                 Death(GetComponent<Animator>());

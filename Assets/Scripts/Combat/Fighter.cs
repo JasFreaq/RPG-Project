@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
-using RPG.Resources;
+using RPG.Attributes;
 using RPG.Saving;
 using RPG.Stats;
 using GameDevTV.Utils;
