@@ -49,6 +49,8 @@ MonoBehaviour:
     icon: {fileID: 2800000, guid: 2e71a8202d3b4a3448ec85ced5a40265, type: 3}
   - type: 4
     icon: {fileID: 2800000, guid: f8c873f1e53e83f4aabf342d6be1dfc3, type: 3}
+  _maxNavMeshProjectionDist: 1
+  _maxNavPathLength: 40
 --- !u!1001 &4810635244562371585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -254,6 +256,16 @@ PrefabInstance:
         type: 3}
       propertyPath: _shouldUseModifiers
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858625534779733399, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3992453388459746180, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00d7cf4d771565848bc088b67e50af4e, type: 3}

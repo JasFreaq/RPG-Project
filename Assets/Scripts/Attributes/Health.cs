@@ -27,6 +27,9 @@ namespace RPG.Attributes
         [System.Serializable] public class OnTakeDamage : UnityEvent<float> { }
         [SerializeField] OnTakeDamage _onTakeDamage;
 
+        [SerializeField] UnityEvent _onDeath;
+
+
         private void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -74,6 +77,8 @@ namespace RPG.Attributes
 
             if (_isAlive && _healthPoints.value <= Mathf.Epsilon)
             {
+                _onDeath.Invoke();
+
                 _experience = instigator.GetComponent<Experience>();
                 if (_experience) 
                     _experience.GainXP(_baseStats.GetStat(Stat.ExperienceReward));

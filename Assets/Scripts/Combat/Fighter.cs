@@ -19,14 +19,16 @@ namespace RPG.Combat
         BaseStats _baseStats;
         LazyValue<float> _damage;
                 
-        Weapon.WeaponProperties _weaponProperties;
+        WeaponConfig.WeaponProperties _weaponProperties;
         [Header("Weapon System")]
 
         [Tooltip("Place left-hand transform at index 0, and right-hand transform at index 1.")]
         [SerializeField] Transform[] _handTransforms = new Transform[2];
-        [SerializeField] Weapon _defaultWeapon;
+        [SerializeField] WeaponConfig _defaultWeaponConfig;
 
-        LazyValue<Weapon> _currentWeapon;
+        LazyValue<WeaponConfig> _currentWeaponConfig;
+        Weapon _currentWeapon;
+
         float _timeSinceLastAttack = Mathf.Infinity;
 
         private void Awake()
@@ -37,7 +39,7 @@ namespace RPG.Combat
             _baseStats = GetComponent<BaseStats>();
 
             _damage = new LazyValue<float>(GetInitialDamage);
-            _currentWeapon = new LazyValue<Weapon>(SetDefaultWeapon);
+            _currentWeaponConfig = new LazyValue<WeaponConfig>(SetDefaultWeapon);
         }
 
         private void OnEnable()
@@ -50,11 +52,11 @@ namespace RPG.Combat
 
         private void Start()
         {
-            if (_currentWeapon == null) 
-                EquipWeapon(_defaultWeapon);
+            if (_currentWeaponConfig == null) 
+                EquipWeapon(_defaultWeaponConfig);
 
             _damage.ForceInit();
-            _currentWeapon.ForceInit();
+            _currentWeaponConfig.ForceInit();
         }
 
         private void Update()
@@ -75,7 +77,7 @@ namespace RPG.Combat
                 }
             }
 
-            if (_currentWeapon != null)
+            if (_currentWeaponConfig != null)
             {
                 if (_weaponProperties.weaponsDamageModifier < 1)
                     _weaponProperties.weaponsDamageModifier = 1;
@@ -95,37 +97,37 @@ namespace RPG.Combat
             return _baseStats.GetStat(Stat.Damage);
         }
 
-        private Weapon SetDefaultWeapon()
+        private WeaponConfig SetDefaultWeapon()
         {
-            AttachWeapon(_defaultWeapon);
-            return (_defaultWeapon);
+            AttachWeapon(_defaultWeaponConfig);
+            return (_defaultWeaponConfig);
         }
 
-        public void EquipWeapon(Weapon weapon)
+        public void EquipWeapon(WeaponConfig weapon)
         {
-            if (_currentWeapon.value)
-                _currentWeapon.value.DestroyWeapon();
+            if (_currentWeaponConfig.value)
+                _currentWeaponConfig.value.DestroyWeapon();
 
-            _currentWeapon.value = weapon;
+            _currentWeaponConfig.value = weapon;
             AttachWeapon(weapon);
         }
-        public void EquipWeapon(Weapon weapon, Animator animator)
+        public void EquipWeapon(WeaponConfig weapon, Animator animator)
         {
-            if (_currentWeapon.value)
-                _currentWeapon.value.DestroyWeapon();
+            if (_currentWeaponConfig.value)
+                _currentWeaponConfig.value.DestroyWeapon();
 
-            _currentWeapon.value = weapon;
+            _currentWeaponConfig.value = weapon;
             AttachWeapon(weapon, animator);
         }
 
-        private void AttachWeapon(Weapon weapon)
+        private void AttachWeapon(WeaponConfig weapon)
         {
-            _weaponProperties = weapon.Spawn(_handTransforms, _animator);
+            _weaponProperties = weapon.Spawn(_handTransforms, _animator, out _currentWeapon);
         }
 
-        private void AttachWeapon(Weapon weapon, Animator animator)
+        private void AttachWeapon(WeaponConfig weapon, Animator animator)
         {
-            _weaponProperties = weapon.Spawn(_handTransforms, animator);
+            _weaponProperties = weapon.Spawn(_handTransforms, animator, out _currentWeapon);
         }
 
         private bool GetIsInRange()
@@ -192,6 +194,9 @@ namespace RPG.Combat
                     _target.SetDamage((_damage.value + _weaponProperties.weaponsDamage) * _weaponProperties.weaponsDamageModifier, gameObject);
                 else
                     _target.SetDamage(_damage.value, gameObject);
+
+                if (_currentWeapon)
+                    _currentWeapon.OnHit();
             }
         }
 
@@ -200,10 +205,10 @@ namespace RPG.Combat
             if (_target)
             {
                 if (gameObject.tag == "Player")
-                    _currentWeapon.value.SpawnProjectile(_target, 
+                    _currentWeaponConfig.value.SpawnProjectile(_target, 
                         (_damage.value + _weaponProperties.weaponsDamage) * _weaponProperties.weaponsDamageModifier, gameObject);
                 else
-                    _currentWeapon.value.SpawnProjectile(_target, _damage.value, gameObject);
+                    _currentWeaponConfig.value.SpawnProjectile(_target, _damage.value, gameObject);
             }
         }
         //Levelling Up
@@ -215,13 +220,13 @@ namespace RPG.Combat
         //Save System
         public object CaptureState()
         {
-            return _currentWeapon.value.name;
+            return _currentWeaponConfig.value.name;
         }
 
         public void RestoreState(object state)
         {
             string weaponName = (string)state;
-            Weapon weapon = UnityEngine.Resources.Load<Weapon>(weaponName);
+            WeaponConfig weapon = Resources.Load<WeaponConfig>(weaponName);
             EquipWeapon(weapon, GetComponent<Animator>());
         }
     }

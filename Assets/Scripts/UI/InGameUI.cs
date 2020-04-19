@@ -6,7 +6,7 @@ namespace RPG.UI
 {
     public class InGameUI : MonoBehaviour
     {
-        void Update()
+        void LateUpdate()
         {
             transform.forward = Camera.main.transform.forward;
         }

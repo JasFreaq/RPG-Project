@@ -7,7 +7,7 @@ namespace RPG.Combat
     [SelectionBase]
     public class WeaponPickup : MonoBehaviour, IRaycastable
     {
-        [SerializeField] Weapon _weapon;
+        [SerializeField] WeaponConfig _weapon;
 
         private void OnTriggerEnter(Collider other)
         {

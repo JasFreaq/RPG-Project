@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a51c3fb0357027f49b18c47c5e478a10, type: 3}
+  m_Script: {fileID: 11500000, guid: d38bec8f1497aed409ae1dfcf0fc1c85, type: 3}
   m_Name: Enemy Bow
   m_EditorClassIdentifier: 
   _properties:
     weaponsRange: 12.5
     timeBetweenAttacks: 1.25
-    weaponsDamage: 2.5
+    weaponsDamage: 5
     weaponsDamageModifier: 1.25
-  _weaponPrefab: {fileID: 321706675263791567, guid: 063801efed42800438db9faa769e0423,
+  _weaponPrefab: {fileID: -3079502293952554228, guid: 063801efed42800438db9faa769e0423,
     type: 3}
   _weaponsOverrideController: {fileID: 22100000, guid: 528feefdebb685b419141506bb39a9ab,
     type: 2}

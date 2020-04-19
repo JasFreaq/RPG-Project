@@ -1,5 +1,6 @@
 ﻿using RPG.Attributes;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RPG.Combat
 {
@@ -9,6 +10,7 @@ namespace RPG.Combat
         GameObject _instigator = null;
         float _damage;
 
+        [Header("Parameters")]
         [SerializeField] float _speed = 3f;
         [SerializeField] bool _isHoming = false;
         [SerializeField] float _lifetime = 10f;
@@ -18,8 +20,9 @@ namespace RPG.Combat
         [SerializeField] GameObject _hitEffects = null;
         [SerializeField] GameObject[] _destroyImmediate;
         [SerializeField] float _destroyDelay = 0.25f;
-
+                
         CapsuleCollider _collider;
+        [SerializeField] UnityEvent _onHit;
 
         // Start is called before the first frame update
         public void InitiateTarget(Health target, float damage, GameObject instigator)
@@ -68,6 +71,7 @@ namespace RPG.Combat
             if (other.GetComponent<Health>() == _target) 
             {
                 _target.SetDamage( _damage, _instigator);
+                _onHit.Invoke();
 
                 if (_hitEffects)
                 {
