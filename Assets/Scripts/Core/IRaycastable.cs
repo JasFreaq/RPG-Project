@@ -1,4 +1,5 @@
 ﻿using RPG.Control;
+using UnityEngine;
 
 namespace RPG.Core
 {
@@ -7,5 +8,6 @@ namespace RPG.Core
         bool HandleRaycast(PlayerController callingController);
         CursorType GetCursorType();
         bool IsMovementRequired();
+        Vector3 GetTransform();
     }
 }

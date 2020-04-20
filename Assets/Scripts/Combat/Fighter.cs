@@ -92,11 +92,7 @@ namespace RPG.Combat
             }
         }
 
-        private float GetInitialDamage()
-        {
-            return _baseStats.GetStat(Stat.Damage);
-        }
-
+        //Weapons System
         private WeaponConfig SetDefaultWeapon()
         {
             AttachWeapon(_defaultWeaponConfig);
@@ -129,12 +125,8 @@ namespace RPG.Combat
         {
             _weaponProperties = weapon.Spawn(_handTransforms, animator, out _currentWeapon);
         }
-
-        private bool GetIsInRange()
-        {
-            return Vector3.Distance(transform.position, _target.transform.position) - _weaponProperties.weaponsRange <= Mathf.Epsilon;
-        }
-
+        
+        //Attacking
         private void AttackBehaviour()
         {
             transform.LookAt(_target.transform);
@@ -175,6 +167,16 @@ namespace RPG.Combat
         }
 
         //Getter(s)
+        private float GetInitialDamage()
+        {
+            return _baseStats.GetStat(Stat.Damage);
+        }
+
+        private bool GetIsInRange()
+        {
+            return Vector3.Distance(transform.position, _target.transform.position) - _weaponProperties.weaponsRange <= Mathf.Epsilon;
+        }
+
         public float GetWeaponsRange()
         {
             return _weaponProperties.weaponsRange;

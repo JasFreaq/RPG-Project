@@ -37,5 +37,10 @@ namespace RPG.Combat
         {
             return true;
         }
+
+        public Vector3 GetTransform()
+        {
+            return transform.position;
+        }
     }
 }

@@ -18,11 +18,10 @@ namespace RPG.Control
         }
 
         Mover _mover;
-        Fighter _fighter;
 
         [Header("Cursor Config")]
-        [SerializeField] CursorMapping[] _cursorMappings;
-        [SerializeField] float _maxNavMeshProjectionDist = 1f, _maxNavPathLength = 40f;
+        [SerializeField] CursorMapping[] _cursorMappings = null;
+        [SerializeField] float _maxNavMeshProjectionDist = 1f, _maxNavPathLength = 25f;
 
         bool _cursorOverInteractable = false;
 
@@ -30,7 +29,6 @@ namespace RPG.Control
         void Awake()
         {
             _mover = GetComponent<Mover>();
-            _fighter = GetComponent<Fighter>();
         }
 
         // Update is called once per frame
@@ -65,14 +63,17 @@ namespace RPG.Control
                 IRaycastable[] raycastables = hit.transform.GetComponents<IRaycastable>();
                 foreach (IRaycastable raycastable in raycastables)
                 {
-                    if (raycastable.HandleRaycast(this))
+                    if (GetPathStatus(raycastable.GetTransform()))
                     {
-                        SetCursor(raycastable.GetCursorType());
+                        if (raycastable.HandleRaycast(this))
+                        {
+                            SetCursor(raycastable.GetCursorType());
 
-                        if (raycastable.IsMovementRequired())
-                            InteractWithMovement();
+                            if (raycastable.IsMovementRequired())
+                                InteractWithMovement();
 
-                        return true;
+                            return true;
+                        }
                     }
                 }
             }
@@ -127,9 +128,17 @@ namespace RPG.Control
 
             if (!hasHitNavMesh) return false;
 
+            if (!GetPathStatus(target))
+                return false;
+
+            return true;
+        }
+
+        private bool GetPathStatus(Vector3 target)
+        {
             NavMeshPath path = new NavMeshPath();
             bool hasPath = NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path);
-
+            
             if (!hasPath) return false;
             if (path.status != NavMeshPathStatus.PathComplete) return false;
             if (GetNavPathLength(path) > _maxNavPathLength) return false;

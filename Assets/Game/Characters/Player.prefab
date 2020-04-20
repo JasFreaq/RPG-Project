@@ -50,7 +50,7 @@ MonoBehaviour:
   - type: 4
     icon: {fileID: 2800000, guid: f8c873f1e53e83f4aabf342d6be1dfc3, type: 3}
   _maxNavMeshProjectionDist: 1
-  _maxNavPathLength: 40
+  _maxNavPathLength: 25
 --- !u!1001 &4810635244562371585
 PrefabInstance:
   m_ObjectHideFlags: 0

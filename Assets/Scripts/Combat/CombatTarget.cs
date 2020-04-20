@@ -39,5 +39,10 @@ namespace RPG.Combat
         {
             Destroy(_collider);
         }
+
+        public Vector3 GetTransform()
+        {
+            return transform.position;
+        }
     }
 }

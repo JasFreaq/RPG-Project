@@ -45,11 +45,6 @@ namespace RPG.Movement
             }
         }
 
-        public void Cancel()
-        {
-            _navMeshAgent.isStopped = true;
-        }
-
         private void UpdateAnimator()
         {
             Vector3 velocity = _navMeshAgent.velocity;
@@ -59,10 +54,16 @@ namespace RPG.Movement
             _animator.SetFloat("forwardSpeed", speed);
         }
 
-        //Speed
+        //Setter(s)
         public void SetSpeed(float speed)
         {
             _navMeshAgent.speed = speed;
+        }
+
+        //Disabler(s)
+        public void Cancel()
+        {
+            _navMeshAgent.isStopped = true;
         }
 
         private void Kill()
@@ -71,6 +72,7 @@ namespace RPG.Movement
             this.enabled = false;
         }
 
+        //Save System
         public object CaptureState()
         {
             Orientation orientation = new Orientation();
