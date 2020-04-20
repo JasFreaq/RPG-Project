@@ -18,8 +18,10 @@ namespace RPG.Control
         }
 
         Mover _mover;
+        Fighter _fighter;
 
         [Header("Cursor Config")]
+        [SerializeField] float _selectionRadius = 0.25f;
         [SerializeField] CursorMapping[] _cursorMappings = null;
         [SerializeField] float _maxNavMeshProjectionDist = 1f, _maxNavPathLength = 25f;
 
@@ -29,6 +31,7 @@ namespace RPG.Control
         void Awake()
         {
             _mover = GetComponent<Mover>();
+            _fighter = GetComponent<Fighter>();
         }
 
         // Update is called once per frame
@@ -63,14 +66,38 @@ namespace RPG.Control
                 IRaycastable[] raycastables = hit.transform.GetComponents<IRaycastable>();
                 foreach (IRaycastable raycastable in raycastables)
                 {
-                    if (GetPathStatus(raycastable.GetTransform()))
-                    {
-                        if (raycastable.HandleRaycast(this))
-                        {
-                            SetCursor(raycastable.GetCursorType());
+                    Transform raycastableTransform = raycastable.GetTransform();
+                    bool pathStatus = GetPathStatus(raycastableTransform.position);
 
-                            if (raycastable.IsMovementRequired())
-                                InteractWithMovement();
+                    if (pathStatus || (Vector3.Distance(raycastableTransform.position, transform.position) <= _fighter.GetWeaponsRange() && _fighter.GetProjectileStatus())) 
+                    {
+                        CursorType cursorType;
+                        RaycastableType raycastableType;
+                        if (raycastable.IsRaycastHit(out cursorType, out raycastableType))
+                        {
+                            SetCursor(cursorType);
+
+                            if (raycastableType == RaycastableType.Enemy)
+                            {
+                                if (Input.GetMouseButtonDown(0))
+                                {
+                                    _fighter.Attack(raycastableTransform.gameObject);
+                                }
+                            }
+                            else
+                            {
+                                if (pathStatus)
+                                {
+                                    switch (raycastableType)
+                                    {
+                                        case RaycastableType.Pickup:
+                                            InteractWithMovement();
+                                            break;
+                                    }
+                                }
+                                else
+                                    SetCursor(CursorType.None);
+                            }
 
                             return true;
                         }
@@ -82,7 +109,7 @@ namespace RPG.Control
 
         RaycastHit[] RaycastAllSorted()
         {
-            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+            RaycastHit[] hits = Physics.SphereCastAll(GetMouseRay(), _selectionRadius);
 
             float[] distances = new float[hits.Length];
             for (int i = 0; i < hits.Length; i++)

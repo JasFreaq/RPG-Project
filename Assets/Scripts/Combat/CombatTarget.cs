@@ -15,24 +15,11 @@ namespace RPG.Combat
             _collider = GetComponent<Collider>();
         }
 
-        public bool HandleRaycast(PlayerController callingController)
+        public bool IsRaycastHit(out CursorType cursorType, out RaycastableType raycastableType)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                callingController.GetComponent<Fighter>().Attack(gameObject);
-            }
-
+            cursorType = CursorType.Combat;
+            raycastableType = RaycastableType.Enemy;
             return true;
-        }
-
-        public CursorType GetCursorType()
-        {
-            return CursorType.Combat;
-        }
-
-        public bool IsMovementRequired()
-        {
-            return false;
         }
 
         private void Kill()
@@ -40,9 +27,9 @@ namespace RPG.Combat
             Destroy(_collider);
         }
 
-        public Vector3 GetTransform()
+        public Transform GetTransform()
         {
-            return transform.position;
+            return transform;
         }
     }
 }

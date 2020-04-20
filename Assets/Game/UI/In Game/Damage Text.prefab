@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3704465778001523237}
   - component: {fileID: 8823260618124330487}
   - component: {fileID: 120676090789931628}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,8 +92,8 @@ CanvasGroup:
   m_GameObject: {fileID: 3285328679985784151}
   m_Enabled: 1
   m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &120676090789931628
 MonoBehaviour:
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 4477592575206959023}
   - component: {fileID: 7566473483729736524}
   - component: {fileID: 7443416713217518076}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Damage Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 7412490643618703068}
   - component: {fileID: 8911167478821533026}
   - component: {fileID: 2516541359395474830}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}

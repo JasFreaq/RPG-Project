@@ -38,6 +38,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c455e00bdc9f52469d24f311144b36c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _selectionRadius: 0.25
   _cursorMappings:
   - type: 2
     icon: {fileID: 2800000, guid: 2d18e23e3ce249b4489b8bcdd02d3f48, type: 3}

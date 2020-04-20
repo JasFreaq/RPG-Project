@@ -777,6 +777,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8169029897125350958, guid: e4881d1ce6d7b73468727ebfd711206f,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4881d1ce6d7b73468727ebfd711206f, type: 3}
 --- !u!224 &7599454052833985840 stripped
@@ -792,6 +797,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3350495625514146332}
     m_Modifications:
+    - target: {fileID: 801406250109511905, guid: 0e51553c90b2162429d154b02b7c8efc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4933133480506062920, guid: 0e51553c90b2162429d154b02b7c8efc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -851,6 +861,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6017500799127735477, guid: 0e51553c90b2162429d154b02b7c8efc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6577931462127062320, guid: 0e51553c90b2162429d154b02b7c8efc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8021217101472026438, guid: 0e51553c90b2162429d154b02b7c8efc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8124809165590693182, guid: 0e51553c90b2162429d154b02b7c8efc,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e51553c90b2162429d154b02b7c8efc, type: 3}

@@ -161,7 +161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3992453388459746180}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3284003058515966756}
   - component: {fileID: 8356267289073557918}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Damage Text Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -491,6 +491,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Health Bar
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262696661100958389, guid: d2fba70cb31dd514bbd0276e67429215,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4334113639425301310, guid: d2fba70cb31dd514bbd0276e67429215,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5186995834558871265, guid: d2fba70cb31dd514bbd0276e67429215,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6559422450787548773, guid: d2fba70cb31dd514bbd0276e67429215,
         type: 3}

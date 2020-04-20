@@ -13,7 +13,7 @@ namespace RPG.Control
         Health _player;
 
         //Basic
-        [SerializeField] float _chaseRange = 5f;
+        [SerializeField] float _chaseRange = 5f, _shoutRange = 5f;
         LazyValue<Vector3> _guardLocation;
         float _weaponsRange;
         
@@ -22,9 +22,11 @@ namespace RPG.Control
         [SerializeField] float _pathTolerance = 1f;
         int _pathIndex = 0;
         [SerializeField] float _chaseSpeed, _patrolSpeed;
-        
+
 
         [Header("Timers")]
+        [SerializeField] float _aggravationTime = 2f;
+        [SerializeField]float _timeSinceAggravated = Mathf.Infinity;
         [SerializeField] float _suspicionTime = 2f;
         float _timeSinceLastSawPlayer = Mathf.Infinity;
         [SerializeField] float _dwellingTime = 2f;
@@ -50,8 +52,9 @@ namespace RPG.Control
         {
             _timeSinceLastSawPlayer += Time.deltaTime;
             _timeSinceLastPatrolled += Time.deltaTime;
+            _timeSinceAggravated += Time.deltaTime;
 
-            if (_player.IsAlive() && Vector3.Distance(transform.position, _player.transform.position) - _chaseRange <= Mathf.Epsilon)
+            if (_player.IsAlive() && ShouldAttack())
             {
                 if (Vector3.Distance(transform.position, _player.transform.position) - _weaponsRange >= Mathf.Epsilon)
                 {
@@ -67,6 +70,12 @@ namespace RPG.Control
             }
             else
                 PatrolBehaviour();
+        }
+
+        private bool ShouldAttack()
+        {
+            return Vector3.Distance(transform.position, _player.transform.position) - _chaseRange <= Mathf.Epsilon || 
+                _timeSinceAggravated - _aggravationTime <= Mathf.Epsilon;
         }
 
         private Vector3 GetInitialLocation()
@@ -103,6 +112,24 @@ namespace RPG.Control
             return dist - _pathTolerance <= Mathf.Epsilon;
         }
                 
+        public void Aggravate()
+        {
+            _timeSinceAggravated = 0;
+        }
+
+        public void AggravateNearbyEnemies()
+        {
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position, _shoutRange, Vector3.up);
+
+            foreach(RaycastHit hit in hits)
+            {
+                AIController enemy = hit.transform.GetComponent<AIController>();
+
+                if (enemy)
+                    enemy.Aggravate();
+            }
+        }
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.blue;

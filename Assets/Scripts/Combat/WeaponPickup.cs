@@ -18,29 +18,21 @@ namespace RPG.Combat
             }
         }
 
+        public bool IsRaycastHit(out CursorType cursorType, out RaycastableType raycastableType)
+        {
+            cursorType = CursorType.Pickup;
+            raycastableType = RaycastableType.Pickup;
+            return true;
+        }
+
         public bool HandleRaycast()
         {
             return true;
         }
 
-        public bool HandleRaycast(PlayerController callingController)
+        public Transform GetTransform()
         {
-            return true;
-        }
-
-        public CursorType GetCursorType()
-        {
-            return CursorType.Pickup;
-        }
-
-        public bool IsMovementRequired()
-        {
-            return true;
-        }
-
-        public Vector3 GetTransform()
-        {
-            return transform.position;
+            return transform;
         }
     }
 }

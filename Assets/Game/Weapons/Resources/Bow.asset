@@ -17,6 +17,7 @@ MonoBehaviour:
     timeBetweenAttacks: 1.25
     weaponsDamage: 5
     weaponsDamageModifier: 1.25
+    isProjectile: 1
   _weaponPrefab: {fileID: -3079502293952554228, guid: 063801efed42800438db9faa769e0423,
     type: 3}
   _weaponsOverrideController: {fileID: 22100000, guid: 528feefdebb685b419141506bb39a9ab,

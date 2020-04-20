@@ -13,6 +13,7 @@ namespace RPG.Combat
             public float timeBetweenAttacks;
             public float weaponsDamage;
             public float weaponsDamageModifier;
+            public bool isProjectile;
         }
 
         [SerializeField] WeaponProperties _properties;
@@ -23,7 +24,6 @@ namespace RPG.Combat
 
         [Tooltip("0 is for left-handed, 1 is for right-handed.")]
         [SerializeField] [Range(0, 1)] int _handIndex = -1;
-
         Transform[] _handTransforms = new Transform[2];
 
         public WeaponProperties Spawn(Transform[] handTransforms, Animator animator, out Weapon weapon)
@@ -32,7 +32,7 @@ namespace RPG.Combat
 
             if (_weaponPrefab)
             {
-                weapon = Instantiate(_weaponPrefab, _handTransforms[_handIndex]);
+                weapon = Instantiate(_weaponPrefab, handTransforms[_handIndex]);
             }
             else
             {
@@ -52,11 +52,11 @@ namespace RPG.Combat
             return _properties;
         }
 
-        public void SpawnProjectile(Health target, float damage, GameObject instigator)
+        public void SpawnProjectile(Health target, float damage, GameObject instigator, Transform[] handTransforms)
         {
             if(_projectile)
             {
-                Projectile projectile = Instantiate(_projectile, _handTransforms[_handIndex].position, _handTransforms[_handIndex].rotation);
+                Projectile projectile = Instantiate(_projectile, handTransforms[_handIndex].position, handTransforms[_handIndex].rotation);
                 projectile.InitiateTarget(target, damage, instigator);
             }
         }

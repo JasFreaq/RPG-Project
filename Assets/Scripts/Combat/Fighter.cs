@@ -187,6 +187,10 @@ namespace RPG.Combat
             return _target;
         }
 
+        public bool GetProjectileStatus()
+        {
+            return _weaponProperties.isProjectile;
+        }
         //Animation Event(s)
         void Hit()
         {
@@ -208,9 +212,9 @@ namespace RPG.Combat
             {
                 if (gameObject.tag == "Player")
                     _currentWeaponConfig.value.SpawnProjectile(_target, 
-                        (_damage.value + _weaponProperties.weaponsDamage) * _weaponProperties.weaponsDamageModifier, gameObject);
+                        (_damage.value + _weaponProperties.weaponsDamage) * _weaponProperties.weaponsDamageModifier, gameObject, _handTransforms);
                 else
-                    _currentWeaponConfig.value.SpawnProjectile(_target, _damage.value, gameObject);
+                    _currentWeaponConfig.value.SpawnProjectile(_target, _damage.value, gameObject, _handTransforms);
             }
         }
         //Levelling Up
