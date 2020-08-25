@@ -5,6 +5,8 @@ using RPG.Attributes;
 using RPG.Saving;
 using RPG.Stats;
 using GameDevTV.Utils;
+using GameDevTV.Inventories;
+using RPG.Inventory;
 
 namespace RPG.Combat
 {
@@ -17,6 +19,7 @@ namespace RPG.Combat
         ActionScheduler _scheduler;
 
         BaseStats _baseStats;
+        StatsEquipment _equipment;
         LazyValue<float> _damage;
                 
         WeaponConfig.WeaponProperties _weaponProperties;
@@ -37,6 +40,7 @@ namespace RPG.Combat
             _animator = GetComponent<Animator>();
             _scheduler = GetComponent<ActionScheduler>();
             _baseStats = GetComponent<BaseStats>();
+            _equipment = GetComponent<StatsEquipment>();
 
             _damage = new LazyValue<float>(GetInitialDamage);
             _currentWeaponConfig = new LazyValue<WeaponConfig>(SetDefaultWeapon);
@@ -46,7 +50,12 @@ namespace RPG.Combat
         {
             if (_baseStats)
             {
-                _baseStats.OnLevelUp += LevelUpUpdate;
+                _baseStats.OnLevelUp += StatUpdate;
+            }
+            if (_equipment)
+            {
+                _equipment.equipmentUpdated += UpdateWeapon;
+                _equipment.equipmentUpdated += StatUpdate;
             }
         }
 
@@ -76,19 +85,18 @@ namespace RPG.Combat
                     Cancel();
                 }
             }
-
-            if (_currentWeaponConfig != null)
-            {
-                if (_weaponProperties.weaponsDamageModifier < 1)
-                    _weaponProperties.weaponsDamageModifier = 1;
-            }
         }
 
         private void OnDisable()
         {
             if (_baseStats)
             {
-                _baseStats.OnLevelUp -= LevelUpUpdate;
+                _baseStats.OnLevelUp -= StatUpdate;
+            }
+            if (_equipment)
+            {
+                _equipment.equipmentUpdated -= UpdateWeapon;
+                _equipment.equipmentUpdated -= StatUpdate;
             }
         }
 
@@ -114,6 +122,17 @@ namespace RPG.Combat
 
             _currentWeaponConfig.value = weapon;
             AttachWeapon(weapon, animator);
+        }
+
+        private void UpdateWeapon()
+        {
+            WeaponConfig weapon = _equipment.GetItemInSlot(EquipLocation.Weapon) as WeaponConfig;
+            if (weapon)
+            {
+                EquipWeapon(weapon);
+            }
+            else
+                EquipWeapon(_defaultWeaponConfig);
         }
 
         private void AttachWeapon(WeaponConfig weapon)
@@ -191,15 +210,13 @@ namespace RPG.Combat
         {
             return _weaponProperties.isProjectile;
         }
+
         //Animation Event(s)
         void Hit()
         {
             if (_target)
             {
-                if (gameObject.tag == "Player")
-                    _target.SetDamage((_damage.value + _weaponProperties.weaponsDamage) * _weaponProperties.weaponsDamageModifier, gameObject);
-                else
-                    _target.SetDamage(_damage.value, gameObject);
+                _target.SetDamage(_damage.value, gameObject);
 
                 if (_currentWeapon)
                     _currentWeapon.OnHit();
@@ -210,15 +227,12 @@ namespace RPG.Combat
         {
             if (_target)
             {
-                if (gameObject.tag == "Player")
-                    _currentWeaponConfig.value.SpawnProjectile(_target, 
-                        (_damage.value + _weaponProperties.weaponsDamage) * _weaponProperties.weaponsDamageModifier, gameObject, _handTransforms);
-                else
-                    _currentWeaponConfig.value.SpawnProjectile(_target, _damage.value, gameObject, _handTransforms);
+                _currentWeaponConfig.value.SpawnProjectile(_target, _damage.value, gameObject, _handTransforms);
             }
         }
-        //Levelling Up
-        private void LevelUpUpdate()
+
+        //Stat Update
+        private void StatUpdate()
         {
             _damage.value = _baseStats.GetStat(Stat.Damage);
         }

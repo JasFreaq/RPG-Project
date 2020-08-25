@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RPG.Stats
 {
-    [CreateAssetMenu(fileName = "Progression", menuName = "Progression", order = 1)]
+    [CreateAssetMenu(fileName = "Progression", menuName = "RPG/Progression", order = 1)]
     public class Progression : ScriptableObject
     {
         [System.Serializable]
