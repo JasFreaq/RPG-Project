@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d38bec8f1497aed409ae1dfcf0fc1c85, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
+  itemID: fbeae74e-6799-4a04-a7b3-bfaf94deaf63
+  displayName: Fireball
+  description: 'Fireball
+
+'
+  icon: {fileID: 21300000, guid: a1ec2c0ddc0da634b85f0f465fec2d0d, type: 3}
+  pickup: {fileID: 7874925976854338498, guid: bc3864bed4adeda4aa5c732c845d70be, type: 3}
+  stackable: 0
+  allowedEquipLocation: 5
   _properties:
     weaponsRange: 10
     timeBetweenAttacks: 1.5

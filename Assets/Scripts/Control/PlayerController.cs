@@ -26,6 +26,7 @@ namespace RPG.Control
         [SerializeField] float _maxNavMeshProjectionDist = 1f, _maxNavPathLength = 25f;
 
         bool _cursorOverInteractable = false;
+        bool _isdraggingUI = false;
 
         // Start is called before the first frame update
         void Awake()
@@ -37,7 +38,7 @@ namespace RPG.Control
         // Update is called once per frame
         void Update()
         {
-            if (!InteractWithUI())
+            if (!InteractWithUI() && !_isdraggingUI)  
             {
                 if (_cursorOverInteractable = InteractWithComponent()) return;
 
@@ -49,9 +50,16 @@ namespace RPG.Control
         
         private bool InteractWithUI()
         {
+            if (Input.GetMouseButtonUp(0))
+                _isdraggingUI = false;
+
             if (EventSystem.current.IsPointerOverGameObject())
             {
                 SetCursor(CursorType.UI);
+
+                if (Input.GetMouseButtonDown(0))
+                    _isdraggingUI = true;
+
                 return true;
             }
 
@@ -69,7 +77,8 @@ namespace RPG.Control
                     Transform raycastableTransform = raycastable.GetTransform();
                     bool pathStatus = GetPathStatus(raycastableTransform.position);
 
-                    if (pathStatus || (Vector3.Distance(raycastableTransform.position, transform.position) <= _fighter.GetWeaponsRange() && _fighter.GetProjectileStatus())) 
+                    if (pathStatus || 
+                        (Vector3.Distance(raycastableTransform.position, transform.position) <= _fighter.GetWeaponsRange() && _fighter.GetProjectileStatus())) 
                     {
                         CursorType cursorType;
                         RaycastableType raycastableType;
@@ -90,8 +99,10 @@ namespace RPG.Control
                                 {
                                     switch (raycastableType)
                                     {
-                                        case RaycastableType.Pickup:
+                                        case RaycastableType.ProximityPickup:
                                             InteractWithMovement();
+                                            break;
+                                        case RaycastableType.ClickablePickup:
                                             break;
                                     }
                                 }

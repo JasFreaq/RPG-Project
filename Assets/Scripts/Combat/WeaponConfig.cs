@@ -1,10 +1,13 @@
-﻿using RPG.Attributes;
+﻿using System.Collections.Generic;
+using GameDevTV.Inventories;
+using RPG.Attributes;
+using RPG.Stats;
 using UnityEngine;
 
 namespace RPG.Combat
 {
-    [CreateAssetMenu(fileName = "Weapon Config", menuName = "Weapon Configuration", order = 1)]
-    public class WeaponConfig : ScriptableObject
+    [CreateAssetMenu(fileName = "Weapon Config", menuName = "RPG/Weapon Configuration", order = 1)]
+    public class WeaponConfig : EquipableItem, IModifier
     {
         [System.Serializable]
         public struct WeaponProperties
@@ -12,7 +15,6 @@ namespace RPG.Combat
             public float weaponsRange;
             public float timeBetweenAttacks;
             public float weaponsDamage;
-            public float weaponsDamageModifier;
             public bool isProjectile;
         }
 
@@ -25,6 +27,9 @@ namespace RPG.Combat
         [Tooltip("0 is for left-handed, 1 is for right-handed.")]
         [SerializeField] [Range(0, 1)] int _handIndex = -1;
         Transform[] _handTransforms = new Transform[2];
+
+        [SerializeField] Modifier[] _additiveBonuses;
+        [SerializeField] Modifier[] _multiplicativeBonuses;
 
         public WeaponProperties Spawn(Transform[] handTransforms, Animator animator, out Weapon weapon)
         {
@@ -75,6 +80,39 @@ namespace RPG.Combat
                         Destroy(transform.gameObject);                     
                     }
                 }
+            }
+        }
+
+        public IEnumerable<float> GetAdditive(Stat stat)
+        {
+            if (_additiveBonuses.Length > 0)
+            {
+                foreach (Modifier modifier in _additiveBonuses)
+                {
+                    if (stat == Stat.Damage)
+                    {
+                        if (modifier.stat == stat)
+                            yield return _properties.weaponsDamage + modifier.value;
+                        else
+                            yield return _properties.weaponsDamage;
+                    }
+                    else
+                    {
+                        if (modifier.stat == stat)
+                            yield return modifier.value;
+                    }
+                }
+            }
+            else if (stat == Stat.Damage)
+                yield return _properties.weaponsDamage;
+        }
+
+        public IEnumerable<float> GetMultiplicative(Stat stat)
+        {
+            foreach (Modifier modifier in _multiplicativeBonuses)
+            {
+                if (modifier.stat == stat)
+                    yield return modifier.value;
             }
         }
     }

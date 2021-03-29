@@ -3,6 +3,7 @@ using RPG.Stats;
 using RPG.Saving;
 using GameDevTV.Utils;
 using UnityEngine.Events;
+using RPG.Inventory;
 
 namespace RPG.Attributes
 {
@@ -22,6 +23,7 @@ namespace RPG.Attributes
 
         Animator _animator;
         BaseStats _baseStats;
+        StatsEquipment _equipment; 
         Experience _experience;
 
         [System.Serializable] public class OnTakeDamage : UnityEvent<float> { }
@@ -34,6 +36,8 @@ namespace RPG.Attributes
         {
             _animator = GetComponent<Animator>();
             _baseStats = GetComponent<BaseStats>();
+            _equipment = GetComponent<StatsEquipment>();
+
             _healthPoints = new LazyValue<float>(GetInitialHealth);
         }
 
@@ -41,7 +45,11 @@ namespace RPG.Attributes
         {
             if (_baseStats)
             {
-                _baseStats.OnLevelUp += LevelUpUpdate;
+                _baseStats.OnLevelUp += StatUpdate;
+            }
+            if (_equipment)
+            {
+                _equipment.equipmentUpdated += StatUpdate;
             }
         }
 
@@ -57,7 +65,11 @@ namespace RPG.Attributes
         {
             if (_baseStats)
             {
-                _baseStats.OnLevelUp -= LevelUpUpdate;
+                _baseStats.OnLevelUp -= StatUpdate;
+            }
+            if (_equipment)
+            {
+                _equipment.equipmentUpdated -= StatUpdate;
             }
         }
 
@@ -119,8 +131,8 @@ namespace RPG.Attributes
             return _isAlive;
         }
 
-        //Levelling Up
-        private void LevelUpUpdate()
+        //Stat Update
+        private void StatUpdate()
         {
             _healthPoints.value = _baseStats.GetStat(Stat.Health);
             _healthPointSystem.totalHealthPoints = _healthPoints.value;

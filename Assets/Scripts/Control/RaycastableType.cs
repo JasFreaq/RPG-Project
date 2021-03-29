@@ -3,6 +3,7 @@
     public enum RaycastableType
     {
         Enemy,
-        Pickup
+        ProximityPickup,
+        ClickablePickup
     }
 }
