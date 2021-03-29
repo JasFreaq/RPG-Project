@@ -14,7 +14,7 @@ namespace RPG.Inventory
 
         public void RandomDrop()
         {
-            foreach (DropLibrary.Dropped drop in _dropLibrary.GetRandomDrops(GetComponent<BaseStats>().GetLevel()))
+            foreach (DropLibrary.Dropped drop in _dropLibrary.GetRandomDrops(GetComponent<BaseStats>().GetLevel() - 1))
             {
                 DropItem(drop.item, drop.number);
             }
