@@ -13,34 +13,42 @@ MonoBehaviour:
   m_Name: Test Dialogue
   m_EditorClassIdentifier: 
   _dialogueNodes:
-  - _nodeId: 415
+  - _nodeId: 1
     _text: 78774
     _childrenIds:
-    - 
-    - 
-    - 
-    - 
+    - 2
+    - 3
     positionRect:
       serializedVersion: 2
-      x: 10
-      y: 50
-      width: 100
-      height: 100
-  - _nodeId: 12
+      x: 43
+      y: 125
+      width: 228
+      height: 114
+  - _nodeId: 2
     _text: qwerty
     _childrenIds: []
     positionRect:
       serializedVersion: 2
-      x: 100
-      y: 200
-      width: 200
-      height: 200
-  - _nodeId: 2
+      x: 358
+      y: 43
+      width: 225
+      height: 208
+  - _nodeId: 3
     _text: 4586
+    _childrenIds:
+    - 4
+    positionRect:
+      serializedVersion: 2
+      x: 212
+      y: 369
+      width: 224
+      height: 140
+  - _nodeId: 4
+    _text: 5875321
     _childrenIds: []
     positionRect:
       serializedVersion: 2
-      x: 10
-      y: 250
-      width: 100
-      height: 100
+      x: 647
+      y: 246
+      width: 200
+      height: 143
