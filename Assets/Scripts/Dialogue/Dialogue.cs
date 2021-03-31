@@ -1,27 +1,33 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace RPG.Dialogue
 {
     [CreateAssetMenu(fileName = "New Dialogue", menuName = "RPG/Dialogue")]
-    public class Dialogue : ScriptableObject
+    public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
     {
         [SerializeField] private List<DialogueNode> _dialogueNodes = new List<DialogueNode>();
 
         private Dictionary<string, DialogueNode> _nodeLookup = new Dictionary<string, DialogueNode>();
 
-        private void Awake()
+#if UNITY_EDITOR
+        private Vector2 _editorScrollPosition = Vector2.zero;
+        public Vector2 EditorScrollPosition
+        {
+            get { return _editorScrollPosition; }
+            set { _editorScrollPosition = value; }
+        }
+#endif
+
+    private void Awake()
         {
 #if UNITY_EDITOR
-            if (_dialogueNodes.Count == 0)
-            {
-                DialogueNode rootNode = new DialogueNode();
-                rootNode.NodeID = Guid.NewGuid().ToString();
-                _dialogueNodes.Add(rootNode);
-            }
+            CreateRootNode();
 #endif
+
             OnValidate();
         }
 
@@ -30,7 +36,7 @@ namespace RPG.Dialogue
             _nodeLookup.Clear();
             foreach (DialogueNode node in _dialogueNodes)
             {
-                _nodeLookup[node.NodeID] = node;
+                _nodeLookup[node.name] = node;
             }
         }
 
@@ -39,17 +45,51 @@ namespace RPG.Dialogue
             get { return _dialogueNodes; }
         }
 
+#if UNITY_EDITOR
+        public void CreateRootNode()
+        {
+            DialogueNode rootNode = CreateInstance<DialogueNode>();
+            rootNode.name = Guid.NewGuid().ToString();
+            _dialogueNodes.Add(rootNode);
+        }
+
         public void CreateNode(DialogueNode parentNode)
         {
-            DialogueNode node = new DialogueNode();
-            node.NodeID = Guid.NewGuid().ToString();
-            node.positionRect.center = new Vector2(parentNode.positionRect.center.x + 1.5f * parentNode.positionRect.width,
-                parentNode.positionRect.center.y);
-            parentNode.ChildrenIDs.Add(node.NodeID);
-            _dialogueNodes.Add(node);
+            DialogueNode node = CreateInstance<DialogueNode>();
+            node.name = Guid.NewGuid().ToString();
+            Undo.RegisterCreatedObjectUndo(node,"Dialogue Object Created");
 
-            OnValidate();
+            node.IsPlayerSpeech = !parentNode.IsPlayerSpeech;
+            Rect tempRect = new Rect(node.PositionRect);
+            tempRect.center = new Vector2(parentNode.PositionRect.center.x + 1.5f * parentNode.PositionRect.width,
+                parentNode.PositionRect.center.y);
+            node.PositionRect = tempRect;
+            parentNode.AddChild(node.name);
+
+            Undo.RecordObject(this, "Dialogue Node Added");
+            _dialogueNodes.Add(node);
+            if (!_nodeLookup.ContainsKey(node.name))
+                _nodeLookup[node.name] = node;
         }
+
+        public void DeleteNode(DialogueNode node)
+        {
+            Undo.RecordObject(this, "Dialogue Node Deleted");
+            _dialogueNodes.Remove(node);
+
+            if (_nodeLookup.ContainsKey(node.name))
+                _nodeLookup.Remove(node.name);
+            foreach (DialogueNode dialogueNode in _dialogueNodes)
+            {
+                dialogueNode.RemoveChild(node.name);
+            }
+
+            Undo.DestroyObjectImmediate(node);
+
+            if (_dialogueNodes.Count == 0) 
+                CreateRootNode();
+        }
+#endif
 
         public IEnumerable<DialogueNode> GetChildren(DialogueNode node)
         {
@@ -62,5 +102,23 @@ namespace RPG.Dialogue
 
             return children;
         }
+
+        public void OnBeforeSerialize()
+        {
+#if UNITY_EDITOR
+            if (!string.IsNullOrEmpty(AssetDatabase.GetAssetPath(this)))
+            {
+                foreach (DialogueNode node in _dialogueNodes)
+                {
+                    if (string.IsNullOrEmpty(AssetDatabase.GetAssetPath(node)))
+                    {
+                        AssetDatabase.AddObjectToAsset(node, this);
+                    }
+                }
+            }
+#endif
+        }
+
+        public void OnAfterDeserialize() { }
     }
 }
