@@ -19,12 +19,12 @@ namespace RPG.Combat
         {
             cursorType = CursorType.Combat;
             raycastableType = RaycastableType.Enemy;
-            return true;
+            return enabled;
         }
 
         private void Kill()
         {
-            Destroy(_collider);
+            _collider.enabled = false;
         }
 
         public Transform GetTransform()

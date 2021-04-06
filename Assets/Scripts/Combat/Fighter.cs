@@ -167,7 +167,7 @@ namespace RPG.Combat
 
             if (_target)
             {
-                _mover.MoveTo(_target.transform.position);
+                _mover.MoveToLocation(_target.transform.position);
             }
         }
 

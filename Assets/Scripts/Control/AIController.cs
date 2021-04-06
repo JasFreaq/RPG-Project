@@ -54,7 +54,7 @@ namespace RPG.Control
             _timeSinceLastPatrolled += Time.deltaTime;
             _timeSinceAggravated += Time.deltaTime;
 
-            if (_player.IsAlive() && ShouldAttack())
+            if (_player.IsAlive() && _fighter.enabled && ShouldAttack())
             {
                 if (Vector3.Distance(transform.position, _player.transform.position) - _weaponsRange >= Mathf.Epsilon)
                 {
@@ -102,7 +102,7 @@ namespace RPG.Control
             else
                 pos = _guardLocation.value;
             
-            _mover.MoveTo(pos);
+            _mover.MoveToLocation(pos);
         }
 
         private bool AtWaypoint()
@@ -138,7 +138,7 @@ namespace RPG.Control
 
         private void Kill()
         {
-            this.enabled = false;
+            enabled = false;
         }
     }
 }

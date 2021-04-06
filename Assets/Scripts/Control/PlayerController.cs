@@ -4,6 +4,8 @@ using RPG.Combat;
 using UnityEngine.EventSystems;
 using RPG.Core;
 using System;
+using System.Collections;
+using RPG.Dialogue;
 using UnityEngine.AI;
 
 namespace RPG.Control
@@ -17,8 +19,9 @@ namespace RPG.Control
             public Texture2D icon;
         }
 
-        Mover _mover;
-        Fighter _fighter;
+        private Mover _mover;
+        private Fighter _fighter;
+        private PlayerConversationHandler _playerConversationHandler;
 
         [Header("Cursor Config")]
         [SerializeField] float _selectionRadius = 0.25f;
@@ -33,6 +36,7 @@ namespace RPG.Control
         {
             _mover = GetComponent<Mover>();
             _fighter = GetComponent<Fighter>();
+            _playerConversationHandler = GetComponent<PlayerConversationHandler>();
         }
 
         // Update is called once per frame
@@ -40,7 +44,8 @@ namespace RPG.Control
         {
             if (!InteractWithUI() && !_isdraggingUI)  
             {
-                if (_cursorOverInteractable = InteractWithComponent()) return;
+                if (_cursorOverInteractable = InteractWithComponent()) 
+                    return;
 
                 if (InteractWithMovement()) return;
 
@@ -91,6 +96,13 @@ namespace RPG.Control
                                 if (Input.GetMouseButtonDown(0))
                                 {
                                     _fighter.Attack(raycastableTransform.gameObject);
+                                }
+                            }
+                            else if (raycastableType == RaycastableType.Dialogue)
+                            {
+                                if (Input.GetMouseButtonDown(0))
+                                {
+                                    StartCoroutine(InteractWithDialogueRoutine(raycastableTransform));
                                 }
                             }
                             else
@@ -152,7 +164,29 @@ namespace RPG.Control
 
             return false;
         }
-        
+
+        IEnumerator InteractWithDialogueRoutine(Transform nPCTransform)
+        {
+            bool reached = false;
+            Action checkReached = () =>
+            {
+                reached = true;
+            };
+
+            _mover.MoveToObject(nPCTransform);
+            _mover.RegisterOnDestinationReached(checkReached);
+
+            while (!reached)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+
+            AIConversationHandler aiConversationHandler = nPCTransform.GetComponent<AIConversationHandler>();
+            _playerConversationHandler.StartDialogue(aiConversationHandler);
+
+            _mover.DeregisterOnDestinationReached(checkReached);
+        }
+
         bool RaycastNavMesh(out Vector3 target)
         {
             RaycastHit hit;

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.AI;
 using RPG.Core;
 using RPG.Saving;
@@ -7,9 +9,14 @@ namespace RPG.Movement
 {
     public class Mover : MonoBehaviour, IAction, ISaveable
     {
+        [SerializeField] private float _objectStoppingDistance = 1.5f;
+
         NavMeshAgent _navMeshAgent;
         Animator _animator;
         ActionScheduler _scheduler;
+
+        private Action _onDestinationReached;
+        private Coroutine _checkDestinationReachedCoroutine = null;
 
         [System.Serializable]
         struct Orientation
@@ -33,18 +40,33 @@ namespace RPG.Movement
         public void MoveToCursor(Vector3 destination)
         {
             _scheduler.StartAction(this);
-            MoveTo(destination);
+            MoveToLocation(destination);
         }
 
-        public void MoveTo(Vector3 destination)
+        public void MoveToLocation(Vector3 destination)
         {
             if (_navMeshAgent.enabled)
             {
+                _navMeshAgent.stoppingDistance = 0;
                 _navMeshAgent.destination = destination;
                 _navMeshAgent.isStopped = false;
+                
+                CheckDestinationReached();
             }
         }
+        
+        public void MoveToObject(Transform destination)
+        {
+            if (_navMeshAgent.enabled)
+            {
+                _navMeshAgent.stoppingDistance = _objectStoppingDistance;
+                _navMeshAgent.destination = destination.position;
+                _navMeshAgent.isStopped = false;
 
+                CheckDestinationReached();
+            }
+        }
+        
         private void UpdateAnimator()
         {
             Vector3 velocity = _navMeshAgent.velocity;
@@ -54,13 +76,52 @@ namespace RPG.Movement
             _animator.SetFloat("forwardSpeed", speed);
         }
 
-        //Setter(s)
+        public void RegisterOnDestinationReached(Action action)
+        {
+            _onDestinationReached += action;
+        }
+        
+        public void DeregisterOnDestinationReached(Action action)
+        {
+            _onDestinationReached -= action;
+        }
+
+        private void CheckDestinationReached()
+        {
+            if (_checkDestinationReachedCoroutine != null)
+            {
+                StopCoroutine(_checkDestinationReachedCoroutine);
+            }
+
+            _checkDestinationReachedCoroutine = StartCoroutine(CheckDestinationReachedRoutine());
+        }
+
+        private IEnumerator CheckDestinationReachedRoutine()
+        {
+            while (true)
+            {
+                yield return new WaitForEndOfFrame();
+
+                if (!_navMeshAgent.pathPending)
+                {
+                    if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
+                    {
+                        if (!_navMeshAgent.hasPath || _navMeshAgent.velocity.sqrMagnitude == 0f)
+                        {
+                            _onDestinationReached?.Invoke();
+                            _checkDestinationReachedCoroutine = null;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
         public void SetSpeed(float speed)
         {
             _navMeshAgent.speed = speed;
         }
 
-        //Disabler(s)
         public void Cancel()
         {
             _navMeshAgent.isStopped = true;
@@ -69,7 +130,7 @@ namespace RPG.Movement
         private void Kill()
         {
             GetComponent<NavMeshAgent>().isStopped = true;
-            this.enabled = false;
+            enabled = false;
         }
 
         //Save System

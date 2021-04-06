@@ -40,7 +40,7 @@ namespace RPG.Dialogue
             }
         }
 
-        public IEnumerable<DialogueNode> DialogueNodes
+        public IReadOnlyList<DialogueNode> DialogueNodes
         {
             get { return _dialogueNodes; }
         }
@@ -91,12 +91,44 @@ namespace RPG.Dialogue
         }
 #endif
 
-        public IEnumerable<DialogueNode> GetChildren(DialogueNode node)
+        public DialogueNode GetDialogueNode(string ID)
+        {
+            if (_nodeLookup.ContainsKey(ID))
+                return _nodeLookup[ID];
+
+            return null;
+        }
+
+        public IReadOnlyList<DialogueNode> GetChildrenOfNode(DialogueNode node)
         {
             List<DialogueNode> children = new List<DialogueNode>();
             foreach (string iD in node.ChildrenIDs)
             {
                 if (_nodeLookup.ContainsKey(iD)) 
+                    children.Add(_nodeLookup[iD]);
+            }
+
+            return children;
+        }
+        
+        public IReadOnlyList<DialogueNode> GetPlayerChildrenOfNode(DialogueNode node)
+        {
+            List<DialogueNode> children = new List<DialogueNode>();
+            foreach (string iD in node.ChildrenIDs)
+            {
+                if (_nodeLookup.ContainsKey(iD) && _nodeLookup[iD].IsPlayerSpeech) 
+                    children.Add(_nodeLookup[iD]);
+            }
+
+            return children;
+        }
+        
+        public IReadOnlyList<DialogueNode> GetAIChildrenOfNode(DialogueNode node)
+        {
+            List<DialogueNode> children = new List<DialogueNode>();
+            foreach (string iD in node.ChildrenIDs)
+            {
+                if (_nodeLookup.ContainsKey(iD) && !_nodeLookup[iD].IsPlayerSpeech) 
                     children.Add(_nodeLookup[iD]);
             }
 

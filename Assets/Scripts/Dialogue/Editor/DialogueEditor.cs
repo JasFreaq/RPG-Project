@@ -16,7 +16,7 @@ namespace RPG.Dialogue.Editor
             Left
         }
 
-        private const int NODE_PADDING = 10;
+        private const int NODE_PADDING = 15;
         private const int CANVAS_SIZE = 5000;
         private const int BG_SIZE = 50;
 
@@ -246,6 +246,7 @@ namespace RPG.Dialogue.Editor
         
         private void DrawNode(DialogueNode node)
         {
+            //Adjust Node Styles and BeginArea
             if (node == _linkingNode)
             {
                 GUILayout.BeginArea(node.PositionRect, _linkingNodeStyle);
@@ -259,34 +260,107 @@ namespace RPG.Dialogue.Editor
                 GUILayout.BeginArea(node.PositionRect, _nodeStyle);
             }
             
-            node.Text = EditorGUILayout.TextField(node.Text);
+            //Check if DialogueNode belongs to Player
+            if (node.IsPlayerSpeech)
+                node.SpeakerName = "Player";
+            else
+                node.SpeakerName = EditorGUILayout.TextField(node.SpeakerName);
+
+            //Text Field
+            node.Text = EditorGUILayout.TextArea(node.Text);
             
+            //Horizontal Space for Adding, Deleting and Modifying Children of Node
             GUILayout.BeginHorizontal();
             GUILayout.Space(15);
 
             node.IsPlayerSpeech = GUILayout.Toggle(node.IsPlayerSpeech, "IsPlayer");
             GUILayout.Space(5);
 
-            if (GUILayout.Button("+"))
-            {
-                _createUsingNode = node;
-            }
+            DrawModifyButtons(node);
 
-            DrawLinkButtons(node);
-
-            if (GUILayout.Button("-"))
-            {
-                _deleteNode = node;
-            }
             GUILayout.EndHorizontal();
+            //End Horizontal Space
+
+            GUILayout.Space(10);
+
+            //Horizontal Space for Modifying Dialogue Action of Node
+            GUILayout.BeginHorizontal();
+
+            DrawDialogueActions(node);
+
+            GUILayout.EndHorizontal();
+            //End Horizontal Space
 
             GUILayout.EndArea();
         }
-        
+
+        private static void DrawDialogueActions(DialogueNode node)
+        {
+            GUILayout.BeginVertical();
+            GUILayout.Label("OnEnterActions");
+            if (node.EditingOnEnterActions)
+            {
+                foreach (DialogueAction action in Enum.GetValues(typeof(DialogueAction)))
+                {
+                    node.ModifyOnEnterAction(action,
+                        GUILayout.Toggle(node.OnEnterActionsContain(action), action.ToString()));
+                }
+
+                if (GUILayout.Button("Stop Edit"))
+                {
+                    node.EditingOnEnterActions = false;
+                }
+            }
+            else
+            {
+                foreach (DialogueAction action in node.OnEnterActions)
+                {
+                    GUILayout.Label(action.ToString());
+                }
+
+                if (GUILayout.Button("Edit"))
+                {
+                    node.EditingOnEnterActions = true;
+                }
+            }
+            GUILayout.EndVertical();
+            
+            GUILayout.FlexibleSpace();
+
+            GUILayout.BeginVertical();
+            GUILayout.Label("OnExitActions");
+            if (node.EditingOnExitActions)
+            {
+                foreach (DialogueAction action in Enum.GetValues(typeof(DialogueAction)))
+                {
+                    node.ModifyOnExitAction(action,
+                        GUILayout.Toggle(node.OnExitActionsContain(action), action.ToString()));
+                }
+
+                if (GUILayout.Button("Stop Edit"))
+                {
+                    node.EditingOnExitActions = false;
+                }
+            }
+            else
+            {
+                foreach (DialogueAction action in node.OnExitActions)
+                {
+                    GUILayout.Label(action.ToString());
+                }
+
+                if (GUILayout.Button("Edit"))
+                {
+                    node.EditingOnExitActions = true;
+                }
+            }
+            GUILayout.EndVertical();
+        }
+
         private void DrawConnections(DialogueNode node)
         {
             Vector3 startPos = new Vector2(node.PositionRect.xMax - NODE_PADDING / 2, node.PositionRect.center.y);
-            foreach (DialogueNode child in _selectedDialogue.GetChildren(node))
+            foreach (DialogueNode child in _selectedDialogue.GetChildrenOfNode(node))
             {
                 Vector3 endPos = new Vector2(child.PositionRect.xMin + NODE_PADDING / 2, child.PositionRect.center.y);
                 
@@ -299,6 +373,21 @@ namespace RPG.Dialogue.Editor
                 Handles.DrawBezier(startPos, endPos, 
                     startPos + curveOffset, endPos - curveOffset, 
                     Color.white, null, 5f);
+            }
+        }
+
+        private void DrawModifyButtons(DialogueNode node)
+        {
+            if (GUILayout.Button("+"))
+            {
+                _createUsingNode = node;
+            }
+
+            DrawLinkButtons(node);
+
+            if (GUILayout.Button("-"))
+            {
+                _deleteNode = node;
             }
         }
 
@@ -374,7 +463,7 @@ namespace RPG.Dialogue.Editor
             point += _selectedDialogue.EditorScrollPosition;
             foreach (DialogueNode node in _selectedDialogue.DialogueNodes)
             {
-                if (Mathf.Abs(node.PositionRect.yMin + NODE_PADDING - point.y) <= _allowedResizeDistance)
+                if (Mathf.Abs(node.PositionRect.yMin - point.y) <= _allowedResizeDistance)
                 {
                     if (point.x > node.PositionRect.xMin && point.x < node.PositionRect.xMax)
                     {
@@ -383,7 +472,7 @@ namespace RPG.Dialogue.Editor
                     }
                 }
 
-                if (Mathf.Abs(node.PositionRect.xMax - NODE_PADDING - point.x) <= _allowedResizeDistance)
+                if (Mathf.Abs(node.PositionRect.xMax - point.x) <= _allowedResizeDistance)
                 {
                     if (point.y > node.PositionRect.yMin && point.y < node.PositionRect.yMax)
                     {
@@ -392,7 +481,7 @@ namespace RPG.Dialogue.Editor
                     }
                 }
 
-                if (Mathf.Abs(node.PositionRect.yMax - NODE_PADDING - point.y) <= _allowedResizeDistance)
+                if (Mathf.Abs(node.PositionRect.yMax - point.y) <= _allowedResizeDistance)
                 {
                     if (point.x > node.PositionRect.xMin && point.x < node.PositionRect.xMax)
                     {
@@ -401,7 +490,7 @@ namespace RPG.Dialogue.Editor
                     }
                 }
 
-                if (Mathf.Abs(node.PositionRect.xMin + NODE_PADDING - point.x) <= _allowedResizeDistance)
+                if (Mathf.Abs(node.PositionRect.xMin - point.x) <= _allowedResizeDistance)
                 {
                     if (point.y > node.PositionRect.yMin && point.y < node.PositionRect.yMax)
                     {
@@ -418,7 +507,6 @@ namespace RPG.Dialogue.Editor
         {
             GUIStyle style = new GUIStyle();
             style.normal.background = (Texture2D)EditorGUIUtility.Load(texturePath);
-            style.normal.textColor = Color.white;
             style.padding = new RectOffset(NODE_PADDING, NODE_PADDING, NODE_PADDING, NODE_PADDING);
             style.border = new RectOffset(12, 12, 12, 12);
 
