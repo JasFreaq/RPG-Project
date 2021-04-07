@@ -42,7 +42,7 @@ MonoBehaviour:
   _text: Don't you worry about it. Say, do you have something to eat? I'm starving.
   _childrenIds: []
   _onEnterActions: 
-  _onExitActions: 
+  _onExitActions: 01000000
   _positionRect:
     serializedVersion: 2
     x: 1693

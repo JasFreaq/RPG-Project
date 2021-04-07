@@ -6,22 +6,28 @@ namespace GameDevTV.UI
 {
     public class ShowHideUI : MonoBehaviour
     {
-        [SerializeField] KeyCode toggleKey = KeyCode.Escape;
-        [SerializeField] GameObject uiContainer = null;
+        [SerializeField] KeyCode _toggleKey = KeyCode.Escape;
+        [SerializeField] GameObject _uIContainer = null;
+        [SerializeField] private bool _activeOnStart;
 
         // Start is called before the first frame update
         void Start()
         {
-            uiContainer.SetActive(false);
+            _uIContainer.SetActive(_activeOnStart);
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(toggleKey))
+            if (Input.GetKeyDown(_toggleKey))
             {
-                uiContainer.SetActive(!uiContainer.activeSelf);
+                ToggleActiveState();
             }
+        }
+
+        public void ToggleActiveState()
+        {
+            _uIContainer.SetActive(!_uIContainer.activeSelf);
         }
     }
 }

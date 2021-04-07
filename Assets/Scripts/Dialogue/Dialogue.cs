@@ -22,7 +22,7 @@ namespace RPG.Dialogue
         }
 #endif
 
-    private void Awake()
+        private void Awake()
         {
 #if UNITY_EDITOR
             CreateRootNode();
@@ -48,9 +48,12 @@ namespace RPG.Dialogue
 #if UNITY_EDITOR
         public void CreateRootNode()
         {
-            DialogueNode rootNode = CreateInstance<DialogueNode>();
-            rootNode.name = Guid.NewGuid().ToString();
-            _dialogueNodes.Add(rootNode);
+            if (_dialogueNodes.Count == 0)
+            {
+                DialogueNode rootNode = CreateInstance<DialogueNode>();
+                rootNode.name = Guid.NewGuid().ToString();
+                _dialogueNodes.Add(rootNode);
+            }
         }
 
         public void CreateNode(DialogueNode parentNode)
@@ -86,8 +89,7 @@ namespace RPG.Dialogue
 
             Undo.DestroyObjectImmediate(node);
 
-            if (_dialogueNodes.Count == 0) 
-                CreateRootNode();
+            CreateRootNode();
         }
 #endif
 
