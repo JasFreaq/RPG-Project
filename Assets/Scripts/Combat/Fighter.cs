@@ -6,7 +6,7 @@ using RPG.Saving;
 using RPG.Stats;
 using GameDevTV.Utils;
 using GameDevTV.Inventories;
-using RPG.Inventory;
+using RPG.InventorySystem;
 
 namespace RPG.Combat
 {
@@ -245,7 +245,7 @@ namespace RPG.Combat
 
         public void RestoreState(object state)
         {
-            string weaponName = (string)state;
+            string weaponName = (string) state;
             WeaponConfig weapon = Resources.Load<WeaponConfig>(weaponName);
             EquipWeapon(weapon, GetComponent<Animator>());
         }

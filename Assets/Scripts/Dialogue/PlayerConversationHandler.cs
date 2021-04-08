@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using RPG.Core;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -59,20 +61,15 @@ namespace RPG.Dialogue
         {
             return _currentDialogueNode.Text;
         }
-        
-        public bool IsPlayerSpeaking()
-        {
-            return _currentDialogueNode.IsPlayerSpeech;
-        }
 
         public IReadOnlyList<DialogueNode> GetPlayerChildren()
         {
-            return _currentDialogue.GetPlayerChildrenOfNode(_currentDialogueNode);
+            return FilterOnCondition(_currentDialogue.GetPlayerChildrenOfNode(_currentDialogueNode));
         }
 
         public void SelectChoice(int choiceIndex)
         {
-            IReadOnlyList<DialogueNode> playerChildren = _currentDialogue.GetPlayerChildrenOfNode(_currentDialogueNode);
+            IReadOnlyList<DialogueNode> playerChildren = FilterOnCondition(_currentDialogue.GetPlayerChildrenOfNode(_currentDialogueNode));
             
             _currentDialogueNode = playerChildren[choiceIndex];
             TriggerEnterAction();
@@ -83,27 +80,52 @@ namespace RPG.Dialogue
 
         public void Next()
         {
-            IReadOnlyList<DialogueNode> playerChildren = _currentDialogue.GetPlayerChildrenOfNode(_currentDialogueNode);
-            if (playerChildren.Count > 0)
+            IReadOnlyList<DialogueNode> aIChildren = FilterOnCondition(_currentDialogue.GetChildrenOfNode(_currentDialogueNode));
+            if (aIChildren.Count > 0) 
             {
-                _isChoosing = true;
-                TriggerExitAction();
+                IReadOnlyList<DialogueNode> playerChildren =
+                    FilterOnCondition(_currentDialogue.GetPlayerChildrenOfNode(_currentDialogueNode));
+                if (playerChildren.Count > 0)
+                {
+                    _isChoosing = true;
+                    TriggerExitAction();
+                }
+                else
+                {
+
+                    TriggerExitAction();
+                    _currentDialogueNode = aIChildren[Random.Range(0, aIChildren.Count)];
+                    TriggerEnterAction();
+                }
+
+                _onConversationUpdated?.Invoke();
             }
             else
-            {
-                IReadOnlyList<DialogueNode> aIChildren = _currentDialogue.GetChildrenOfNode(_currentDialogueNode);
-                
-                TriggerExitAction();
-                _currentDialogueNode = aIChildren[Random.Range(0, aIChildren.Count)];
-                TriggerEnterAction();
-            }
-
-            _onConversationUpdated?.Invoke();
+                Quit();
         }
 
         public bool HasNext()
         {
-            return (_currentDialogueNode.ChildrenIDs.Count > 0);
+            return FilterOnCondition(_currentDialogue.GetChildrenOfNode(_currentDialogueNode)).Count > 0;
+        }
+
+        IReadOnlyList<DialogueNode> FilterOnCondition(IReadOnlyList<DialogueNode> rawNodes)
+        {
+            List<DialogueNode> finalNodes = new List<DialogueNode>();
+            foreach (DialogueNode node in rawNodes)
+            {
+                if (node.EvaluateCondition(GetEvaluables()))
+                {
+                    finalNodes.Add(node);
+                }
+            }
+
+            return finalNodes;
+        }
+
+        IEnumerable<IPredicateEvaluable> GetEvaluables()
+        {
+            return GetComponents<IPredicateEvaluable>();
         }
 
         void TriggerEnterAction()

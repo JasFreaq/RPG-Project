@@ -3,7 +3,7 @@ using RPG.Stats;
 using RPG.Saving;
 using GameDevTV.Utils;
 using UnityEngine.Events;
-using RPG.Inventory;
+using RPG.InventorySystem;
 
 namespace RPG.Attributes
 {
@@ -147,7 +147,7 @@ namespace RPG.Attributes
 
         public void RestoreState(object state)
         {
-            HealthPointSystem healthPointSystem = (HealthPointSystem)state;
+            HealthPointSystem healthPointSystem = (HealthPointSystem) state;
 
             _healthPoints.value = healthPointSystem.healthPoints;
             _healthPointSystem.totalHealthPoints = healthPointSystem.totalHealthPoints;

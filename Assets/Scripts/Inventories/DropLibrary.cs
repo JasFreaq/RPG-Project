@@ -2,7 +2,7 @@
 using GameDevTV.Inventories;
 using UnityEngine;
 
-namespace RPG.Inventory
+namespace RPG.InventorySystem
 {
     [CreateAssetMenu(menuName =("RPG/Inventory/Drop Library"))]
     public class DropLibrary : ScriptableObject

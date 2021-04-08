@@ -1,0 +1,182 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8054711229187063008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: ae02cadf-8988-40e4-9ed4-b3e86e25821f
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _speakerName: Player
+  _text: Still searching.
+  _childrenIds: []
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 543
+    y: 547
+    width: 300
+    height: 225
+--- !u!114 &-6141928553137411995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 392186dc-c7eb-48cd-9d68-2e7169d1d243
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _speakerName: Player
+  _text: Sure.
+  _childrenIds: []
+  _onEnterActions: 01000000
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 1444
+    y: 143
+    width: 300
+    height: 225
+--- !u!114 &-5604244562519675090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 9ebde464-0ebb-4a16-8ede-83eddc9f6346
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _speakerName: Hungry Guard
+  _text: Forgot to pack my lunch today. Got some food?
+  _childrenIds:
+  - d22cd806-7755-4737-804f-01067d912f30
+  - ae02cadf-8988-40e4-9ed4-b3e86e25821f
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 93
+    y: 437
+    width: 300
+    height: 225
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99daa080c5e0e784da792ad400c68782, type: 3}
+  m_Name: Quest Test Dialogue
+  m_EditorClassIdentifier: 
+  _dialogueNodes:
+  - {fileID: -5604244562519675090}
+  - {fileID: 3046890479063194618}
+  - {fileID: 6411743909275228174}
+  - {fileID: -6141928553137411995}
+  - {fileID: 1766263685484676028}
+  - {fileID: -8054711229187063008}
+--- !u!114 &1766263685484676028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: c8710b7c-b282-4a4b-94a5-81c93ebe78ee
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _speakerName: Player
+  _text: Hell naw!
+  _childrenIds: []
+  _onEnterActions: 
+  _onExitActions: 00000000
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 1444
+    y: 392
+    width: 300
+    height: 225
+--- !u!114 &3046890479063194618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: d22cd806-7755-4737-804f-01067d912f30
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _speakerName: Player
+  _text: Nope.
+  _childrenIds:
+  - 88a30162-6268-4704-b3ab-a5c31ddd88fa
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 542
+    y: 295
+    width: 300
+    height: 225
+--- !u!114 &6411743909275228174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 88a30162-6268-4704-b3ab-a5c31ddd88fa
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _speakerName: Hungry Guard
+  _text: Well, would you please give me some if you found any?
+  _childrenIds:
+  - 392186dc-c7eb-48cd-9d68-2e7169d1d243
+  - c8710b7c-b282-4a4b-94a5-81c93ebe78ee
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 995
+    y: 295
+    width: 300
+    height: 225

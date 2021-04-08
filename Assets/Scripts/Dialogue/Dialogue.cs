@@ -13,39 +13,16 @@ namespace RPG.Dialogue
 
         private Dictionary<string, DialogueNode> _nodeLookup = new Dictionary<string, DialogueNode>();
 
+        #region Editor Specific
 #if UNITY_EDITOR
+
         private Vector2 _editorScrollPosition = Vector2.zero;
         public Vector2 EditorScrollPosition
         {
             get { return _editorScrollPosition; }
             set { _editorScrollPosition = value; }
         }
-#endif
 
-        private void Awake()
-        {
-#if UNITY_EDITOR
-            CreateRootNode();
-#endif
-
-            OnValidate();
-        }
-
-        private void OnValidate()
-        {
-            _nodeLookup.Clear();
-            foreach (DialogueNode node in _dialogueNodes)
-            {
-                _nodeLookup[node.name] = node;
-            }
-        }
-
-        public IReadOnlyList<DialogueNode> DialogueNodes
-        {
-            get { return _dialogueNodes; }
-        }
-
-#if UNITY_EDITOR
         public void CreateRootNode()
         {
             if (_dialogueNodes.Count == 0)
@@ -60,9 +37,9 @@ namespace RPG.Dialogue
         {
             DialogueNode node = CreateInstance<DialogueNode>();
             node.name = Guid.NewGuid().ToString();
-            Undo.RegisterCreatedObjectUndo(node,"Dialogue Object Created");
+            Undo.RegisterCreatedObjectUndo(node, "Dialogue Object Created");
 
-            node.IsPlayerSpeech = !parentNode.IsPlayerSpeech;
+            node.SetIsPlayer(!parentNode.IsPlayerSpeech);
             Rect tempRect = new Rect(node.PositionRect);
             tempRect.center = new Vector2(parentNode.PositionRect.center.x + 1.5f * parentNode.PositionRect.width,
                 parentNode.PositionRect.center.y);
@@ -92,15 +69,31 @@ namespace RPG.Dialogue
             CreateRootNode();
         }
 #endif
+        #endregion
 
-        public DialogueNode GetDialogueNode(string ID)
+        private void Awake()
         {
-            if (_nodeLookup.ContainsKey(ID))
-                return _nodeLookup[ID];
+#if UNITY_EDITOR
+            CreateRootNode();
+#endif
 
-            return null;
+            OnValidate();
         }
 
+        private void OnValidate()
+        {
+            _nodeLookup.Clear();
+            foreach (DialogueNode node in _dialogueNodes)
+            {
+                _nodeLookup[node.name] = node;
+            }
+        }
+
+        public IReadOnlyList<DialogueNode> DialogueNodes
+        {
+            get { return _dialogueNodes; }
+        }
+        
         public IReadOnlyList<DialogueNode> GetChildrenOfNode(DialogueNode node)
         {
             List<DialogueNode> children = new List<DialogueNode>();
@@ -125,18 +118,6 @@ namespace RPG.Dialogue
             return children;
         }
         
-        public IReadOnlyList<DialogueNode> GetAIChildrenOfNode(DialogueNode node)
-        {
-            List<DialogueNode> children = new List<DialogueNode>();
-            foreach (string iD in node.ChildrenIDs)
-            {
-                if (_nodeLookup.ContainsKey(iD) && !_nodeLookup[iD].IsPlayerSpeech) 
-                    children.Add(_nodeLookup[iD]);
-            }
-
-            return children;
-        }
-
         public void OnBeforeSerialize()
         {
 #if UNITY_EDITOR

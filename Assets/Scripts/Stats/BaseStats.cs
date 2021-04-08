@@ -103,7 +103,7 @@ namespace RPG.Stats
 
         public void RestoreState(object state)
         {
-            _level = (int)state;
+            _level = (int) state;
         }
     }
 }

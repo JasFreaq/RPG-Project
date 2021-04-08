@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using RPG.Core;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,82 +19,48 @@ namespace RPG.Dialogue
 
         [SerializeField] private List<string> _childrenIds = new List<string>();
 
-        [SerializeField] private List<DialogueAction> _onEnterActions;
+        [SerializeField] private List<DialogueAction> _onEnterActions = new List<DialogueAction>();
 
-        [SerializeField] private List<DialogueAction> _onExitActions;
+        [SerializeField] private List<DialogueAction> _onExitActions = new List<DialogueAction>();
 
+        [SerializeField] private Condition _condition;
+
+        #region Editor Specific
 #if UNITY_EDITOR
+
         [SerializeField] [HideInInspector]
         private Rect _positionRect = new Rect(100, 100, MIN_WIDTH, MIN_HEIGHT);
 
         private bool _editingOnEnterActions = false;
 
         private bool _editingOnExitActions = false;
-#endif
 
-        public bool IsPlayerSpeech
+        public void SetIsPlayer(bool value)
         {
-            get { return _isPlayerSpeech; }
-
-#if UNITY_EDITOR
-            set
-            {
-                Undo.RecordObject(this, "Dialogue Speaker Edit");
-                _isPlayerSpeech = value;
-            }
-#endif
+            Undo.RecordObject(this, "Dialogue Speaker Edit");
+            _isPlayerSpeech = value;
         }
 
-        public string SpeakerName
+        public void SetSpeakerName(string value)
         {
-            get { return _speakerName; }
-
-#if UNITY_EDITOR
-            set
+            if (_speakerName != value)
             {
-                if (_speakerName != value) 
-                {
-                    Undo.RecordObject(this, "Dialogue Speaker Name Edit");
-                    _speakerName = value;
-                    EditorUtility.SetDirty(this);
-                }
+                Undo.RecordObject(this, "Dialogue Speaker Name Edit");
+                _speakerName = value;
+                EditorUtility.SetDirty(this);
             }
-#endif
         }
         
-        public string Text
+        public void SetText(string value)
         {
-            get { return _text; }
-
-#if UNITY_EDITOR
-            set
+            if (_text != value)
             {
-                if (_text != value) 
-                {
-                    Undo.RecordObject(this, "Dialogue Text Edit");
-                    _text = value;
-                    EditorUtility.SetDirty(this);
-                }
+                Undo.RecordObject(this, "Dialogue Text Edit");
+                _text = value;
+                EditorUtility.SetDirty(this);
             }
-#endif
         }
 
-        public IReadOnlyList<string> ChildrenIDs
-        {
-            get { return _childrenIds; }
-        }
-
-        public IReadOnlyList<DialogueAction> OnEnterActions
-        {
-            get { return _onEnterActions; }
-        }
-        
-        public IReadOnlyList<DialogueAction> OnExitActions
-        {
-            get { return _onExitActions; }
-        }
-
-#if UNITY_EDITOR
         public Rect PositionRect
         {
             get { return _positionRect; }
@@ -111,7 +78,7 @@ namespace RPG.Dialogue
             get { return _editingOnEnterActions; }
             set { _editingOnEnterActions = value; }
         }
-        
+
         public bool EditingOnExitActions
         {
             get { return _editingOnExitActions; }
@@ -124,14 +91,14 @@ namespace RPG.Dialogue
             _childrenIds.Add(childNodeID);
             EditorUtility.SetDirty(this);
         }
-        
+
         public void RemoveChild(string childNodeID)
         {
             Undo.RecordObject(this, "Dialogue Unlinked Node");
             _childrenIds.Remove(childNodeID);
             EditorUtility.SetDirty(this);
         }
-        
+
         public bool ContainsChild(string childNodeID)
         {
             return _childrenIds.Contains(childNodeID);
@@ -184,6 +151,43 @@ namespace RPG.Dialogue
         {
             return _onExitActions.Contains(action);
         }
+
 #endif
+        #endregion
+
+        public bool IsPlayerSpeech
+        {
+            get { return _isPlayerSpeech; }
+        }
+
+        public string SpeakerName
+        {
+            get { return _speakerName; }
+        }
+        
+        public string Text
+        {
+            get { return _text; }
+        }
+
+        public IReadOnlyList<string> ChildrenIDs
+        {
+            get { return _childrenIds; }
+        }
+
+        public IReadOnlyList<DialogueAction> OnEnterActions
+        {
+            get { return _onEnterActions; }
+        }
+        
+        public IReadOnlyList<DialogueAction> OnExitActions
+        {
+            get { return _onExitActions; }
+        }
+        
+        public bool EvaluateCondition(IEnumerable<IPredicateEvaluable> evaluables)
+        {
+            return _condition.Evaluate(evaluables);
+        }
     }
 }

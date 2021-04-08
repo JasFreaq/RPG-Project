@@ -11,9 +11,9 @@ namespace RPG.UI.Quests
         [SerializeField] private TextMeshProUGUI _description;
         [SerializeField] private GameObject _bullet;
 
-        public void Setup(string desc, bool status)
+        public void Setup(string description, bool status)
         {
-            _description.text = desc;
+            _description.text = description;
             _bullet.SetActive(status);
         }
     }

@@ -4,7 +4,7 @@ using GameDevTV.Inventories;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace RPG.Inventory
+namespace RPG.InventorySystem
 {
     public class RandomDropper : ItemDropper
     {

@@ -33,7 +33,7 @@ namespace RPG.Stats
 
         public void RestoreState(object state)
         {
-            _xPPoints = (float)state;
+            _xPPoints = (float) state;
             StartCoroutine(GetComponent<BaseStats>().SetLevelRoutine(_xPPoints));
         }
     }

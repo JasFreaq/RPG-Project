@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using GameDevTV.Saving;
+using RPG.Core;
 
 namespace GameDevTV.Inventories
 {
@@ -10,7 +11,7 @@ namespace GameDevTV.Inventories
     ///
     /// This component should be placed on the GameObject tagged "Player".
     /// </summary>
-    public class Inventory : MonoBehaviour, ISaveable
+    public class Inventory : MonoBehaviour, IPredicateEvaluable, ISaveable
     {
         // CONFIG DATA
         [Tooltip("Allowed size")]
@@ -225,7 +226,31 @@ namespace GameDevTV.Inventories
             public string itemID;
             public int number;
         }
-    
+
+        public bool? CheckCondition(Condition.PredicateType predicate, string[] parameters)
+        {
+            switch (predicate)
+            {
+                case Condition.PredicateType.HasItem:
+                    if (parameters.Length == 1 && !string.IsNullOrEmpty(parameters[0]))
+                    {
+                        InventoryItem item = InventoryItem.GetFromID(parameters[0]);
+                        if (item)
+                        {
+                            return HasItem(item);
+                        }
+
+                        Debug.LogError($"Item of ID '{parameters[0]}' does not exist.");
+                    }
+                    else
+                        Debug.LogError("Parameter list error.");
+
+                    break;
+            }
+
+            return null;
+        }
+
         object ISaveable.CaptureState()
         {
             var slotStrings = new InventorySlotRecord[inventorySize];

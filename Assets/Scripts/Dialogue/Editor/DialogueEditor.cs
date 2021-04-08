@@ -261,19 +261,16 @@ namespace RPG.Dialogue.Editor
             }
             
             //Check if DialogueNode belongs to Player
-            if (node.IsPlayerSpeech)
-                node.SpeakerName = "Player";
-            else
-                node.SpeakerName = EditorGUILayout.TextField(node.SpeakerName);
+            node.SetSpeakerName(node.IsPlayerSpeech ? "Player" : EditorGUILayout.TextField(node.SpeakerName));
 
             //Text Field
-            node.Text = EditorGUILayout.TextArea(node.Text);
+            node.SetText(EditorGUILayout.TextArea(node.Text));
             
             //Horizontal Space for Adding, Deleting and Modifying Children of Node
             GUILayout.BeginHorizontal();
             GUILayout.Space(15);
 
-            node.IsPlayerSpeech = GUILayout.Toggle(node.IsPlayerSpeech, "IsPlayer");
+            node.SetIsPlayer(GUILayout.Toggle(node.IsPlayerSpeech, "IsPlayer"));
             GUILayout.Space(5);
 
             DrawModifyButtons(node);

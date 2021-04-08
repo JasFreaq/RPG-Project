@@ -11,15 +11,33 @@ namespace RPG.UI.Quests
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private Transform _objectivesContainer;
         [SerializeField] private ObjectiveUI _objectivePrefab;
+        [SerializeField] private TextMeshProUGUI _rewards;
 
         public void Setup(QuestStatus status)
         {
             _title.text = status.Quest.name;
-            foreach (string objective in status.Quest.Objectives)
+            foreach (Quest.Objective objective in status.Quest.Objectives)
             {
                 ObjectiveUI objectiveInstance = Instantiate(_objectivePrefab, _objectivesContainer);
-                objectiveInstance.Setup(objective, status.HasCleared(objective));
+                objectiveInstance.Setup(objective.description, status.HasCleared(objective.reference));
             }
+
+            _rewards.text = GetRewardsString(status);
+        }
+
+        private string GetRewardsString(QuestStatus status)
+        {
+            string rewardsString = "";
+            IReadOnlyList<Quest.Reward> rewards = status.Quest.Rewards;
+            for (int i = 0, n = rewards.Count; i < n; i++)
+            {
+                rewardsString += $"- {rewards[i].item.GetDisplayName()} x{rewards[i].number}";
+
+                if (i != n - 1)
+                    rewardsString += "\n";
+            }
+
+            return rewardsString;
         }
     }
 }

@@ -23,6 +23,12 @@ namespace RPG.Movement
         {
             public SerializableVector3 position;
             public SerializableVector3 rotation;
+
+            public Orientation(Transform transform)
+            {
+                position = new SerializableVector3(transform.position);
+                rotation = new SerializableVector3(transform.rotation.eulerAngles);
+            }
         }
 
         void Awake()
@@ -136,17 +142,12 @@ namespace RPG.Movement
         //Save System
         public object CaptureState()
         {
-            Orientation orientation = new Orientation();
-
-            orientation.position = new SerializableVector3(transform.position);
-            orientation.rotation = new SerializableVector3(transform.eulerAngles);
-
-            return orientation;
+            return new Orientation(transform);
         }
 
         public void RestoreState(object state)
         {
-            Orientation orientation = (Orientation)state;
+            Orientation orientation = (Orientation) state;
 
             GetComponent<NavMeshAgent>().enabled = false;
             

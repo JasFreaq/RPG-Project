@@ -19,6 +19,9 @@ MonoBehaviour:
   - fb055577-dae9-4605-9b99-ebe8a16977d1
   _onEnterActions: 
   _onExitActions: 
+  _condition:
+    predicate: 
+    parameters: []
   _positionRect:
     serializedVersion: 2
     x: 1192
@@ -42,11 +45,14 @@ MonoBehaviour:
   _text: Don't you worry about it. Say, do you have something to eat? I'm starving.
   _childrenIds: []
   _onEnterActions: 
-  _onExitActions: 01000000
+  _onExitActions: 
+  _condition:
+    predicate: 
+    parameters: []
   _positionRect:
     serializedVersion: 2
-    x: 1693
-    y: 642
+    x: 1694
+    y: 657
     width: 300
     height: 225
 --- !u!114 &-6236595919711504385
@@ -69,6 +75,9 @@ MonoBehaviour:
   - d472085d-91c1-4726-adf1-58b9197b8344
   _onEnterActions: 
   _onExitActions: 
+  _condition:
+    predicate: 
+    parameters: []
   _positionRect:
     serializedVersion: 2
     x: 38
@@ -94,6 +103,9 @@ MonoBehaviour:
   - fbe14252-dfee-4326-9339-699edebaad25
   _onEnterActions: 
   _onExitActions: 
+  _condition:
+    predicate: 
+    parameters: []
   _positionRect:
     serializedVersion: 2
     x: 1193
@@ -118,6 +130,9 @@ MonoBehaviour:
   _childrenIds: []
   _onEnterActions: 
   _onExitActions: 00000000
+  _condition:
+    predicate: 
+    parameters: []
   _positionRect:
     serializedVersion: 2
     x: 1641
@@ -143,6 +158,9 @@ MonoBehaviour:
   - 89f81c0d-c59c-40a4-9045-c2f15d35ee24
   _onEnterActions: 
   _onExitActions: 
+  _condition:
+    predicate: 
+    parameters: []
   _positionRect:
     serializedVersion: 2
     x: 394
@@ -167,6 +185,9 @@ MonoBehaviour:
   _childrenIds: []
   _onEnterActions: 
   _onExitActions: 
+  _condition:
+    predicate: 
+    parameters: []
   _positionRect:
     serializedVersion: 2
     x: 100
@@ -217,6 +238,9 @@ MonoBehaviour:
   - e4791a0b-082b-4404-8be3-2b627e2e34bb
   _onEnterActions: 
   _onExitActions: 
+  _condition:
+    predicate: 
+    parameters: []
   _positionRect:
     serializedVersion: 2
     x: 793
@@ -242,6 +266,9 @@ MonoBehaviour:
   - 68b1e1c7-11e9-4718-a405-0f87b58adf61
   _onEnterActions: 
   _onExitActions: 
+  _condition:
+    predicate: 
+    parameters: []
   _positionRect:
     serializedVersion: 2
     x: 1193
@@ -267,6 +294,9 @@ MonoBehaviour:
   - fb055577-dae9-4605-9b99-ebe8a16977d1
   _onEnterActions: 
   _onExitActions: 
+  _condition:
+    predicate: 
+    parameters: []
   _positionRect:
     serializedVersion: 2
     x: 1193
@@ -293,6 +323,9 @@ MonoBehaviour:
   - 45e61c5e-7644-469c-b4e6-ce23d8474a17
   _onEnterActions: 
   _onExitActions: 
+  _condition:
+    predicate: 
+    parameters: []
   _positionRect:
     serializedVersion: 2
     x: 741
@@ -318,6 +351,9 @@ MonoBehaviour:
   - 68b1e1c7-11e9-4718-a405-0f87b58adf61
   _onEnterActions: 
   _onExitActions: 
+  _condition:
+    predicate: 
+    parameters: []
   _positionRect:
     serializedVersion: 2
     x: 392
