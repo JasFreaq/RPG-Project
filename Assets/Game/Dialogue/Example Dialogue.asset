@@ -13,15 +13,13 @@ MonoBehaviour:
   m_Name: 976c4f41-3f6b-49e1-9cdb-02b5dc513c07
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 1
-  _speakerName: Player
   _text: Who?
   _childrenIds:
   - fb055577-dae9-4605-9b99-ebe8a16977d1
   _onEnterActions: 
   _onExitActions: 
   _condition:
-    predicate: 
-    parameters: []
+    _and: []
   _positionRect:
     serializedVersion: 2
     x: 1192
@@ -41,18 +39,16 @@ MonoBehaviour:
   m_Name: fb055577-dae9-4605-9b99-ebe8a16977d1
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 0
-  _speakerName: Irate Guard
-  _text: Don't you worry about it. Say, do you have something to eat? I'm starving.
+  _text: Don't you worry about it.
   _childrenIds: []
   _onEnterActions: 
   _onExitActions: 
   _condition:
-    predicate: 
-    parameters: []
+    _and: []
   _positionRect:
     serializedVersion: 2
-    x: 1694
-    y: 657
+    x: 1643
+    y: 658
     width: 300
     height: 225
 --- !u!114 &-6236595919711504385
@@ -68,7 +64,6 @@ MonoBehaviour:
   m_Name: c4410c25-4afb-4824-a019-8f0a41b9fbd7
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 0
-  _speakerName: Irate Guard
   _text: You don't look like you're from around here.
   _childrenIds:
   - 0ebd87d1-e058-44da-b324-01f802f58e6f
@@ -76,8 +71,7 @@ MonoBehaviour:
   _onEnterActions: 
   _onExitActions: 
   _condition:
-    predicate: 
-    parameters: []
+    _and: []
   _positionRect:
     serializedVersion: 2
     x: 38
@@ -97,15 +91,13 @@ MonoBehaviour:
   m_Name: e4791a0b-082b-4404-8be3-2b627e2e34bb
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 1
-  _speakerName: Player
   _text: Mr. Bowler is a good friend of mine!
   _childrenIds:
   - fbe14252-dfee-4326-9339-699edebaad25
   _onEnterActions: 
   _onExitActions: 
   _condition:
-    predicate: 
-    parameters: []
+    _and: []
   _positionRect:
     serializedVersion: 2
     x: 1193
@@ -125,14 +117,12 @@ MonoBehaviour:
   m_Name: fbe14252-dfee-4326-9339-699edebaad25
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 0
-  _speakerName: Irate Guard
   _text: You liar! There ain't no Mr. Bowler, I made him up!
   _childrenIds: []
   _onEnterActions: 
   _onExitActions: 00000000
   _condition:
-    predicate: 
-    parameters: []
+    _and: []
   _positionRect:
     serializedVersion: 2
     x: 1641
@@ -152,15 +142,13 @@ MonoBehaviour:
   m_Name: d472085d-91c1-4726-adf1-58b9197b8344
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 1
-  _speakerName: Player
   _text: I came here from Newton.
   _childrenIds:
   - 89f81c0d-c59c-40a4-9045-c2f15d35ee24
   _onEnterActions: 
   _onExitActions: 
   _condition:
-    predicate: 
-    parameters: []
+    _and: []
   _positionRect:
     serializedVersion: 2
     x: 394
@@ -180,14 +168,12 @@ MonoBehaviour:
   m_Name: fc4b642c-624e-4282-bd07-5eb2c6b5aaec
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 0
-  _speakerName: 
   _text: 
   _childrenIds: []
   _onEnterActions: 
   _onExitActions: 
   _condition:
-    predicate: 
-    parameters: []
+    _and: []
   _positionRect:
     serializedVersion: 2
     x: 100
@@ -218,6 +204,13 @@ MonoBehaviour:
   - {fileID: 4637399918601295540}
   - {fileID: -6034336400922024306}
   - {fileID: -4623397390501308984}
+  _childrenIds: []
+  _positionRect:
+    serializedVersion: 2
+    x: 100
+    y: 100
+    width: 300
+    height: 225
 --- !u!114 &2177250390040471762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,7 +224,6 @@ MonoBehaviour:
   m_Name: 68b1e1c7-11e9-4718-a405-0f87b58adf61
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 0
-  _speakerName: Irate Guard
   _text: Oh really? Then you must know Mr. Bowler.
   _childrenIds:
   - 976c4f41-3f6b-49e1-9cdb-02b5dc513c07
@@ -239,8 +231,7 @@ MonoBehaviour:
   _onEnterActions: 
   _onExitActions: 
   _condition:
-    predicate: 
-    parameters: []
+    _and: []
   _positionRect:
     serializedVersion: 2
     x: 793
@@ -260,15 +251,13 @@ MonoBehaviour:
   m_Name: cb8fe24d-f5bc-4614-92d1-ad2b24777e5f
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 1
-  _speakerName: Player
   _text: Did I say Newton? I'm actually from Springfield.
   _childrenIds:
   - 68b1e1c7-11e9-4718-a405-0f87b58adf61
   _onEnterActions: 
   _onExitActions: 
   _condition:
-    predicate: 
-    parameters: []
+    _and: []
   _positionRect:
     serializedVersion: 2
     x: 1193
@@ -288,15 +277,13 @@ MonoBehaviour:
   m_Name: 45e61c5e-7644-469c-b4e6-ce23d8474a17
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 1
-  _speakerName: Player
   _text: I haven't heard about any trouble.
   _childrenIds:
   - fb055577-dae9-4605-9b99-ebe8a16977d1
   _onEnterActions: 
   _onExitActions: 
   _condition:
-    predicate: 
-    parameters: []
+    _and: []
   _positionRect:
     serializedVersion: 2
     x: 1193
@@ -316,7 +303,6 @@ MonoBehaviour:
   m_Name: 89f81c0d-c59c-40a4-9045-c2f15d35ee24
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 0
-  _speakerName: Irate Guard
   _text: Newton, eh? I heard there's trouble brewing down there.
   _childrenIds:
   - cb8fe24d-f5bc-4614-92d1-ad2b24777e5f
@@ -324,8 +310,7 @@ MonoBehaviour:
   _onEnterActions: 
   _onExitActions: 
   _condition:
-    predicate: 
-    parameters: []
+    _and: []
   _positionRect:
     serializedVersion: 2
     x: 741
@@ -345,15 +330,13 @@ MonoBehaviour:
   m_Name: 0ebd87d1-e058-44da-b324-01f802f58e6f
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 1
-  _speakerName: Player
   _text: I've lived here all my life!
   _childrenIds:
   - 68b1e1c7-11e9-4718-a405-0f87b58adf61
   _onEnterActions: 
   _onExitActions: 
   _condition:
-    predicate: 
-    parameters: []
+    _and: []
   _positionRect:
     serializedVersion: 2
     x: 392

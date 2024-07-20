@@ -259,9 +259,6 @@ namespace RPG.Dialogue.Editor
             {
                 GUILayout.BeginArea(node.PositionRect, _nodeStyle);
             }
-            
-            //Check if DialogueNode belongs to Player
-            node.SetSpeakerName(node.IsPlayerSpeech ? "Player" : EditorGUILayout.TextField(node.SpeakerName));
 
             //Text Field
             node.SetText(EditorGUILayout.TextArea(node.Text));

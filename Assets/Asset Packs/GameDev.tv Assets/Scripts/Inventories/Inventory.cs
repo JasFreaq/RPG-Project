@@ -85,15 +85,17 @@ namespace GameDevTV.Inventories
         /// <summary>
         /// Is there an instance of the item in the inventory?
         /// </summary>
-        public bool HasItem(InventoryItem item)
+        public bool HasItem(InventoryItem item, out int slot)
         {
             for (int i = 0; i < slots.Length; i++)
             {
-                if (object.ReferenceEquals(slots[i].item, item))
+                if (ReferenceEquals(slots[i].item, item))
                 {
+                    slot = i;
                     return true;
                 }
             }
+            slot = -1;
             return false;
         }
 
@@ -237,7 +239,7 @@ namespace GameDevTV.Inventories
                         InventoryItem item = InventoryItem.GetFromID(parameters[0]);
                         if (item)
                         {
-                            return HasItem(item);
+                            return HasItem(item, out int _);
                         }
 
                         Debug.LogError($"Item of ID '{parameters[0]}' does not exist.");

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RPG.InventorySystem.Pickups;
+using UnityEngine;
 
 namespace GameDevTV.Inventories
 {
@@ -15,12 +16,16 @@ namespace GameDevTV.Inventories
         // CACHED REFERENCE
         Inventory inventory;
 
+        private PickupTrigger _trigger;
+
         // LIFECYCLE METHODS
 
         private void Awake()
         {
             var player = GameObject.FindGameObjectWithTag("Player");
             inventory = player.GetComponent<Inventory>();
+
+            _trigger = GetComponent<PickupTrigger>();
         }
 
         // PUBLIC
@@ -55,6 +60,11 @@ namespace GameDevTV.Inventories
             bool foundSlot = inventory.AddToFirstEmptySlot(item, number);
             if (foundSlot)
             {
+                if (_trigger != null)
+                {
+                    _trigger.Trigger();
+                }
+
                 Destroy(gameObject);
             }
         }

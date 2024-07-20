@@ -11,21 +11,18 @@ namespace RPG.Dialogue
         [System.Serializable]
         struct TriggerElement
         {
-            public List<DialogueAction> dialogueActions;
+            public DialogueAction dialogueAction;
             public UnityEvent onTrigger;
 
             public bool IsEqual(IReadOnlyList<DialogueAction> actions)
             {
-                if (dialogueActions.Count != actions.Count)
-                    return false;
-
-                for (int i = 0, n = dialogueActions.Count; i < n; i++)
+                for (int i = 0, n = actions.Count; i < n; i++)
                 {
-                    if (dialogueActions[i] != actions[i])
-                        return false;
+                    if (dialogueAction == actions[i])
+                        return true;
                 }
 
-                return true;
+                return false;
             }
         }
 

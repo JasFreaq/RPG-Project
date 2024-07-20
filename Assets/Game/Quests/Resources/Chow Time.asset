@@ -13,14 +13,10 @@ MonoBehaviour:
   m_Name: Chow Time
   m_EditorClassIdentifier: 
   _objectives:
-  - reference: 
+  - reference: 1
     description: Find something to eat.
-  - reference: 
+  - reference: 2
     description: Give the hungry guard something to eat.
   _rewards:
   - number: 1
     item: {fileID: 11400000, guid: f379b4aa67f0fc947900e3025247dcf1, type: 2}
-  - number: 2
-    item: {fileID: 11400000, guid: eb5260f23f6f4d548a522f936f691140, type: 2}
-  - number: 15
-    item: {fileID: 11400000, guid: 176b116af53550f43a01aa5767ef309d, type: 2}

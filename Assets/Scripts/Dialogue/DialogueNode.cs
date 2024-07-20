@@ -12,8 +12,6 @@ namespace RPG.Dialogue
         public static float MIN_HEIGHT = 225;
 
         [SerializeField] private bool _isPlayerSpeech = false;
-
-        [SerializeField] private string _speakerName;
         
         [SerializeField] private string _text;
 
@@ -39,16 +37,6 @@ namespace RPG.Dialogue
         {
             Undo.RecordObject(this, "Dialogue Speaker Edit");
             _isPlayerSpeech = value;
-        }
-
-        public void SetSpeakerName(string value)
-        {
-            if (_speakerName != value)
-            {
-                Undo.RecordObject(this, "Dialogue Speaker Name Edit");
-                _speakerName = value;
-                EditorUtility.SetDirty(this);
-            }
         }
         
         public void SetText(string value)
@@ -160,11 +148,6 @@ namespace RPG.Dialogue
             get { return _isPlayerSpeech; }
         }
 
-        public string SpeakerName
-        {
-            get { return _speakerName; }
-        }
-        
         public string Text
         {
             get { return _text; }

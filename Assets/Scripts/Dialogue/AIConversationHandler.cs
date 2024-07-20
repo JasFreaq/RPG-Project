@@ -9,6 +9,7 @@ namespace RPG.Dialogue
 {
     public class AIConversationHandler : MonoBehaviour, IRaycastable
     {
+        [SerializeField] private string _conversantName;
         [SerializeField] private Dialogue _dialogue;
 
         private DialogueTrigger _trigger;
@@ -16,6 +17,11 @@ namespace RPG.Dialogue
         private void Awake()
         {
             _trigger = GetComponent<DialogueTrigger>();
+        }
+
+        public string ConversantName
+        {
+            get { return _conversantName; }
         }
 
         public Dialogue Dialogue

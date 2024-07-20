@@ -54,7 +54,7 @@ namespace RPG.Dialogue
 
         public string GetSpeakerName()
         {
-            return _currentDialogueNode.SpeakerName;
+            return _currentAIHandler.ConversantName;
         }
         
         public string GetDialogueText()
@@ -85,6 +85,7 @@ namespace RPG.Dialogue
             {
                 IReadOnlyList<DialogueNode> playerChildren =
                     FilterOnCondition(_currentDialogue.GetPlayerChildrenOfNode(_currentDialogueNode));
+                
                 if (playerChildren.Count > 0)
                 {
                     _isChoosing = true;
@@ -92,7 +93,6 @@ namespace RPG.Dialogue
                 }
                 else
                 {
-
                     TriggerExitAction();
                     _currentDialogueNode = aIChildren[Random.Range(0, aIChildren.Count)];
                     TriggerEnterAction();
@@ -101,7 +101,9 @@ namespace RPG.Dialogue
                 _onConversationUpdated?.Invoke();
             }
             else
+            {
                 Quit();
+            }
         }
 
         public bool HasNext()

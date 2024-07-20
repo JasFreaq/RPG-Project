@@ -36,6 +36,11 @@ namespace RPG.UI.Quests
 
         private void UpdateQuests()
         {
+            foreach (Transform child in _questContainer)
+            {
+                Destroy(child.gameObject);
+            }
+
             foreach (QuestStatus status in _questList.QuestStatuses)
             {
                 QuestItemUI questItemInstance = Instantiate(_questPrefab, _questContainer);

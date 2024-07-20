@@ -9,18 +9,44 @@ namespace RPG.Dialogue
     [CreateAssetMenu(fileName = "New Dialogue", menuName = "RPG/Dialogue")]
     public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
     {
+        public static float MIN_WIDTH = 300;
+        public static float MIN_HEIGHT = 225;
+
         [SerializeField] private List<DialogueNode> _dialogueNodes = new List<DialogueNode>();
 
+        [SerializeField] private List<string> _childrenIds = new List<string>();
+
         private Dictionary<string, DialogueNode> _nodeLookup = new Dictionary<string, DialogueNode>();
+
+        public IReadOnlyList<string> ChildrenIDs
+        {
+            get { return _childrenIds; }
+        }
 
         #region Editor Specific
 #if UNITY_EDITOR
 
         private Vector2 _editorScrollPosition = Vector2.zero;
+
+        [SerializeField] [HideInInspector]
+        private Rect _positionRect = new Rect(100, 100, MIN_WIDTH, MIN_HEIGHT);
+
         public Vector2 EditorScrollPosition
         {
             get { return _editorScrollPosition; }
             set { _editorScrollPosition = value; }
+        }
+
+        public Rect PositionRect
+        {
+            get { return _positionRect; }
+
+            set
+            {
+                Undo.RecordObject(this, "Dialogue Node Rect Edit");
+                _positionRect = value;
+                EditorUtility.SetDirty(this);
+            }
         }
 
         public void CreateRootNode()
@@ -67,6 +93,20 @@ namespace RPG.Dialogue
             Undo.DestroyObjectImmediate(node);
 
             CreateRootNode();
+        }
+
+        public void AddChild(string childNodeID)
+        {
+            Undo.RecordObject(this, "Dialogue Linked");
+            _childrenIds.Add(childNodeID);
+            EditorUtility.SetDirty(this);
+        }
+
+        public void RemoveChild(string childNodeID)
+        {
+            Undo.RecordObject(this, "Dialogue Unlinked");
+            _childrenIds.Remove(childNodeID);
+            EditorUtility.SetDirty(this);
         }
 #endif
         #endregion
