@@ -227,7 +227,7 @@ MonoBehaviour:
   _text: Yes, I found this.
   _childrenIds:
   - 57b8c523-972a-48ff-8ab8-cd7ada793424
-  _onEnterActions: 02000000
+  _onEnterActions: 0200000003000000
   _onExitActions: 
   _condition:
     _and:
@@ -244,7 +244,7 @@ MonoBehaviour:
         - 1
   _positionRect:
     serializedVersion: 2
-    x: 896
+    x: 898
     y: 892
     width: 300
     height: 225

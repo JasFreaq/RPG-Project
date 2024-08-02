@@ -929,7 +929,7 @@ PrefabInstance:
     - target: {fileID: 5502906662121575704, guid: aad7363143cff2b4b90e96dc97b5baa8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -580.63086
+      value: -580.6309
       objectReference: {fileID: 0}
     - target: {fileID: 5503144122103106648, guid: aad7363143cff2b4b90e96dc97b5baa8,
         type: 3}
@@ -3048,7 +3048,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggers:
-  - dialogueActions: 00000000
+  - dialogueAction: 0
     onTrigger:
       m_PersistentCalls:
         m_Calls:
@@ -3064,7 +3064,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-  - dialogueActions: 01000000
+  - dialogueAction: 1
     onTrigger:
       m_PersistentCalls:
         m_Calls:
@@ -3080,7 +3080,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - dialogueActions: 02000000
+  - dialogueAction: 2
     onTrigger:
       m_PersistentCalls:
         m_Calls:
@@ -3096,7 +3096,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - dialogueActions: 03000000
+  - dialogueAction: 3
     onTrigger:
       m_PersistentCalls:
         m_Calls:
@@ -3376,7 +3376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggers:
-  - dialogueActions: 00000000
+  - dialogueAction: 0
     onTrigger:
       m_PersistentCalls:
         m_Calls:
