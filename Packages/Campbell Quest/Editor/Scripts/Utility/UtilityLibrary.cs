@@ -47,5 +47,12 @@ namespace Campbell.Editor.Utility
 
             return formattedString.ToString();
         }
+
+        public static string LoadSchema(string schemaName)
+        {
+            TextAsset schema = Resources.Load<TextAsset>($"Schemas/{schemaName}_schema");
+
+            return FormatStringForPython(schema.text);
+        }
     }
 }

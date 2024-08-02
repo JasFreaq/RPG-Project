@@ -15,15 +15,14 @@ namespace Campbell.Editor
     public class CampbellEditorWindow : EditorWindow
     {
         int _selectedTab = 0;
-        string[] _tabNames = { "Context Editor", "Generated Quest" };
+        string[] _tabNames = { "Context Editor", "Quest Editor" };
 
         private const string _sampleFilesPath = "Packages/Campbell Quest/Context Samples";
         private const string _questAssetSavePath = "Assets/Campbell Generated Quests/Resources/Quests";
 
         private string _generatedQuest;
         private string _questPrompt;
-
-        private string _schemaInformation;
+        
         private string _objectiveInformation;
         private string _locationInformation;
         private string _characterInformation;
@@ -33,7 +32,6 @@ namespace Campbell.Editor
         private Vector2 _questScrollPosition;
 
         private Vector2 _questPromptScrollPosition;
-        private Vector2 _schemaScrollPosition;
         private Vector2 _objectiveScrollPosition;
         private Vector2 _locationScrollPosition;
         private Vector2 _characterScrollPosition;
@@ -73,10 +71,6 @@ namespace Campbell.Editor
             
             EditorGUILayout.Space();
 
-            DisplaySchemaInformation();
-
-            EditorGUILayout.Space();
-
             DisplayObjectiveInformation();
 
             EditorGUILayout.Space();
@@ -96,15 +90,22 @@ namespace Campbell.Editor
 
         private void FormatQuestWindow()
         {
-            EditorGUILayout.BeginHorizontal();
+            if (_generatedQuest != null)
+            {
+                EditorGUILayout.BeginHorizontal();
 
-            GenerateQuest();
+                GenerateQuest();
 
-            EditorGUILayout.Space();
+                EditorGUILayout.Space();
 
-            ClearQuest();
+                ClearQuest();
 
-            EditorGUILayout.EndHorizontal();
+                EditorGUILayout.EndHorizontal();
+            }
+            else
+            {
+                GenerateQuest();
+            }
 
             EditorGUILayout.Space();
 
@@ -128,17 +129,6 @@ namespace Campbell.Editor
                 {
                     string fileContent = File.ReadAllText(promptSamplePath);
                     _questPrompt = fileContent;
-                }
-                else
-                {
-                    Debug.LogError("Schema sample file not found");
-                }
-                
-                string schemaSamplePath = $"{_sampleFilesPath}/example_quest_schema.json";
-                if (File.Exists(schemaSamplePath))
-                {
-                    string fileContent = File.ReadAllText(schemaSamplePath);
-                    _schemaInformation = fileContent;
                 }
                 else
                 {
@@ -208,7 +198,7 @@ namespace Campbell.Editor
                 if (path.Length != 0)
                 {
                     string fileContent = File.ReadAllText(path);
-                    _schemaInformation = fileContent;
+                    _questPrompt = fileContent;
                 }
             }
 
@@ -219,40 +209,6 @@ namespace Campbell.Editor
 
             // Text area with flexible height
             _questPrompt = EditorGUILayout.TextArea(_questPrompt, textStyle, GUILayout.MinWidth(100),
-                GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
-
-            // End the scroll view
-            EditorGUILayout.EndScrollView();
-        }
-        
-        private void DisplaySchemaInformation()
-        {
-            GUIStyle textStyle = new GUIStyle(EditorStyles.textField);
-            textStyle.padding = new RectOffset(5, 5, 5, 5);
-            textStyle.wordWrap = true;
-
-            EditorGUILayout.BeginHorizontal();
-
-            EditorGUILayout.LabelField("Schema Information");
-
-            if (GUILayout.Button("Browse")) // Create a button
-            {
-                string path = EditorUtility.OpenFilePanel("Browse Schema File", Application.dataPath, "png,txt,json");
-
-                if (path.Length != 0)
-                {
-                    string fileContent = File.ReadAllText(path);
-                    _schemaInformation = fileContent;
-                }
-            }
-
-            EditorGUILayout.EndHorizontal();
-
-            // Begin a scroll view
-            _schemaScrollPosition = EditorGUILayout.BeginScrollView(_schemaScrollPosition, GUILayout.Height(150));
-
-            // Text area with flexible height
-            _schemaInformation = EditorGUILayout.TextArea(_schemaInformation, textStyle, GUILayout.MinWidth(100),
                 GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 
             // End the scroll view
@@ -403,17 +359,18 @@ namespace Campbell.Editor
             if (GUILayout.Button("Generate Quest"))
             {
                 string prompt = UtilityLibrary.FormatStringForPython(_questPrompt);
-                string schema = UtilityLibrary.FormatStringForPython(_schemaInformation);
                 string objectives = UtilityLibrary.FormatStringForPython(_objectiveInformation);
                 string locations = UtilityLibrary.FormatStringForPython(_locationInformation);
                 string characters = UtilityLibrary.FormatStringForPython(_characterInformation);
                 string rewards = UtilityLibrary.FormatStringForPython(_rewardInformation);
 
+                string questSchema = UtilityLibrary.LoadSchema("quest");
+
                 string pythonScript = "import UnityEngine;\n" +
                                       "from campbell_quest import quest_generator\n" +
                                       "\n" +
                                       $"prompt = \"{prompt}\"\n" +
-                                      $"schema = \"{schema}\"\n" +
+                                      $"schema = \"{questSchema}\"\n" +
                                       $"objectives = \"{objectives}\"\n" +
                                       $"locations = \"{locations}\"\n" +
                                       $"characters = \"{characters}\"\n" +
@@ -449,7 +406,7 @@ namespace Campbell.Editor
 
             _questScrollPosition = EditorGUILayout.BeginScrollView(_questScrollPosition, GUILayout.ExpandHeight(true));
             
-            EditorGUILayout.LabelField(_generatedQuest, textStyle, GUILayout.MinWidth(100),
+            _generatedQuest = EditorGUILayout.TextArea(_generatedQuest, textStyle, GUILayout.MinWidth(100),
                 GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 
             EditorGUILayout.EndScrollView();

@@ -11,7 +11,7 @@ namespace RPG.Quests.Editor
         [System.Serializable]
         public class QuestData
         {
-            public string title;
+            public string name;
             public string description;
             public string goal;
             public List<ObjectiveData> objectives;
@@ -64,7 +64,7 @@ namespace RPG.Quests.Editor
                 Directory.CreateDirectory(savePath);
             }
 
-            string path = savePath + "/" + questData.title + ".asset";
+            string path = savePath + "/" + questData.name + ".asset";
             UnityEditor.AssetDatabase.CreateAsset(quest, path);
             UnityEditor.AssetDatabase.SaveAssets();
         }
