@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aa975b6e72390f4db516dfd61219966, type: 3}
+  m_Name: Rare Forest Bloom
+  m_EditorClassIdentifier: 
+  _questDescription: Eldara, the Herbalist, has asked you to retrieve a rare herb
+    that only grows in the Whispering Woods. The forest is home to a pack of wolves,
+    and they will not take kindly to your presence.
+  _questGoal: Retrieve the rare herb from the Whispering Woods without attracting
+    the attention of the pack of wolves or facing their challenge.
+  _objectives:
+  - reference: 1
+    description: Speak with Eldara, the Herbalist, in the Village of Elderglen to
+      confirm her request for the rare herb.
+  - reference: 2
+    description: Travel to the Whispering Woods and navigate through its dense foliage
+      to reach the area where the rare herb grows.
+  - reference: 3
+    description: Locate the specific location within the Whispering Woods where the
+      rare herb is found without being detected by the pack of wolves.
+  - reference: 4
+    description: Retrieve a sample of the rare herb from the Whispering Woods, taking
+      care not to disturb or damage it.
+  - reference: 5
+    description: Return to Eldara's cottage in the Village of Elderglen with the
+      retrieved herb and deliver it to her.
+  _rewards: []

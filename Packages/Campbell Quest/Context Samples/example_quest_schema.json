@@ -1,0 +1,43 @@
+{
+  "title": "Quest",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "goal": {
+      "type": "string"
+    },
+    "objectives": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": ["reference", "description"]
+      }
+    },
+    "rewards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "integer"
+          },
+          "item": {
+            "type": "string" 
+          }
+        },
+        "required": ["number", "item"]
+      }
+    }
+  },
+  "required": ["description", "goal", "objectives", "rewards"]
+}

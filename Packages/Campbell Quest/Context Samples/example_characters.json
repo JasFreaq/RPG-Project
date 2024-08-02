@@ -1,0 +1,20 @@
+{
+    "characters": [
+      {
+        "Name": "Eldara, the Herbalist",
+        "Location": "Village of Elderglen",
+        "Description": "Eldara is a wise and elderly herbalist who has lived in Elderglen her entire life. She is known for her extensive knowledge of plants and their medicinal properties, which she uses to heal the villagers and create potent potions. Eldara's quaint cottage is surrounded by a vibrant herb garden, and she often teaches local children about the wonders of nature."
+      },
+      {
+        "Name": "Thorn Blackstone, the Blacksmith",
+        "Location": "Town of Stonebridge",
+        "Description": "Thorn Blackstone is a rugged and hardworking blacksmith whose skill in metalwork is renowned throughout Stonebridge. He runs the busiest forge in town, producing high-quality weapons and tools. Thorn is a former adventurer with a mysterious past, and he occasionally offers quests or valuable information to those he deems worthy."
+      },
+      {
+        "Name": "Sylvara, the Forest Guardian",
+        "Location": "Whispering Woods",
+        "Description": "Sylvara is a reclusive and enigmatic druid who has lived in the Whispering Woods for centuries. She has a deep connection with the forest and its magical inhabitants, often seen accompanied by a spectral wolf. Sylvara can guide travelers safely through the woods, but only if they earn her trust and prove their respect for nature."
+      }
+    ]
+  }
+  

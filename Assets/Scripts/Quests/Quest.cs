@@ -22,8 +22,27 @@ namespace RPG.Quests
             public InventoryItem item;
         }
 
+        [SerializeField] private string _questDescription;
+        [SerializeField] private string _questGoal;
         [SerializeField] private List<Objective> _objectives = new List<Objective>();
         [SerializeField] private List<Reward> _rewards = new List<Reward>();
+
+#if UNITY_EDITOR
+
+        public string QuestDescription { set => _questDescription = value; }
+
+        public string QuestGoal { set => _questGoal = value; }
+
+        public void AddObjective(string reference, string description)
+        {
+            _objectives.Add(new Objective { reference = reference, description = description });
+        }
+
+        public void AddReward(int number, InventoryItem item)
+        {
+            _rewards.Add(new Reward { number = number, item = item });
+        }
+#endif
 
         public static Quest FindQuest(string questName)
         {

@@ -1,0 +1,54 @@
+{
+  "quest_objectives": [
+    {
+      "type": "Fetch",
+      "goal": "Retrieve a specific item, person, or information from a designated location.",
+      "example": "Find the blacksmith's missing hammer in the abandoned mines."
+    },
+    {
+      "type": "Eliminate",
+      "goal": "Defeat or destroy a designated target, often an enemy or object.",
+      "example": "Slay the goblin leader who's been terrorizing the nearby village."
+    },
+    {
+      "type": "Escort",
+      "goal": "Safely guide a character (or object) to a specific destination.",
+      "example": "Escort the princess through enemy territory to reach her kingdom."
+    },
+    {
+      "type": "Delivery",
+      "goal": "Deliver an item or message to a designated recipient.",
+      "example": "Deliver a peace treaty to the rival faction to avoid war."
+    },
+    {
+      "type": "Investigation",
+      "goal": "Uncover information or solve a mystery through exploration and interaction.",
+      "example": "Investigate the strange occurrences plaguing the town and find the source."
+    },
+    {
+      "type": "Resource Gathering",
+      "goal": "Collect a specific amount of resources (items, materials) from the environment.",
+      "example": "Gather ten wolf pelts for the hunter's guild."
+    },
+    {
+      "type": "Crafting",
+      "goal": "Use collected materials to create a specific item.",
+      "example": "Craft a magical potion using rare herbs found in the forest."
+    },
+    {
+      "type": "Challenge",
+      "goal": "Complete a specific task that tests the player's skills or abilities.",
+      "example": "Win a fighting tournament to gain entry into a restricted city."
+    },
+    {
+      "type": "Moral Choice",
+      "goal": "Make a decision with ethical implications that impacts the story.",
+      "example": "Decide to help the rebels overthrow the corrupt king, or remain loyal."
+    },
+    {
+      "type": "Reputation",
+      "goal": "Complete tasks to gain favor or improve your standing with a specific faction.",
+      "example": "Help the mages' guild by completing tasks to improve your reputation with them."
+    }
+  ]
+}

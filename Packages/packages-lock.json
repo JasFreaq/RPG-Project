@@ -1,5 +1,13 @@
 {
   "dependencies": {
+    "com.jasfreaq.campbell-quest": {
+      "version": "file:Campbell Quest",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.scripting.python": "6.0.1"
+      }
+    },
     "com.unity.ai.navigation": {
       "version": "1.1.5",
       "depth": 0,
@@ -53,6 +61,13 @@
     "com.unity.ide.vscode": {
       "version": "1.2.5",
       "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.scripting.python": {
+      "version": "6.0.1",
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
