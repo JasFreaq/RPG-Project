@@ -1,0 +1,33 @@
+{
+  "npc_name": "Old Villager",
+  "npc_dialogue": "Hello, traveler! What brings you to our village?",
+  "choices": [
+    {
+      "player_dialogue": "I heard there was work available for adventurers.",
+      "npc_dialogue": "Indeed, there is. We need help with a troublesome bandit nearby. Are you interested?",
+      "choices": [
+        {
+          "condition": "not has_quest('Bandit Troubles')",
+          "player_dialogue": "Yes, tell me more about this bandit.",
+          "npc_dialogue": "The bandit has been raiding our supplies. He's hiding in the forest west of here.",
+          "result": "receive_quest('Bandit Troubles')"
+        },
+        {
+          "condition": "has_quest('Bandit Troubles')",
+          "player_dialogue": "I'm already on a quest to deal with the bandit.",
+          "npc_dialogue": "May fortune favor your efforts."
+        },
+        {
+          "condition": "completed_objective('3') and not completed_quest('Bandit Troubles')",
+          "player_dialogue": "I've dealt with the bandit.",
+          "npc_dialogue": "Thank you for your help. The village is safer because of you.",
+          "result": "complete_quest('Bandit Troubles')"
+        },
+        {
+          "player_dialogue": "Maybe later. I'm looking for easier tasks right now.",
+          "npc_dialogue": "There are always small tasks to help around the village. Ask the villagers for details."
+        }
+      ]
+    }
+  ]
+}

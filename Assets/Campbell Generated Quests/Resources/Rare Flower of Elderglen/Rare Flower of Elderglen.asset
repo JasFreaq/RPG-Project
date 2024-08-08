@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aa975b6e72390f4db516dfd61219966, type: 3}
+  m_Name: Rare Flower of Elderglen
+  m_EditorClassIdentifier: 
+  _questDescription: Retrieve a rare and precious flower that only blooms deep within
+    the Whispering Woods, found in a hidden clearing within Sylvara's domain.
+  _questGoal: Retrieve the rare flower from the Whispering Woods and return it to
+    Eldara in Elderglen village.
+  _objectives:
+  - reference: 1
+    description: Speak with Eldara, the Herbalist, in Elderglen village to learn
+      about the rare flower.
+  - reference: 2
+    description: Navigate through the Whispering Woods to reach the hidden clearing
+      where the flower grows.
+  - reference: 3
+    description: Avoid confrontation with a pack of fierce wolves that protect their
+      territory within the woods.
+  - reference: 4
+    description: Reach the hidden clearing and retrieve the rare flower.
+  - reference: 5
+    description: Return the rare flower to Eldara in Elderglen village.
+  _rewards:
+  - number: 1
+    item: {fileID: 11400000, guid: 7a30ede99c6fbde4cad9bbd54f1dd825, type: 2}

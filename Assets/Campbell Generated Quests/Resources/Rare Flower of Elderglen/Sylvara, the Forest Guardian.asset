@@ -1,0 +1,233 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8400322322867287853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 4117a25e-9094-4dd9-b163-5e50f012fb1d
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: I've learned about the flower, but I haven't retrieved it yet.
+  _childrenIds:
+  - a0194a0e-d4b1-4011-ba2b-19470469e9d8
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 1400
+    y: 600
+    width: 300
+    height: 225
+--- !u!114 &-3796353885035017155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 9170e1fc-5b3f-43a3-a64b-234e9670761b
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Traveler, I've been expecting you. You're looking for the Rare Flower of
+    Elderglen?
+  _childrenIds:
+  - 4830f3fa-1054-4b24-a124-83c544b7f09f
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 50
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &-3450690867860471581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 3a53e807-3551-42ae-97e1-518cde91b77e
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: A noble pursuit indeed. The flower can be found in a hidden clearing within
+    my domain.
+  _childrenIds:
+  - 4117a25e-9094-4dd9-b163-5e50f012fb1d
+  - 1074ca8c-80b6-4f5d-843d-5413cb349e21
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 950
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &-1361646855566576132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: b276e972-722c-48ee-8dea-057d09e4f045
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Then perhaps you should pay a visit to the villagers and learn more about
+    the flower's properties first.
+  _childrenIds: []
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and:
+    - _or:
+      - _predicateType: 2
+        _negate: 1
+        _parameters:
+        - 1
+      - _predicateType: 3
+        _negate: 0
+        _parameters:
+        - Rare Flower of Elderglen
+  _positionRect:
+    serializedVersion: 2
+    x: 1850
+    y: 900
+    width: 300
+    height: 225
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99daa080c5e0e784da792ad400c68782, type: 3}
+  m_Name: Sylvara, the Forest Guardian
+  m_EditorClassIdentifier: 
+  _dialogueNodes:
+  - {fileID: -3796353885035017155}
+  - {fileID: 372829619391148823}
+  - {fileID: -3450690867860471581}
+  - {fileID: -8400322322867287853}
+  - {fileID: 749895449373934967}
+  - {fileID: 2656997114890195496}
+  - {fileID: -1361646855566576132}
+  _childrenIds: []
+  _positionRect:
+    serializedVersion: 2
+    x: 100
+    y: 100
+    width: 300
+    height: 225
+--- !u!114 &372829619391148823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 4830f3fa-1054-4b24-a124-83c544b7f09f
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: Yes, that's what I'm after.
+  _childrenIds:
+  - 3a53e807-3551-42ae-97e1-518cde91b77e
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 500
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &749895449373934967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: a0194a0e-d4b1-4011-ba2b-19470469e9d8
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Ah, then you're on your way to fulfilling my condition. Be careful navigating
+    through the Whispering Woods.
+  _childrenIds: []
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and:
+    - _or:
+      - _predicateType: 2
+        _negate: 0
+        _parameters:
+        - 1
+    - _or:
+      - _predicateType: 3
+        _negate: 1
+        _parameters:
+        - Rare Flower of Elderglen
+  _positionRect:
+    serializedVersion: 2
+    x: 1850
+    y: 600
+    width: 300
+    height: 225
+--- !u!114 &2656997114890195496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 1074ca8c-80b6-4f5d-843d-5413cb349e21
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: I'm not even sure where I'd start looking for this flower.
+  _childrenIds:
+  - b276e972-722c-48ee-8dea-057d09e4f045
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 1400
+    y: 900
+    width: 300
+    height: 225

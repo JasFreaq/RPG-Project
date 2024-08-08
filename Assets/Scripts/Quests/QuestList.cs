@@ -114,7 +114,7 @@ namespace RPG.Quests
 
                     break;
                 
-                case Condition.PredicateType.ClearedObjective:
+                case Condition.PredicateType.CompletedObjective:
                     if (parameters.Length == 2)
                     {
                         Quest quest = Quest.FindQuest(parameters[0]);
@@ -130,7 +130,7 @@ namespace RPG.Quests
 
                     break;
                 
-                case Condition.PredicateType.ClearedQuest:
+                case Condition.PredicateType.CompletedQuest:
                     if (parameters.Length == 1)
                     {
                         Quest quest = Quest.FindQuest(parameters[0]);

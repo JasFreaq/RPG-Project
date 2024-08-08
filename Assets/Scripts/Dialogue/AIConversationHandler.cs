@@ -5,7 +5,7 @@ using RPG.Control;
 using UnityEngine;
 using RPG.Core;
 
-namespace RPG.Dialogue
+namespace RPG.Dialogues
 {
     public class AIConversationHandler : MonoBehaviour, IRaycastable
     {

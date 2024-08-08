@@ -6,7 +6,7 @@ using RPG.Core;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace RPG.Dialogue
+namespace RPG.Dialogues
 {
     public class PlayerConversationHandler : MonoBehaviour
     {

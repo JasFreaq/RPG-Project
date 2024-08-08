@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace RPG.Dialogue
+namespace RPG.Dialogues
 {
     [CreateAssetMenu(fileName = "New Dialogue", menuName = "RPG/Dialogue")]
     public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
@@ -59,7 +59,7 @@ namespace RPG.Dialogue
             }
         }
 
-        public void CreateNode(DialogueNode parentNode)
+        public DialogueNode CreateNode(DialogueNode parentNode)
         {
             DialogueNode node = CreateInstance<DialogueNode>();
             node.name = Guid.NewGuid().ToString();
@@ -76,6 +76,8 @@ namespace RPG.Dialogue
             _dialogueNodes.Add(node);
             if (!_nodeLookup.ContainsKey(node.name))
                 _nodeLookup[node.name] = node;
+
+            return node;
         }
 
         public void DeleteNode(DialogueNode node)
@@ -129,7 +131,7 @@ namespace RPG.Dialogue
             }
         }
 
-        public IReadOnlyList<DialogueNode> DialogueNodes
+        public List<DialogueNode> DialogueNodes
         {
             get { return _dialogueNodes; }
         }

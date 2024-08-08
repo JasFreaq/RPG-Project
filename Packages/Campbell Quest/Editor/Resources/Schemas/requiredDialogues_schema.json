@@ -1,0 +1,23 @@
+{
+  "title": "Required Dialogues",
+  "type": "object",
+  "properties": {
+    "objectives": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "npc_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": ["npc_name", "description"]
+      }
+    }
+  },
+  "required": ["objectives"]
+}
+  

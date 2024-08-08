@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RPG.Dialogue;
+using RPG.Dialogues;
 using TMPro;
 using UnityEngine.UI;
 

@@ -1,28 +1,29 @@
+using System.Collections;
 using Python.Runtime;
-using System;
 using System.IO;
-using System.Text;
 using Campbell.Editor.Utility;
 using UnityEditor;
 using UnityEditor.Scripting.Python;
 using UnityEngine;
-using MacFsWatcher;
 using RPG.Quests.Editor;
-using UnityEngine.UIElements;
+using System.Collections.Generic;
 
 namespace Campbell.Editor
 {
     public class CampbellEditorWindow : EditorWindow
     {
         int _selectedTab = 0;
-        string[] _tabNames = { "Context Editor", "Quest Editor" };
+        string[] _initialTabNames = { "Context Editor", "Quest Editor" };
 
         private const string _sampleFilesPath = "Packages/Campbell Quest/Context Samples";
-        private const string _questAssetSavePath = "Assets/Campbell Generated Quests/Resources/Quests";
-
-        private string _generatedQuest;
-        private string _questPrompt;
+        private const string _questAssetSavePath = "Assets/Campbell Generated Quests/Resources";
         
+        private string _formattedQuest;
+        private string _formattedQuestWithRewards;
+        private List<string> _formattedDialogues = new List<string>();
+        private string _generatedQuestName;
+
+        private string _questPrompt;
         private string _objectiveInformation;
         private string _locationInformation;
         private string _characterInformation;
@@ -30,6 +31,7 @@ namespace Campbell.Editor
 
         private Vector2 _contextScrollPosition;
         private Vector2 _questScrollPosition;
+        private Vector2 _dialoguesScrollPosition;
 
         private Vector2 _questPromptScrollPosition;
         private Vector2 _objectiveScrollPosition;
@@ -45,7 +47,15 @@ namespace Campbell.Editor
 
         private void OnGUI()
         {
-            _selectedTab = GUILayout.Toolbar(_selectedTab, _tabNames);
+            string[] tabNames = _initialTabNames;
+            if (_formattedDialogues.Count > 0)
+            {
+                tabNames = new string[_initialTabNames.Length + 1];
+                _initialTabNames.CopyTo(tabNames, 0);
+                tabNames[_initialTabNames.Length] = "Dialogue Editor";
+            }
+
+            _selectedTab = GUILayout.Toolbar(_selectedTab, tabNames);
 
             if (_selectedTab == 0)
             {
@@ -54,6 +64,10 @@ namespace Campbell.Editor
             else if (_selectedTab == 1)
             {
                 FormatQuestWindow();
+            }
+            else if (_selectedTab == 2)
+            {
+                FormatDialogueWindow();
             }
         }
 
@@ -85,22 +99,18 @@ namespace Campbell.Editor
 
             DisplayRewardInformation();
 
+            EditorGUILayout.Space();
+
+            GenerateQuest();
+
             EditorGUILayout.EndScrollView();
         }
 
         private void FormatQuestWindow()
         {
-            if (_generatedQuest != null)
+            if (!(string.IsNullOrEmpty(_formattedQuestWithRewards) || string.IsNullOrWhiteSpace(_formattedQuestWithRewards)))
             {
-                EditorGUILayout.BeginHorizontal();
-
-                GenerateQuest();
-
-                EditorGUILayout.Space();
-
                 ClearQuest();
-
-                EditorGUILayout.EndHorizontal();
             }
             else
             {
@@ -111,10 +121,42 @@ namespace Campbell.Editor
 
             DisplayGeneratedQuest();
 
-            if (_generatedQuest != null)
+            if (!(string.IsNullOrEmpty(_formattedQuestWithRewards) || string.IsNullOrWhiteSpace(_formattedQuestWithRewards)))
             {
                 EditorGUILayout.Space();
+
+                EditorGUILayout.BeginHorizontal();
+
                 CreateQuestAssets();
+
+                EditorGUILayout.Space();
+
+                GenerateDialogues();
+
+                EditorGUILayout.EndHorizontal();
+            }
+        }
+        
+        private void FormatDialogueWindow()
+        {
+            if (_formattedDialogues.Count > 0)
+            {
+                ClearDialogues();
+            }
+            else
+            {
+                GenerateDialogues();
+            }
+
+            EditorGUILayout.Space();
+
+            DisplayGeneratedDialogues();
+
+            if (_formattedDialogues.Count > 0)
+            {
+                EditorGUILayout.Space();
+                
+                CreateDialogueAssets();
             }
         }
 
@@ -358,6 +400,11 @@ namespace Campbell.Editor
         {
             if (GUILayout.Button("Generate Quest"))
             {
+                if (!(string.IsNullOrEmpty(_formattedQuestWithRewards) || string.IsNullOrWhiteSpace(_formattedQuestWithRewards)))
+                {
+                    _formattedQuestWithRewards = null;
+                }
+
                 string prompt = UtilityLibrary.FormatStringForPython(_questPrompt);
                 string objectives = UtilityLibrary.FormatStringForPython(_objectiveInformation);
                 string locations = UtilityLibrary.FormatStringForPython(_locationInformation);
@@ -365,36 +412,133 @@ namespace Campbell.Editor
                 string rewards = UtilityLibrary.FormatStringForPython(_rewardInformation);
 
                 string questSchema = UtilityLibrary.LoadSchema("quest");
+                string questWithRewardsSchema = UtilityLibrary.LoadSchema("questWithRewards");
 
-                string pythonScript = "import UnityEngine;\n" +
+                string initialQuestScript = "import UnityEngine;\n" +
                                       "from campbell_quest import quest_generator\n" +
                                       "\n" +
                                       $"prompt = \"{prompt}\"\n" +
-                                      $"schema = \"{questSchema}\"\n" +
                                       $"objectives = \"{objectives}\"\n" +
                                       $"locations = \"{locations}\"\n" +
                                       $"characters = \"{characters}\"\n" +
-                                      $"rewards = \"{rewards}\"\n" +
-                                      "quest = quest_generator.generate_quest(prompt, schema, objectives, locations, characters, rewards)\n" +
-                                      "print(quest)\n";
+                                      "initial_generated_quest = quest_generator.generate_initial_quest(prompt, objectives, locations, characters)\n" +
+                                      "print(initial_generated_quest)\n";
 
-                using StringWriter stringWriter = new StringWriter();
-                using (Py.GIL())
-                {
-                    dynamic sys = Py.Import("sys");
-                    sys.stdout = new CampbellTextWriter(stringWriter);
-                    PythonRunner.RunString(pythonScript);
-                }
-                
-                _generatedQuest = stringWriter.ToString();
+                string initialQuest = UtilityLibrary.FormatStringForPython(RunPythonScript(initialQuestScript));
+
+                string questWithObjectivesScript = "import UnityEngine;\n" +
+                                     "from campbell_quest import quest_generator\n" +
+                                     "\n" +
+                                     $"initial_generated_quest = \"{initialQuest}\"\n" +
+                                     $"locations = \"{locations}\"\n" +
+                                     $"characters = \"{characters}\"\n" +
+                                     "quest_with_objectives = quest_generator.generate_quest_with_objectives(initial_generated_quest, locations, characters)\n" +
+                                     "print(quest_with_objectives)\n";
+
+                string questWithObjectives = UtilityLibrary.FormatStringForPython(RunPythonScript(questWithObjectivesScript));
+
+                string questWithRewardScript = "import UnityEngine;\n" +
+                                     "from campbell_quest import quest_generator\n" +
+                                     "\n" +
+                                     $"initial_generated_quest = \"{initialQuest}\"\n" +
+                                     $"rewards = \"{rewards}\"\n" +
+                                     "quest_reward = quest_generator.generate_quest_reward(initial_generated_quest, rewards)\n" +
+                                     "print(quest_reward)\n";
+
+                string questReward = UtilityLibrary.FormatStringForPython(RunPythonScript(questWithRewardScript));
+
+                string formatQuestScript = "import UnityEngine;\n" +
+                                      "from campbell_quest import quest_generator\n" +
+                                      "\n" +
+                                      $"quest_with_objectives = \"{questWithObjectives}\"\n" +
+                                      $"quest_schema = \"{questSchema}\"\n" +
+                                      "formatted_quest = quest_generator.get_formatted_quest(quest_with_objectives, quest_schema)\n" +
+                                      "print(formatted_quest)\n";
+
+                _formattedQuest = RunPythonScript(formatQuestScript);
+
+                string formatQuestWithRewardsScript = "import UnityEngine;\n" +
+                                      "from campbell_quest import quest_generator\n" +
+                                      "\n" +
+                                      $"formatted_quest = \"{UtilityLibrary.FormatStringForPython(_formattedQuest)}\"\n" +
+                                      $"quest_reward = \"{questReward}\"\n" +
+                                      $"quest_schema_with_rewards = \"{questWithRewardsSchema}\"\n" +
+                                      "formatted_quest_with_rewards = quest_generator.get_formatted_quest_with_rewards(formatted_quest, quest_reward, quest_schema_with_rewards)\n" +
+                                      "print(formatted_quest_with_rewards)\n";
+
+                _formattedQuestWithRewards = RunPythonScript(formatQuestWithRewardsScript);
             }
         }
-        
+
+        private void GenerateDialogues()
+        {
+            if (GUILayout.Button("Generate Dialogues"))
+            {
+                if (_formattedDialogues.Count > 0)
+                {
+                    _formattedDialogues.Clear();
+                }
+
+                string quest = UtilityLibrary.FormatStringForPython(_formattedQuest);
+                string locations = UtilityLibrary.FormatStringForPython(_locationInformation);
+                string characters = UtilityLibrary.FormatStringForPython(_characterInformation);
+                
+                string requiredDialoguesSchema = UtilityLibrary.LoadSchema("requiredDialogues");
+                string dialogueTemplate = UtilityLibrary.LoadTemplate("dialogue");
+
+                string dialogueScript = "import UnityEngine;\n" +
+                                      "from campbell_quest import dialogue_generator\n" +
+                                      "\n" +
+                                      $"formatted_quest = \"{quest}\"\n" +
+                                      $"required_dialogues_schema = \"{requiredDialoguesSchema}\"\n" +
+                                      $"example_dialogue = \"{dialogueTemplate}\"\n" +
+                                      $"locations = \"{locations}\"\n" +
+                                      $"characters = \"{characters}\"\n" +
+                                      "dialogues = dialogue_generator.get_dialogues(formatted_quest, required_dialogues_schema, example_dialogue, locations, characters)\n" +
+                                      "for dialogue in dialogues:\n" +
+                                      "\tprint(dialogue)\n" +
+                                      "\tprint(\"@\")\n";
+
+                string dialogues = RunPythonScript(dialogueScript);
+                List<string> dialoguesBuilder = new List<string>();
+                _formattedDialogues.AddRange(dialogues.Split('@'));
+                foreach (string dialogue in _formattedDialogues)
+                {
+                    if (!string.IsNullOrWhiteSpace(dialogue))
+                    {
+                        dialoguesBuilder.Add(dialogue);
+                    }
+                }
+                _formattedDialogues = dialoguesBuilder;
+            }
+        }
+
+        private string RunPythonScript(string script)
+        {
+            using StringWriter stringWriter = new StringWriter();
+            using (Py.GIL())
+            {
+                dynamic sys = Py.Import("sys");
+                sys.stdout = new CampbellTextWriter(stringWriter);
+                PythonRunner.RunString(script);
+            }
+
+            return stringWriter.ToString();
+        }
+
         private void ClearQuest()
         {
             if (GUILayout.Button("Clear Quest"))
             {
-                _generatedQuest = null;
+                _formattedQuestWithRewards = null;
+            }
+        }
+        
+        private void ClearDialogues()
+        {
+            if (GUILayout.Button("Clear Dialogues"))
+            {
+                _formattedDialogues.Clear();
             }
         }
 
@@ -406,8 +550,27 @@ namespace Campbell.Editor
 
             _questScrollPosition = EditorGUILayout.BeginScrollView(_questScrollPosition, GUILayout.ExpandHeight(true));
             
-            _generatedQuest = EditorGUILayout.TextArea(_generatedQuest, textStyle, GUILayout.MinWidth(100),
+            _formattedQuestWithRewards = EditorGUILayout.TextArea(_formattedQuestWithRewards, textStyle, GUILayout.MinWidth(100),
                 GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+
+            EditorGUILayout.EndScrollView();
+        }
+        
+        private void DisplayGeneratedDialogues()
+        {
+            GUIStyle textStyle = new GUIStyle(EditorStyles.textField);
+            textStyle.padding = new RectOffset(5, 5, 5, 5);
+            textStyle.wordWrap = true;
+
+            _dialoguesScrollPosition = EditorGUILayout.BeginScrollView(_dialoguesScrollPosition, GUILayout.ExpandHeight(true));
+            
+            for (int i = 0; i < _formattedDialogues.Count; i++)
+            {
+                _formattedDialogues[i] = EditorGUILayout.TextArea(_formattedDialogues[i], textStyle, GUILayout.MinWidth(100),
+                    GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+
+                EditorGUILayout.Space();
+            }
 
             EditorGUILayout.EndScrollView();
         }
@@ -416,7 +579,19 @@ namespace Campbell.Editor
         {
             if (GUILayout.Button("Create Quest Assets"))
             {
-                QuestGenerator.CreateQuestFromJson(_generatedQuest, _questAssetSavePath);
+                _generatedQuestName = AssetGenerator.CreateQuestFromJson(_formattedQuestWithRewards, _questAssetSavePath);
+            }
+        }
+        
+        private void CreateDialogueAssets()
+        {
+            if (GUILayout.Button("Create Dialogue Assets"))
+            {
+                foreach (string dialogue in _formattedDialogues)
+                {
+                    string dialogueSavePath = _questAssetSavePath + "/" + _generatedQuestName;
+                    AssetGenerator.CreateDialogueFromJson(dialogue, dialogueSavePath);
+                }
             }
         }
     }

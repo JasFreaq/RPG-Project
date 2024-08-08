@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Dialogue
+namespace RPG.Dialogues
 {
     public enum DialogueAction
     {
         Attack,
         GiveQuest,
-        ClearQuest,
+        CompleteQuest,
         EditInventory
     }
 }

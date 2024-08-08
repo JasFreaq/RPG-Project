@@ -4,7 +4,7 @@ using RPG.Core;
 using UnityEditor;
 using UnityEngine;
 
-namespace RPG.Dialogue
+namespace RPG.Dialogues
 {
     public class DialogueNode : ScriptableObject
     {
@@ -140,6 +140,8 @@ namespace RPG.Dialogue
             return _onExitActions.Contains(action);
         }
 
+        public Condition Condition { set => _condition = value; }
+
 #endif
         #endregion
 
@@ -167,7 +169,7 @@ namespace RPG.Dialogue
         {
             get { return _onExitActions; }
         }
-        
+
         public bool EvaluateCondition(IEnumerable<IPredicateEvaluable> evaluables)
         {
             return _condition.Evaluate(evaluables);

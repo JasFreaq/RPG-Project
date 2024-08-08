@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using RPG.Core;
 using System;
 using System.Collections;
-using RPG.Dialogue;
+using RPG.Dialogues;
 using UnityEngine.AI;
 
 namespace RPG.Control

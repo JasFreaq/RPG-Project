@@ -1,0 +1,281 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8307274313424047127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 94962cae-7546-4936-bb20-46de0f358525
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: May the forest spirits guide you. Return safely and bring me back the rare
+    flower.
+  _childrenIds: []
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and:
+    - _or:
+      - _predicateType: 1
+        _negate: 0
+        _parameters:
+        - Rare Flower
+  _positionRect:
+    serializedVersion: 2
+    x: 2750
+    y: 600
+    width: 300
+    height: 225
+--- !u!114 &-5453574788696924346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 453d7987-909d-45d9-91b7-ee277bae2815
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: I'd like to speak with Sylvara.
+  _childrenIds:
+  - 0eccdb41-91d6-4bae-99ff-6d1945975fdf
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 1400
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &-2883995763688774494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: c5f3411d-c1b5-4aae-a324-c8c0cebbca09
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: It's a delicate task, but someone with your skills can handle it. The flower
+    grows deep within the Whispering Woods, and you'll need to navigate through it
+    carefully. Sylvara, the Forest Guardian, might be able to guide you if you earn
+    her trust.
+  _childrenIds:
+  - 453d7987-909d-45d9-91b7-ee277bae2815
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 950
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &-627411131554320499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: fbc1fad7-6aed-4fd2-8478-f5243f2c58c7
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Hello, traveler! I've been expecting you. You're looking to learn about
+    the Rare Flower of Elderglen?
+  _childrenIds:
+  - 64e1ce55-90a8-4c43-85b6-3f9211ed12e6
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 50
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99daa080c5e0e784da792ad400c68782, type: 3}
+  m_Name: Eldara, the Herbalist
+  m_EditorClassIdentifier: 
+  _dialogueNodes:
+  - {fileID: -627411131554320499}
+  - {fileID: 2944255324833194177}
+  - {fileID: -2883995763688774494}
+  - {fileID: -5453574788696924346}
+  - {fileID: 7767815492556070971}
+  - {fileID: 1696559719692213042}
+  - {fileID: -8307274313424047127}
+  - {fileID: 2489545408022403718}
+  - {fileID: 1420872290802958399}
+  _childrenIds: []
+  _positionRect:
+    serializedVersion: 2
+    x: 100
+    y: 100
+    width: 300
+    height: 225
+--- !u!114 &1420872290802958399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 7f32c652-fa2a-445c-ac60-78fabce2da30
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Remember, be cautious. The woods can be unforgiving. May fortune favor your
+    journey.
+  _childrenIds: []
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and:
+    - _or:
+      - _predicateType: 1
+        _negate: 1
+        _parameters:
+        - Rare Flower
+  _positionRect:
+    serializedVersion: 2
+    x: 2750
+    y: 900
+    width: 300
+    height: 225
+--- !u!114 &1696559719692213042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: be1223fe-2ee1-4b3f-8b87-fc8642e7d887
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: I've already set out to find the rare flower.
+  _childrenIds:
+  - 94962cae-7546-4936-bb20-46de0f358525
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 2300
+    y: 600
+    width: 300
+    height: 225
+--- !u!114 &2489545408022403718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: bbbfbc42-ec07-4d70-b1fa-680db25e043e
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: I'll head into the Whispering Woods and find Sylvara.
+  _childrenIds:
+  - 7f32c652-fa2a-445c-ac60-78fabce2da30
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 2300
+    y: 900
+    width: 300
+    height: 225
+--- !u!114 &2944255324833194177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 64e1ce55-90a8-4c43-85b6-3f9211ed12e6
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: Yes, that's what I'm here for.
+  _childrenIds:
+  - c5f3411d-c1b5-4aae-a324-c8c0cebbca09
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 500
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &7767815492556070971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 0eccdb41-91d6-4bae-99ff-6d1945975fdf
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: She's a wise one, but she won't reveal much unless you prove yourself worthy.
+    Be careful in the woods, and don't hesitate to reach out if you need any help.
+  _childrenIds:
+  - be1223fe-2ee1-4b3f-8b87-fc8642e7d887
+  - bbbfbc42-ec07-4d70-b1fa-680db25e043e
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 1850
+    y: 750
+    width: 300
+    height: 225

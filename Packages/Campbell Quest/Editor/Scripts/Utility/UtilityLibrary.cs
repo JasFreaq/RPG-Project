@@ -54,5 +54,12 @@ namespace Campbell.Editor.Utility
 
             return FormatStringForPython(schema.text);
         }
+        
+        public static string LoadTemplate(string templateName)
+        {
+            TextAsset template = Resources.Load<TextAsset>($"Templates/{templateName}_template");
+
+            return FormatStringForPython(template.text);
+        }
     }
 }

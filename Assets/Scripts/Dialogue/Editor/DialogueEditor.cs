@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
 
-namespace RPG.Dialogue.Editor
+namespace RPG.Dialogues.Editor
 {
     public class DialogueEditor : EditorWindow
     {
@@ -261,7 +261,9 @@ namespace RPG.Dialogue.Editor
             }
 
             //Text Field
-            node.SetText(EditorGUILayout.TextArea(node.Text));
+            GUIStyle textFieldStyle = new GUIStyle(EditorStyles.textField);
+            textFieldStyle.wordWrap = true;
+            node.SetText(EditorGUILayout.TextArea(node.Text, textFieldStyle));
             
             //Horizontal Space for Adding, Deleting and Modifying Children of Node
             GUILayout.BeginHorizontal();

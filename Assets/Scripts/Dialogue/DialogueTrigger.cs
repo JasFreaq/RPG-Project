@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RPG.Dialogue
+namespace RPG.Dialogues
 { 
     [RequireComponent(typeof(AIConversationHandler))]
     public class DialogueTrigger : MonoBehaviour

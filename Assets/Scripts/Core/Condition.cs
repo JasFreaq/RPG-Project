@@ -13,23 +13,29 @@ namespace RPG.Core
         {
             None,
             HasQuest,
-            ClearedObjective,
-            ClearedQuest,
+            CompletedObjective,
+            CompletedQuest,
             HasItem
         }
 
         [System.Serializable]
         public struct Predicate
         {
-            [SerializeField] private PredicateType _predicate;
+            [SerializeField] private PredicateType _predicateType;
             [SerializeField] private bool _negate;
             [SerializeField] private string[] _parameters;
+
+            public PredicateType PredicateType { set => _predicateType = value; }
+
+            public bool Negate { set => _negate = value; }
+
+            public string[] Parameters { set => _parameters = value; }
 
             public bool Evaluate(IEnumerable<IPredicateEvaluable> evaluables)
             {
                 foreach (IPredicateEvaluable evaluable in evaluables)
                 {
-                    bool? result = evaluable.CheckCondition(_predicate, _parameters);
+                    bool? result = evaluable.CheckCondition(_predicateType, _parameters);
 
                     if (result != null)
                     {
@@ -49,6 +55,8 @@ namespace RPG.Core
         {
             [SerializeField] private List<Predicate> _or = new List<Predicate>();
 
+            public List<Predicate> Or { get => _or; }
+
             public bool Evaluate(IEnumerable<IPredicateEvaluable> evaluables)
             {
                 foreach (Predicate predicate in _or)
@@ -64,6 +72,8 @@ namespace RPG.Core
         #endregion
 
         [SerializeField] private List<Disjunction> _and = new List<Disjunction>();
+
+        public List<Disjunction> And { get => _and; }
 
         public bool Evaluate(IEnumerable<IPredicateEvaluable> evaluables)
         {
