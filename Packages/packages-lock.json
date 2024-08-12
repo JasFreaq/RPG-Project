@@ -5,8 +5,7 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "com.unity.scripting.python": "6.0.1",
-        "com.unity.editorcoroutines": "1.0.0"
+        "com.unity.scripting.python": "6.0.1"
       }
     },
     "com.unity.ai.navigation": {

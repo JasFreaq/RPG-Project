@@ -6,6 +6,7 @@ namespace RPG.Dialogues
 {
     public enum DialogueAction
     {
+        None,
         Attack,
         GiveQuest,
         CompleteQuest,

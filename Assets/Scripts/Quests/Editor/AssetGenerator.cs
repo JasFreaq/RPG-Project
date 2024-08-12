@@ -6,6 +6,8 @@ using RPG.Dialogues;
 using Unity.Plastic.Newtonsoft.Json;
 using System;
 using RPG.Core;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 namespace RPG.Quests.Editor
 {
@@ -101,17 +103,15 @@ namespace RPG.Quests.Editor
             
             Dialogue dialogue = ScriptableObject.CreateInstance<Dialogue>();
             dialogue.name = dialogueData.npc_name;
-            
-            if (!Directory.Exists(savePath))
+
+            string path = savePath + "/Dialogues";
+            if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(savePath);
+                Directory.CreateDirectory(path);
             }
             
-            string path = savePath + "/" + dialogueData.npc_name + ".asset";
-            Debug.Log(path);
+            path += "/" + dialogueData.npc_name + ".asset";
             UnityEditor.AssetDatabase.CreateAsset(dialogue, path);
-            UnityEditor.AssetDatabase.SaveAssets();
-            UnityEditor.AssetDatabase.Refresh();
             
             dialogue.CreateRootNode();
 
@@ -125,7 +125,9 @@ namespace RPG.Quests.Editor
             dialogue.EditorScrollPosition = new Vector2(0, 500);
 
             UnityEditor.AssetDatabase.SaveAssets();
-            UnityEditor.AssetDatabase.Refresh();
+
+            Scene activeScene = SceneManager.GetActiveScene();
+            EditorSceneManager.SaveScene(activeScene);
         }
 
         private static void ProcessDialogueChoices(Dialogue dialogue, DialogueNode parentNode, List<ChoiceData> choices)
@@ -135,6 +137,10 @@ namespace RPG.Quests.Editor
                 DialogueNode playerNode = dialogue.CreateNode(parentNode);
                 playerNode.SetIsPlayer(true);
                 playerNode.SetText(choice.player_dialogue);
+                if (!string.IsNullOrWhiteSpace(choice.result))
+                {
+                    playerNode.OnEnterActions.Add(CreateDialogueAction(choice.result));
+                }
 
                 DialogueNode npcResponseNode = dialogue.CreateNode(playerNode);
                 npcResponseNode.SetIsPlayer(false);
@@ -221,6 +227,20 @@ namespace RPG.Quests.Editor
             }
 
             return condition;
+        }
+
+        private static DialogueAction CreateDialogueAction(string actionString)
+        {
+            string actionName = actionString.Substring(0, actionString.IndexOf('('));
+
+            DialogueAction actionType = actionName switch
+            {
+                "receive_quest" => DialogueAction.GiveQuest,
+                "complete_quest" => DialogueAction.CompleteQuest,
+                _ => DialogueAction.None,
+            };
+
+            return actionType;
         }
     }
 }

@@ -160,7 +160,7 @@ namespace RPG.Dialogues
             get { return _childrenIds; }
         }
 
-        public IReadOnlyList<DialogueAction> OnEnterActions
+        public List<DialogueAction> OnEnterActions
         {
             get { return _onEnterActions; }
         }

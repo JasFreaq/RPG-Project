@@ -117,9 +117,9 @@ namespace RPG.Dialogues
         {
 #if UNITY_EDITOR
             CreateRootNode();
-#endif
 
             OnValidate();
+#endif
         }
 
         private void OnValidate()
