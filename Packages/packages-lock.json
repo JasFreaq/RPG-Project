@@ -5,7 +5,8 @@
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "com.unity.scripting.python": "6.0.1"
+        "com.unity.scripting.python": "6.0.1",
+        "com.unity.textmeshpro": "3.0.9"
       }
     },
     "com.unity.ai.navigation": {
@@ -28,13 +29,6 @@
     },
     "com.unity.collab-proxy": {
       "version": "2.1.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.editorcoroutines": {
-      "version": "1.0.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -91,7 +85,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.6",
+      "version": "3.0.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {
