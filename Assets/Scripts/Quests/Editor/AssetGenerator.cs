@@ -8,6 +8,7 @@ using System;
 using RPG.Core;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
+using RPG.UI;
 
 namespace RPG.Quests.Editor
 {
@@ -55,6 +56,34 @@ namespace RPG.Quests.Editor
             public List<ChoiceData> choices;
         }
 
+        public static bool DoesQuestAssetExist(string questJson, string savePath)
+        {
+            QuestData questData = JsonConvert.DeserializeObject<QuestData>(questJson);
+
+            string path = savePath + "/" + questData.name;
+            if (Directory.Exists(path))
+            {
+                path += "/" + questData.name + ".asset";
+                return File.Exists(path);
+            }
+
+            return false;
+        }
+        
+        public static bool DoesDialogueAssetExist(string dialogueJson, string savePath, string generatedQuestName)
+        {
+            DialogueData dialogueData = JsonConvert.DeserializeObject<DialogueData>(dialogueJson);
+
+            string path = savePath + "/" + generatedQuestName + "/Dialogues";
+            if (Directory.Exists(path))
+            {
+                path += "/" + dialogueData.npc_name + ".asset";
+                return File.Exists(path);
+            }
+
+            return false;
+        }
+
         public static string CreateQuestFromJson(string questJson, string savePath)
         {
             QuestData questData = JsonConvert.DeserializeObject<QuestData>(questJson);
@@ -97,8 +126,6 @@ namespace RPG.Quests.Editor
         
         public static void CreateDialogueFromJson(string dialogueJson, string savePath)
         {
-            QuestData questData = JsonConvert.DeserializeObject<QuestData>(dialogueJson);
-            
             DialogueData dialogueData = JsonConvert.DeserializeObject<DialogueData>(dialogueJson);
             
             Dialogue dialogue = ScriptableObject.CreateInstance<Dialogue>();

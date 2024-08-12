@@ -1,6 +1,9 @@
+using RPG.Quests.Editor;
 using System.Collections.Generic;
+using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
+using static RPG.Quests.Editor.AssetGenerator;
 
 namespace Campbell.Editor
 {
@@ -9,8 +12,12 @@ namespace Campbell.Editor
         private const string _sampleFilesPath = "Packages/Campbell Quest/Context Samples";
         private const string _questAssetSavePath = "Assets/Campbell Generated Quests/Resources";
 
-        private int _selectedTab = 0;
-        private string[] _initialTabNames = { "Context Editor", "Quest Editor" };
+        private int _baseTab = 0;
+        private int _contextTab = 0;
+        private int _dialogueTab = 0;
+
+        private string[] _baseTabNames = { "Context Editor", "Quest Editor" };
+        private string[] _contextEditorTabNames = { "Prompt", "Objectives", "Locations", "Characters", "Rewards" };
 
         private string _formattedQuest;
         private string _formattedQuestWithRewards;
@@ -38,25 +45,25 @@ namespace Campbell.Editor
 
         private void OnGUI()
         {
-            string[] tabNames = _initialTabNames;
+            string[] tabNames = _baseTabNames;
             if (_formattedDialogues.Count > 0)
             {
-                tabNames = new string[_initialTabNames.Length + 1];
-                _initialTabNames.CopyTo(tabNames, 0);
-                tabNames[_initialTabNames.Length] = "Dialogue Editor";
+                tabNames = new string[_baseTabNames.Length + 1];
+                _baseTabNames.CopyTo(tabNames, 0);
+                tabNames[_baseTabNames.Length] = "Dialogue Editor";
             }
 
-            _selectedTab = GUILayout.Toolbar(_selectedTab, tabNames);
+            _baseTab = GUILayout.Toolbar(_baseTab, tabNames);
 
-            if (_selectedTab == 0)
+            if (_baseTab == 0)
             {
                 FormatContextWindow();
             }
-            else if (_selectedTab == 1)
+            else if (_baseTab == 1)
             {
                 FormatQuestWindow();
             }
-            else if (_selectedTab == 2)
+            else if (_baseTab == 2)
             {
                 FormatDialogueWindow();
             }
@@ -72,29 +79,34 @@ namespace Campbell.Editor
 
             EditorGUILayout.Space();
 
-            _questProcessor.DisplayQuestPrompt();
+            _contextTab = GUILayout.Toolbar(_contextTab, _contextEditorTabNames);
+
+            if (_contextTab == 0)
+            {
+                _questProcessor.DisplayQuestPrompt();
+            }
+            else if (_contextTab == 1)
+            {
+                _questProcessor.DisplayObjectiveInformation();
+            }
+            else if (_contextTab == 2)
+            {
+                _questProcessor.DisplayLocationInformation();
+            }
+            else if (_contextTab == 3)
+            {
+                _questProcessor.DisplayCharacterInformation();
+            }
+            else if (_contextTab == 4)
+            {
+                _questProcessor.DisplayRewardInformation();
+            }
 
             EditorGUILayout.Space();
-
-            _questProcessor.DisplayObjectiveInformation();
-
-            EditorGUILayout.Space();
-
-            _questProcessor.DisplayLocationInformation();
-
-            EditorGUILayout.Space();
-
-            _questProcessor.DisplayCharacterInformation();
-
-            EditorGUILayout.Space();
-
-            _questProcessor.DisplayRewardInformation();
-
-            EditorGUILayout.Space();
-
+            
             if (_questProcessor.GenerateQuest(ref _formattedQuest, ref _formattedQuestWithRewards))
             {
-                _selectedTab = 1;
+                _baseTab = 1;
             }
 
             EditorGUILayout.EndScrollView();
@@ -105,52 +117,63 @@ namespace Campbell.Editor
             if (!string.IsNullOrWhiteSpace(_formattedQuestWithRewards))
             {
                 _questProcessor.ClearQuest(ref _formattedQuestWithRewards);
+
+                EditorGUILayout.Space();
+
+                DisplayGeneratedQuest();
+
+                EditorGUILayout.Space();
+
+                if (DoesQuestAssetExist(_formattedQuestWithRewards, _questAssetSavePath))
+                {
+                    _questProcessor.RecreateQuestAssets(_formattedQuestWithRewards, _questAssetSavePath, ref _generatedQuestName);
+
+                    EditorGUILayout.Space();
+
+                    if (_dialogueProcessor.GenerateDialogues(_formattedQuestWithRewards, _questProcessor.LocationInformation, _questProcessor.CharacterInformation, ref _formattedDialogues))
+                    {
+                        _baseTab = 2;
+                    }
+                }
+                else
+                {
+                    _questProcessor.CreateQuestAssets(_formattedQuestWithRewards, _questAssetSavePath, ref _generatedQuestName);
+                }
             }
             else
             {
                 _questProcessor.GenerateQuest(ref _formattedQuest, ref _formattedQuestWithRewards);
             }
-
-            EditorGUILayout.Space();
-
-            DisplayGeneratedQuest();
-
-            if (!string.IsNullOrWhiteSpace(_formattedQuestWithRewards))
-            {
-                EditorGUILayout.Space();
-
-                EditorGUILayout.BeginHorizontal();
-
-                _questProcessor.CreateQuestAssets(_formattedQuestWithRewards, _questAssetSavePath, ref _generatedQuestName);
-
-                EditorGUILayout.Space();
-
-                _dialogueProcessor.GenerateDialogues(_formattedQuestWithRewards, _questProcessor.LocationInformation, _questProcessor.CharacterInformation, ref _formattedDialogues);
-
-                EditorGUILayout.EndHorizontal();
-            }
         }
 
         private void FormatDialogueWindow()
         {
-            if (_formattedDialogues.Count > 0)
+            if (_dialogueProcessor.ClearDialogues(ref _formattedDialogues))
             {
-                _dialogueProcessor.ClearDialogues(ref _formattedDialogues);
-            }
-            else
-            {
-                _dialogueProcessor.GenerateDialogues(_formattedQuestWithRewards, _questProcessor.LocationInformation, _questProcessor.CharacterInformation, ref _formattedDialogues);
+                _dialogueTab = 0;
+                _baseTab = 1;
             }
 
             EditorGUILayout.Space();
 
+            string[] dialogueTabNames = new string[_formattedDialogues.Count];
+            for (int i = 0; i < _formattedDialogues.Count; i++)
+            {
+                DialogueData dialogueData = JsonConvert.DeserializeObject<DialogueData>(_formattedDialogues[i]);
+                dialogueTabNames[i] = $"{dialogueData.npc_name}";
+            }
+
+            _dialogueTab = GUILayout.Toolbar(_dialogueTab, dialogueTabNames);
+            
             DisplayGeneratedDialogues();
 
-            if (_formattedDialogues.Count > 0)
+            if (DoesDialogueAssetExist(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName))
             {
-                EditorGUILayout.Space();
-
-                _dialogueProcessor.CreateDialogueAssets(_formattedDialogues, _questAssetSavePath, _generatedQuestName);
+                _dialogueProcessor.RecreateDialogueAssets(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName);
+            }
+            else
+            {
+                _dialogueProcessor.CreateDialogueAssets(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName);
             }
         }
 
@@ -180,13 +203,10 @@ namespace Campbell.Editor
 
             _dialoguesScrollPosition = EditorGUILayout.BeginScrollView(_dialoguesScrollPosition, GUILayout.ExpandHeight(true));
 
-            for (int i = 0; i < _formattedDialogues.Count; i++)
-            {
-                _formattedDialogues[i] = EditorGUILayout.TextArea(_formattedDialogues[i], textStyle, GUILayout.MinWidth(100),
-                    GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+            _formattedDialogues[_dialogueTab] = EditorGUILayout.TextArea(_formattedDialogues[_dialogueTab], textStyle, GUILayout.MinWidth(100),
+                GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 
-                EditorGUILayout.Space();
-            }
+            EditorGUILayout.Space();
 
             EditorGUILayout.EndScrollView();
         }

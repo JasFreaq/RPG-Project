@@ -2,6 +2,7 @@ using Campbell.Editor.Utility;
 using RPG.Quests.Editor;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,9 +10,6 @@ namespace Campbell.Editor
 {
     public class QuestProcessor
     {
-        //private const string _sampleFilesPath = "Packages/Campbell Quest/Context Samples";
-        //private const string _questAssetSavePath = "Assets/Campbell Generated Quests/Resources";
-
         private string _questPrompt;
         private string _objectiveInformation;
         private string _locationInformation;
@@ -110,78 +108,112 @@ namespace Campbell.Editor
             EditorGUILayout.EndScrollView();
         }
 
+        private bool IsAllContextValid()
+        {
+            string helpText = "";
+            Dictionary<string, string> contextFields = new Dictionary<string, string>()
+            {
+                { "Quest Prompt", _questPrompt },
+                { "Objective Information", _objectiveInformation },
+                { "Location Information", _locationInformation },
+                { "Character Information", _characterInformation },
+                { "Reward Information", _rewardInformation },
+            };
+
+            foreach (var field in contextFields)
+            {
+                if (string.IsNullOrWhiteSpace(field.Value))
+                {
+                    helpText += $"{field.Key} is missing.\n";
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(helpText))
+            {
+                EditorGUILayout.HelpBox(helpText, MessageType.Info);
+            }
+
+            return contextFields.Values.All(x => !string.IsNullOrWhiteSpace(x));
+        }
+
+
         public bool GenerateQuest(ref string formattedQuest, ref string formattedQuestWithRewards)
         {
-            if (GUILayout.Button("Generate Quest"))
+            if (IsAllContextValid())
             {
-                if (!(string.IsNullOrEmpty(formattedQuestWithRewards) || string.IsNullOrWhiteSpace(formattedQuestWithRewards)))
+                if (GUILayout.Button("Generate Quest"))
                 {
-                    formattedQuestWithRewards = null;
+                    if (!(string.IsNullOrEmpty(formattedQuestWithRewards) || string.IsNullOrWhiteSpace(formattedQuestWithRewards)))
+                    {
+                        formattedQuestWithRewards = null;
+                    }
+
+                    string prompt = UtilityLibrary.FormatStringForPython(_questPrompt);
+                    string objectives = UtilityLibrary.FormatStringForPython(_objectiveInformation);
+                    string locations = UtilityLibrary.FormatStringForPython(_locationInformation);
+                    string characters = UtilityLibrary.FormatStringForPython(_characterInformation);
+                    string rewards = UtilityLibrary.FormatStringForPython(_rewardInformation);
+
+                    string questSchema = UtilityLibrary.LoadSchema("quest");
+                    string questWithRewardsSchema = UtilityLibrary.LoadSchema("questWithRewards");
+
+                    string initialQuestScript = "import UnityEngine;\n" +
+                                          "from campbell_quest import quest_generator\n" +
+                                          "\n" +
+                                          $"prompt = \"{prompt}\"\n" +
+                                          $"objectives = \"{objectives}\"\n" +
+                                          $"locations = \"{locations}\"\n" +
+                                          $"characters = \"{characters}\"\n" +
+                                          "initial_generated_quest = quest_generator.generate_initial_quest(prompt, objectives, locations, characters)\n" +
+                                          "print(initial_generated_quest)\n";
+
+                    string initialQuest = UtilityLibrary.FormatStringForPython(UtilityLibrary.RunPythonScript(initialQuestScript));
+
+                    string questWithObjectivesScript = "import UnityEngine;\n" +
+                                         "from campbell_quest import quest_generator\n" +
+                                         "\n" +
+                                         $"initial_generated_quest = \"{initialQuest}\"\n" +
+                                         $"locations = \"{locations}\"\n" +
+                                         $"characters = \"{characters}\"\n" +
+                                         "quest_with_objectives = quest_generator.generate_quest_with_objectives(initial_generated_quest, locations, characters)\n" +
+                                         "print(quest_with_objectives)\n";
+
+                    string questWithObjectives = UtilityLibrary.FormatStringForPython(UtilityLibrary.RunPythonScript(questWithObjectivesScript));
+
+                    string questWithRewardScript = "import UnityEngine;\n" +
+                                         "from campbell_quest import quest_generator\n" +
+                                         "\n" +
+                                         $"initial_generated_quest = \"{initialQuest}\"\n" +
+                                         $"rewards = \"{rewards}\"\n" +
+                                         "quest_reward = quest_generator.generate_quest_reward(initial_generated_quest, rewards)\n" +
+                                         "print(quest_reward)\n";
+
+                    string questReward = UtilityLibrary.FormatStringForPython(UtilityLibrary.RunPythonScript(questWithRewardScript));
+
+                    string formatQuestScript = "import UnityEngine;\n" +
+                                          "from campbell_quest import quest_generator\n" +
+                                          "\n" +
+                                          $"quest_with_objectives = \"{questWithObjectives}\"\n" +
+                                          $"quest_schema = \"{questSchema}\"\n" +
+                                          "formatted_quest = quest_generator.get_formatted_quest(quest_with_objectives, quest_schema)\n" +
+                                          "print(formatted_quest)\n";
+
+                    formattedQuest = UtilityLibrary.RunPythonScript(formatQuestScript);
+
+                    string formatQuestWithRewardsScript = "import UnityEngine;\n" +
+                                          "from campbell_quest import quest_generator\n" +
+                                          "\n" +
+                                          $"formatted_quest = \"{UtilityLibrary.FormatStringForPython(formattedQuest)}\"\n" +
+                                          $"quest_reward = \"{questReward}\"\n" +
+                                          $"quest_schema_with_rewards = \"{questWithRewardsSchema}\"\n" +
+                                          "formatted_quest_with_rewards = quest_generator.get_formatted_quest_with_rewards(formatted_quest, quest_reward, quest_schema_with_rewards)\n" +
+                                          "print(formatted_quest_with_rewards)\n";
+
+                    formattedQuestWithRewards = UtilityLibrary.RunPythonScript(formatQuestWithRewardsScript);
+                    return true;
                 }
 
-                string prompt = UtilityLibrary.FormatStringForPython(_questPrompt);
-                string objectives = UtilityLibrary.FormatStringForPython(_objectiveInformation);
-                string locations = UtilityLibrary.FormatStringForPython(_locationInformation);
-                string characters = UtilityLibrary.FormatStringForPython(_characterInformation);
-                string rewards = UtilityLibrary.FormatStringForPython(_rewardInformation);
-
-                string questSchema = UtilityLibrary.LoadSchema("quest");
-                string questWithRewardsSchema = UtilityLibrary.LoadSchema("questWithRewards");
-
-                string initialQuestScript = "import UnityEngine;\n" +
-                                      "from campbell_quest import quest_generator\n" +
-                                      "\n" +
-                                      $"prompt = \"{prompt}\"\n" +
-                                      $"objectives = \"{objectives}\"\n" +
-                                      $"locations = \"{locations}\"\n" +
-                                      $"characters = \"{characters}\"\n" +
-                                      "initial_generated_quest = quest_generator.generate_initial_quest(prompt, objectives, locations, characters)\n" +
-                                      "print(initial_generated_quest)\n";
-
-                string initialQuest = UtilityLibrary.FormatStringForPython(UtilityLibrary.RunPythonScript(initialQuestScript));
-
-                string questWithObjectivesScript = "import UnityEngine;\n" +
-                                     "from campbell_quest import quest_generator\n" +
-                                     "\n" +
-                                     $"initial_generated_quest = \"{initialQuest}\"\n" +
-                                     $"locations = \"{locations}\"\n" +
-                                     $"characters = \"{characters}\"\n" +
-                                     "quest_with_objectives = quest_generator.generate_quest_with_objectives(initial_generated_quest, locations, characters)\n" +
-                                     "print(quest_with_objectives)\n";
-
-                string questWithObjectives = UtilityLibrary.FormatStringForPython(UtilityLibrary.RunPythonScript(questWithObjectivesScript));
-
-                string questWithRewardScript = "import UnityEngine;\n" +
-                                     "from campbell_quest import quest_generator\n" +
-                                     "\n" +
-                                     $"initial_generated_quest = \"{initialQuest}\"\n" +
-                                     $"rewards = \"{rewards}\"\n" +
-                                     "quest_reward = quest_generator.generate_quest_reward(initial_generated_quest, rewards)\n" +
-                                     "print(quest_reward)\n";
-
-                string questReward = UtilityLibrary.FormatStringForPython(UtilityLibrary.RunPythonScript(questWithRewardScript));
-
-                string formatQuestScript = "import UnityEngine;\n" +
-                                      "from campbell_quest import quest_generator\n" +
-                                      "\n" +
-                                      $"quest_with_objectives = \"{questWithObjectives}\"\n" +
-                                      $"quest_schema = \"{questSchema}\"\n" +
-                                      "formatted_quest = quest_generator.get_formatted_quest(quest_with_objectives, quest_schema)\n" +
-                                      "print(formatted_quest)\n";
-
-                formattedQuest = UtilityLibrary.RunPythonScript(formatQuestScript);
-
-                string formatQuestWithRewardsScript = "import UnityEngine;\n" +
-                                      "from campbell_quest import quest_generator\n" +
-                                      "\n" +
-                                      $"formatted_quest = \"{UtilityLibrary.FormatStringForPython(formattedQuest)}\"\n" +
-                                      $"quest_reward = \"{questReward}\"\n" +
-                                      $"quest_schema_with_rewards = \"{questWithRewardsSchema}\"\n" +
-                                      "formatted_quest_with_rewards = quest_generator.get_formatted_quest_with_rewards(formatted_quest, quest_reward, quest_schema_with_rewards)\n" +
-                                      "print(formatted_quest_with_rewards)\n";
-                
-                formattedQuestWithRewards = UtilityLibrary.RunPythonScript(formatQuestWithRewardsScript);
-                return true;
+                return false;
             }
 
             return false;
@@ -199,7 +231,17 @@ namespace Campbell.Editor
         {
             if (GUILayout.Button("Create Quest Assets"))
             {
-                generatedQuestName = AssetGenerator.CreateQuestFromJson(formattedQuestWithRewards, questAssetSavePath);
+                generatedQuestName =
+                    AssetGenerator.CreateQuestFromJson(formattedQuestWithRewards, questAssetSavePath);
+            }
+        }
+        
+        public void RecreateQuestAssets(string formattedQuestWithRewards, string questAssetSavePath, ref string generatedQuestName)
+        {
+            if (GUILayout.Button("Recreate Quest Assets"))
+            {
+                generatedQuestName =
+                    AssetGenerator.CreateQuestFromJson(formattedQuestWithRewards, questAssetSavePath);
             }
         }
     }

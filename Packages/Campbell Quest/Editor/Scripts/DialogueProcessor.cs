@@ -8,7 +8,7 @@ namespace Campbell.Editor
 {
     public class DialogueProcessor
     {
-        public void GenerateDialogues(string formattedQuest, string locationInformation, string characterInformation, ref List<string> formattedDialogues)
+        public bool GenerateDialogues(string formattedQuest, string locationInformation, string characterInformation, ref List<string> formattedDialogues)
         {
             if (GUILayout.Button("Generate Dialogues"))
             {
@@ -51,26 +51,38 @@ namespace Campbell.Editor
                 }
 
                 formattedDialogues = dialoguesBuilder;
+                return true;
             }
+
+            return false;
         }
 
-        public void ClearDialogues(ref List<string> formattedDialogues)
+        public bool ClearDialogues(ref List<string> formattedDialogues)
         {
             if (GUILayout.Button("Clear Dialogues"))
             {
                 formattedDialogues.Clear();
+                return true;
             }
+
+            return false;
         }
 
-        public void CreateDialogueAssets(List<string> formattedDialogues, string questAssetSavePath, string generatedQuestName)
+        public void CreateDialogueAssets(string dialogue, string questAssetSavePath, string generatedQuestName)
         {
             if (GUILayout.Button("Create Dialogue Assets"))
             {
-                foreach (var dialogue in formattedDialogues)
-                {
-                    string dialogueSavePath = questAssetSavePath + "/" + generatedQuestName;
-                    AssetGenerator.CreateDialogueFromJson(dialogue, dialogueSavePath);
-                }
+                string dialogueSavePath = questAssetSavePath + "/" + generatedQuestName;
+                AssetGenerator.CreateDialogueFromJson(dialogue, dialogueSavePath);
+            }
+        }
+
+        public void RecreateDialogueAssets(string dialogue, string questAssetSavePath, string generatedQuestName)
+        {
+            if (GUILayout.Button("Recreate Dialogue Assets"))
+            {
+                string dialogueSavePath = questAssetSavePath + "/" + generatedQuestName;
+                AssetGenerator.CreateDialogueFromJson(dialogue, dialogueSavePath);
             }
         }
     }
