@@ -259,7 +259,7 @@ namespace Campbell.Editor.QuestGeneration
             };
         }
 
-        public void DisplayQuestInformation(ref string formattedQuestWithRewards)
+        public string DisplayQuestInformation(string formattedQuestWithRewards)
         {
             QuestData questData = JsonConvert.DeserializeObject<QuestData>(formattedQuestWithRewards);
             if (questData == null)
@@ -285,25 +285,14 @@ namespace Campbell.Editor.QuestGeneration
                 EditorGUILayout.Space();
 
                 _rewardsList.DoLayoutList();
-
-                //EditorGUILayout.LabelField("Rewards", EditorStyles.boldLabel);
-                //if (questData.rewards != null)
-                //{
-                //    for (int i = 0; i < questData.rewards.Count; i++)
-                //    {
-                //        EditorGUILayout.BeginVertical("box");
-
-                //        questData.rewards[i].number = EditorGUILayout.IntField("Number", questData.rewards[i].number);
-                //        questData.rewards[i].item = EditorGUILayout.TextField("Item", questData.rewards[i].item);
-                //        EditorGUILayout.EndVertical();
-                //    }
-                //}
-
+                
                 if (GUI.changed)
                 {
                     formattedQuestWithRewards = JsonConvert.SerializeObject(questData);
                 }
             }
+
+            return formattedQuestWithRewards;
         }
 
         public bool ClearQuest(ref string formattedQuestWithRewards)

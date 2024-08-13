@@ -1,0 +1,224 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7646593128674450087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: a856b521-904c-4dfd-bc0b-81573003f73d
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: That's right. What can I do for you?
+  _childrenIds:
+  - c953c1f5-3c10-4b23-b9a5-4fed16687287
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 500
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &-6066641916598728531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 8325b72c-0e3e-4554-9ed1-88f988776588
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Ah, excellent! Be careful in those woods. The wolves can be vicious.
+  _childrenIds: []
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and:
+    - _or:
+      - _predicateType: 1
+        _negate: 0
+        _parameters:
+        - Retrieving Starlight Flower
+  _positionRect:
+    serializedVersion: 2
+    x: 1850
+    y: 900
+    width: 300
+    height: 225
+--- !u!114 &-4309274642938532664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 732a6faf-f467-439a-b5c9-e002bd45d433
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: I'd be happy to help you with that. How do we get started?
+  _childrenIds:
+  - bb15cfab-3109-43ab-8feb-c02fb0a2109f
+  _onEnterActions: 02000000
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 1400
+    y: 600
+    width: 300
+    height: 225
+--- !u!114 &-3877588517498669722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 40497323-dab3-4012-ab79-e872d9ae2168
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Hello there, traveler. I've heard you're an adventurer.
+  _childrenIds:
+  - a856b521-904c-4dfd-bc0b-81573003f73d
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 50
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &-2929480963524416652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: bb15cfab-3109-43ab-8feb-c02fb0a2109f
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Thank you so much! I'll tell you what I know about the Starlight flower
+    and how to avoid the pack of wolves that guard it.
+  _childrenIds: []
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and:
+    - _or:
+      - _predicateType: 1
+        _negate: 1
+        _parameters:
+        - Retrieving Starlight Flower
+  _positionRect:
+    serializedVersion: 2
+    x: 1850
+    y: 600
+    width: 300
+    height: 225
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99daa080c5e0e784da792ad400c68782, type: 3}
+  m_Name: Eldara, the Herbalist
+  m_EditorClassIdentifier: 
+  _dialogueNodes:
+  - {fileID: -3877588517498669722}
+  - {fileID: -7646593128674450087}
+  - {fileID: 6669968157252321269}
+  - {fileID: -4309274642938532664}
+  - {fileID: -2929480963524416652}
+  - {fileID: 7509470733496092599}
+  - {fileID: -6066641916598728531}
+  _childrenIds: []
+  _positionRect:
+    serializedVersion: 2
+    x: 100
+    y: 100
+    width: 300
+    height: 225
+--- !u!114 &6669968157252321269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: c953c1f5-3c10-4b23-b9a5-4fed16687287
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: I'm in need of your help. I have a rare herb called the Starlight flower
+    that I desperately need to retrieve, but it only grows deep within the Whispering
+    Woods.
+  _childrenIds:
+  - 732a6faf-f467-439a-b5c9-e002bd45d433
+  - e6a907bd-9489-485b-b3e1-411e665b6fb1
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 950
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &7509470733496092599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: e6a907bd-9489-485b-b3e1-411e665b6fb1
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: I've already started looking for the Starlight flower. Can you tell me more
+    about what I'll be up against?
+  _childrenIds:
+  - 8325b72c-0e3e-4554-9ed1-88f988776588
+  _onEnterActions: 03000000
+  _onExitActions: 
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 1400
+    y: 900
+    width: 300
+    height: 225

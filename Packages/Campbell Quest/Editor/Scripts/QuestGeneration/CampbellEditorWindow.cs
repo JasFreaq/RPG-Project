@@ -170,6 +170,8 @@ namespace Campbell.Editor.QuestGeneration
             
             DisplayGeneratedDialogues();
 
+            EditorGUILayout.Space();
+
             if (DoesDialogueAssetExist(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName))
             {
                 _dialogueProcessor.RecreateDialogueAssets(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName);
@@ -183,27 +185,18 @@ namespace Campbell.Editor.QuestGeneration
         private void DisplayGeneratedQuest()
         {
             _questScrollPosition = EditorGUILayout.BeginScrollView(_questScrollPosition, GUILayout.ExpandHeight(true));
-            
-            _questProcessor.DisplayQuestInformation(ref _formattedQuestWithRewards);
+
+            _formattedQuestWithRewards = _questProcessor.DisplayQuestInformation(_formattedQuestWithRewards);
 
             EditorGUILayout.EndScrollView();
         }
 
         private void DisplayGeneratedDialogues()
         {
-            GUIStyle textStyle = new GUIStyle(EditorStyles.textField)
-            {
-                padding = new RectOffset(5, 5, 5, 5),
-                wordWrap = true
-            };
-
             _dialoguesScrollPosition = EditorGUILayout.BeginScrollView(_dialoguesScrollPosition, GUILayout.ExpandHeight(true));
 
-            _formattedDialogues[_dialogueTab] = EditorGUILayout.TextArea(_formattedDialogues[_dialogueTab], textStyle, GUILayout.MinWidth(100),
-                GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
-
-            EditorGUILayout.Space();
-
+            _formattedDialogues[_dialogueTab] = _dialogueProcessor.DisplayDialogueInformation(_formattedDialogues[_dialogueTab]);
+            
             EditorGUILayout.EndScrollView();
         }
     }
