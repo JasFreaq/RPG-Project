@@ -103,7 +103,7 @@ namespace Campbell.Editor.QuestGeneration
                 InventoryItem item = Resources.Load<InventoryItem>(reward.item);
                 if (item != null)
                 {
-                    quest.AddReward(reward.number, item);
+                    quest.AddReward((int)reward.number, item);
                 }
                 else
                 {

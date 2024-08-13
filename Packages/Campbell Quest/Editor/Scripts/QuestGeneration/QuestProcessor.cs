@@ -2,8 +2,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Campbell.Editor.QuestGeneration.Utility;
+using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
+using static Campbell.Editor.QuestGeneration.AssetGenerator;
 
 namespace Campbell.Editor.QuestGeneration
 {
@@ -20,6 +23,9 @@ namespace Campbell.Editor.QuestGeneration
         private Vector2 _locationScrollPosition;
         private Vector2 _characterScrollPosition;
         private Vector2 _rewardScrollPosition;
+
+        private ReorderableList _objectivesList;
+        private ReorderableList _rewardsList;
 
         public string LocationInformation => _locationInformation;
 
@@ -129,7 +135,7 @@ namespace Campbell.Editor.QuestGeneration
             {
                 if (GUILayout.Button("Generate Quest"))
                 {
-                    if (!(string.IsNullOrEmpty(formattedQuestWithRewards) || string.IsNullOrWhiteSpace(formattedQuestWithRewards)))
+                    if (!string.IsNullOrWhiteSpace(formattedQuestWithRewards))
                     {
                         formattedQuestWithRewards = null;
                     }
@@ -166,7 +172,7 @@ namespace Campbell.Editor.QuestGeneration
 
                     string questWithObjectives = UtilityLibrary.FormatStringForPython(UtilityLibrary.RunPythonScript(questWithObjectivesScript));
 
-                    string questWithRewardScript = "import UnityEngine;\n" +
+                    string questRewardScript = "import UnityEngine;\n" +
                                          "from campbell_quest import quest_generator\n" +
                                          "\n" +
                                          $"initial_generated_quest = \"{initialQuest}\"\n" +
@@ -174,7 +180,7 @@ namespace Campbell.Editor.QuestGeneration
                                          "quest_reward = quest_generator.generate_quest_reward(initial_generated_quest, rewards)\n" +
                                          "print(quest_reward)\n";
 
-                    string questReward = UtilityLibrary.FormatStringForPython(UtilityLibrary.RunPythonScript(questWithRewardScript));
+                    string questReward = UtilityLibrary.FormatStringForPython(UtilityLibrary.RunPythonScript(questRewardScript));
 
                     string formatQuestScript = "import UnityEngine;\n" +
                                           "from campbell_quest import quest_generator\n" +
@@ -196,6 +202,9 @@ namespace Campbell.Editor.QuestGeneration
                                           "print(formatted_quest_with_rewards)\n";
 
                     formattedQuestWithRewards = UtilityLibrary.RunPythonScript(formatQuestWithRewardsScript);
+
+                    InitializeLists(formattedQuestWithRewards);
+
                     return true;
                 }
 
@@ -203,6 +212,98 @@ namespace Campbell.Editor.QuestGeneration
             }
 
             return false;
+        }
+
+        private void InitializeLists(string formattedQuestWithRewards)
+        {
+            QuestData questData = JsonConvert.DeserializeObject<QuestData>(formattedQuestWithRewards);
+            
+            _objectivesList = new ReorderableList(questData.objectives, typeof(ObjectiveData), true, true, true, true)
+            {
+                drawHeaderCallback = (Rect rect) => { EditorGUI.LabelField(rect, "Objectives"); },
+                elementHeight = EditorGUIUtility.singleLineHeight * 2 + 5f,
+                drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
+                {
+                    ObjectiveData objective = questData.objectives[index];
+                    rect.y += 2.5f;
+
+                    objective.reference =
+                        EditorGUI.TextField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "Reference",
+                            objective.reference);
+                    rect.y += EditorGUIUtility.singleLineHeight + 2.5f;
+
+                    objective.description =
+                        EditorGUI.TextField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "Description",
+                            objective.description);
+                }
+            };
+
+            _rewardsList = new ReorderableList(questData.rewards, typeof(RewardData), true, true, true, true)
+            {
+                drawHeaderCallback = (Rect rect) => { EditorGUI.LabelField(rect, "Rewards"); },
+                elementHeight = EditorGUIUtility.singleLineHeight * 2 + 5f,
+                drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
+                {
+                    RewardData reward = questData.rewards[index];
+                    rect.y += 2.5f;
+
+                    reward.number =
+                        EditorGUI.IntField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "Number",
+                            reward.number);
+                    rect.y += EditorGUIUtility.singleLineHeight + 2.5f;
+
+                    reward.item =
+                        EditorGUI.TextField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "Item",
+                            reward.item);
+                }
+            };
+        }
+
+        public void DisplayQuestInformation(ref string formattedQuestWithRewards)
+        {
+            QuestData questData = JsonConvert.DeserializeObject<QuestData>(formattedQuestWithRewards);
+            if (questData == null)
+            {
+                EditorGUILayout.HelpBox("Ollama response does not match required Schema. Try to generate quest again.", MessageType.Warning);
+            }
+            else
+            {
+                questData.name = EditorGUILayout.TextField("Quest Name", questData.name);
+
+                EditorGUILayout.Space();
+
+                questData.description = EditorGUILayout.TextField("Description", questData.description);
+
+                EditorGUILayout.Space();
+
+                questData.goal = EditorGUILayout.TextField("Goal", questData.goal);
+
+                EditorGUILayout.Space();
+
+                _objectivesList.DoLayoutList();
+                
+                EditorGUILayout.Space();
+
+                _rewardsList.DoLayoutList();
+
+                //EditorGUILayout.LabelField("Rewards", EditorStyles.boldLabel);
+                //if (questData.rewards != null)
+                //{
+                //    for (int i = 0; i < questData.rewards.Count; i++)
+                //    {
+                //        EditorGUILayout.BeginVertical("box");
+
+                //        questData.rewards[i].number = EditorGUILayout.IntField("Number", questData.rewards[i].number);
+                //        questData.rewards[i].item = EditorGUILayout.TextField("Item", questData.rewards[i].item);
+                //        EditorGUILayout.EndVertical();
+                //    }
+                //}
+
+                if (GUI.changed)
+                {
+                    formattedQuestWithRewards = JsonConvert.SerializeObject(questData);
+                }
+            }
         }
 
         public bool ClearQuest(ref string formattedQuestWithRewards)

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
+using static Campbell.Editor.QuestGeneration.AssetGenerator;
 
 namespace Campbell.Editor.QuestGeneration
 {
@@ -121,7 +122,7 @@ namespace Campbell.Editor.QuestGeneration
 
                     EditorGUILayout.Space();
 
-                    if (AssetGenerator.DoesQuestAssetExist(_formattedQuestWithRewards, _questAssetSavePath))
+                    if (DoesQuestAssetExist(_formattedQuestWithRewards, _questAssetSavePath))
                     {
                         _questProcessor.RecreateQuestAssets(_formattedQuestWithRewards, _questAssetSavePath,
                             ref _generatedQuestName);
@@ -161,7 +162,7 @@ namespace Campbell.Editor.QuestGeneration
             string[] dialogueTabNames = new string[_formattedDialogues.Count];
             for (int i = 0; i < _formattedDialogues.Count; i++)
             {
-                AssetGenerator.DialogueData dialogueData = JsonConvert.DeserializeObject<AssetGenerator.DialogueData>(_formattedDialogues[i]);
+                DialogueData dialogueData = JsonConvert.DeserializeObject<DialogueData>(_formattedDialogues[i]);
                 dialogueTabNames[i] = $"{dialogueData.npc_name}";
             }
 
@@ -169,7 +170,7 @@ namespace Campbell.Editor.QuestGeneration
             
             DisplayGeneratedDialogues();
 
-            if (AssetGenerator.DoesDialogueAssetExist(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName))
+            if (DoesDialogueAssetExist(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName))
             {
                 _dialogueProcessor.RecreateDialogueAssets(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName);
             }
@@ -181,16 +182,9 @@ namespace Campbell.Editor.QuestGeneration
 
         private void DisplayGeneratedQuest()
         {
-            GUIStyle textStyle = new GUIStyle(EditorStyles.textField)
-            {
-                padding = new RectOffset(5, 5, 5, 5),
-                wordWrap = true
-            };
-
             _questScrollPosition = EditorGUILayout.BeginScrollView(_questScrollPosition, GUILayout.ExpandHeight(true));
-
-            _formattedQuestWithRewards = EditorGUILayout.TextArea(_formattedQuestWithRewards, textStyle, GUILayout.MinWidth(100),
-                GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+            
+            _questProcessor.DisplayQuestInformation(ref _formattedQuestWithRewards);
 
             EditorGUILayout.EndScrollView();
         }

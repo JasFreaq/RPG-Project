@@ -9,15 +9,17 @@ namespace Campbell.Editor.QuestGeneration
         public static void ShowWindow()
         {
             RestartEditorPrompt window =
-                (RestartEditorPrompt)GetWindow(typeof(RestartEditorPrompt), true, "Example Package");
+                (RestartEditorPrompt)GetWindow(typeof(RestartEditorPrompt), true, "Campbell Quest");
             window.Show();
         }
 
         private void OnGUI()
         {
-            GUILayout.Label(
-                "The Unity Editor needs to be restarted to install package dependencies.\nDo you want to restart the Unity Editor?",
+            GUILayout.BeginVertical(GUILayout.Width(192), GUILayout.Height(108));
+
+            GUILayout.Label("The Unity Editor needs to be restarted to install package dependencies.\nDo you want to restart the Unity Editor?",
                 EditorStyles.boldLabel);
+
             if (GUILayout.Button("Restart"))
             {
                 RestartEditor();
@@ -27,6 +29,8 @@ namespace Campbell.Editor.QuestGeneration
             {
                 Close();
             }
+
+            GUILayout.EndVertical();
         }
 
         private static void RestartEditor()
