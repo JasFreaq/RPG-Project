@@ -3,13 +3,13 @@ using Campbell.Editor.QuestGeneration.Utility;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
-using static Campbell.Editor.QuestGeneration.AssetGenerator;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Campbell.Editor.QuestGeneration
 {
     public class DialogueProcessor
     {
+        private bool _canNpcFight = false;
+
         public bool GenerateDialogues(string formattedQuest, string locationInformation, string characterInformation, ref List<string> formattedDialogues)
         {
             if (GUILayout.Button("Generate Dialogues"))
@@ -158,21 +158,30 @@ namespace Campbell.Editor.QuestGeneration
             return false;
         }
 
-        public void CreateDialogueAssets(string dialogue, string questAssetSavePath, string generatedQuestName)
+        public void CreateDialogueAsset(string dialogue, string questAssetSavePath, string generatedQuestName)
         {
             if (GUILayout.Button("Create Dialogue Assets"))
             {
                 string dialogueSavePath = questAssetSavePath + "/" + generatedQuestName;
-                AssetGenerator.CreateDialogueFromJson(dialogue, dialogueSavePath);
+                DialogueGenerator.CreateDialogueFromJson(dialogue, dialogueSavePath);
             }
         }
 
-        public void RecreateDialogueAssets(string dialogue, string questAssetSavePath, string generatedQuestName)
+        public void RecreateDialogueAsset(string dialogue, string questAssetSavePath, string generatedQuestName)
         {
             if (GUILayout.Button("Recreate Dialogue Assets"))
             {
                 string dialogueSavePath = questAssetSavePath + "/" + generatedQuestName;
-                AssetGenerator.CreateDialogueFromJson(dialogue, dialogueSavePath);
+                DialogueGenerator.CreateDialogueFromJson(dialogue, dialogueSavePath);
+            }
+        }
+
+        public void CreateNpcAsset(string dialogue, string questAssetSavePath, string generatedQuestName)
+        {
+            if (GUILayout.Button("Create Npc Asset"))
+            {
+                string dialogueSavePath = questAssetSavePath + "/" + generatedQuestName;
+                //CreateDialogueFromJson(dialogue, dialogueSavePath);
             }
         }
     }

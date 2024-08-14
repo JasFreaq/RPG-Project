@@ -69,7 +69,9 @@ namespace Campbell.Control
                 _mover.Cancel();
             }
             else
+            {
                 PatrolBehaviour();
+            }
         }
 
         private bool ShouldAttack()
@@ -115,6 +117,8 @@ namespace Campbell.Control
         public void Aggravate()
         {
             _timeSinceAggravated = 0;
+            if (!_fighter.enabled)
+                _fighter.enabled = true;
         }
 
         public void AggravateNearbyEnemies()
@@ -126,7 +130,9 @@ namespace Campbell.Control
                 AIController enemy = hit.transform.GetComponent<AIController>();
 
                 if (enemy)
+                {
                     enemy.Aggravate();
+                }
             }
         }
 

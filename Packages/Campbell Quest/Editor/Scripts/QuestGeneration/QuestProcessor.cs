@@ -6,7 +6,6 @@ using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using static Campbell.Editor.QuestGeneration.AssetGenerator;
 
 namespace Campbell.Editor.QuestGeneration
 {
@@ -306,21 +305,19 @@ namespace Campbell.Editor.QuestGeneration
             return false;
         }
 
-        public void CreateQuestAssets(string formattedQuestWithRewards, string questAssetSavePath, ref string generatedQuestName)
+        public void CreateQuestAsset(string formattedQuestWithRewards, string questAssetSavePath, ref string generatedQuestName)
         {
             if (GUILayout.Button("Create Quest Assets"))
             {
-                generatedQuestName =
-                    AssetGenerator.CreateQuestFromJson(formattedQuestWithRewards, questAssetSavePath);
+                generatedQuestName = QuestGenerator.CreateQuestFromJson(formattedQuestWithRewards, questAssetSavePath);
             }
         }
         
-        public void RecreateQuestAssets(string formattedQuestWithRewards, string questAssetSavePath, ref string generatedQuestName)
+        public void RecreateQuestAsset(string formattedQuestWithRewards, string questAssetSavePath, ref string generatedQuestName)
         {
             if (GUILayout.Button("Recreate Quest Assets"))
             {
-                generatedQuestName =
-                    AssetGenerator.CreateQuestFromJson(formattedQuestWithRewards, questAssetSavePath);
+                generatedQuestName = QuestGenerator.CreateQuestFromJson(formattedQuestWithRewards, questAssetSavePath);
             }
         }
     }

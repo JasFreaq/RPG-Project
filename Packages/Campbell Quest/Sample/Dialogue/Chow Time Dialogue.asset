@@ -21,7 +21,7 @@ MonoBehaviour:
   _condition:
     _and:
     - _or:
-      - _predicate: 1
+      - _predicateType: 1
         _negate: 0
         _parameters:
         - Chow Time
@@ -51,12 +51,12 @@ MonoBehaviour:
   _condition:
     _and:
     - _or:
-      - _predicate: 1
+      - _predicateType: 1
         _negate: 0
         _parameters:
         - Chow Time
     - _or:
-      - _predicate: 3
+      - _predicateType: 3
         _negate: 0
         _parameters:
         - Chow Time
@@ -81,7 +81,7 @@ MonoBehaviour:
   _isPlayerSpeech: 1
   _text: Sure.
   _childrenIds: []
-  _onEnterActions: 01000000
+  _onEnterActions: 02000000
   _onExitActions: 
   _condition:
     _and: []
@@ -114,11 +114,11 @@ MonoBehaviour:
   _condition:
     _and:
     - _or:
-      - _predicate: 1
+      - _predicateType: 1
         _negate: 1
         _parameters:
         - Chow Time
-      - _predicate: 3
+      - _predicateType: 3
         _negate: 1
         _parameters:
         - Chow Time
@@ -227,17 +227,17 @@ MonoBehaviour:
   _text: Yes, I found this.
   _childrenIds:
   - 57b8c523-972a-48ff-8ab8-cd7ada793424
-  _onEnterActions: 0200000003000000
+  _onEnterActions: 03000000
   _onExitActions: 
   _condition:
     _and:
     - _or:
-      - _predicate: 1
+      - _predicateType: 1
         _negate: 0
         _parameters:
         - Chow Time
     - _or:
-      - _predicate: 2
+      - _predicateType: 2
         _negate: 0
         _parameters:
         - Chow Time
@@ -263,7 +263,7 @@ MonoBehaviour:
   _isPlayerSpeech: 1
   _text: No.
   _childrenIds: []
-  _onEnterActions: 00000000
+  _onEnterActions: 01000000
   _onExitActions: 
   _condition:
     _and: []
@@ -294,7 +294,7 @@ MonoBehaviour:
   _condition:
     _and:
     - _or:
-      - _predicate: 1
+      - _predicateType: 0
         _negate: 1
         _parameters:
         - Chow Time

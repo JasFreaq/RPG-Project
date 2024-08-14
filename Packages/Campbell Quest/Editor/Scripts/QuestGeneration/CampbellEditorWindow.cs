@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
-using static Campbell.Editor.QuestGeneration.AssetGenerator;
 
 namespace Campbell.Editor.QuestGeneration
 {
@@ -122,9 +121,9 @@ namespace Campbell.Editor.QuestGeneration
 
                     EditorGUILayout.Space();
 
-                    if (DoesQuestAssetExist(_formattedQuestWithRewards, _questAssetSavePath))
+                    if (QuestGenerator.DoesQuestAssetExist(_formattedQuestWithRewards, _questAssetSavePath))
                     {
-                        _questProcessor.RecreateQuestAssets(_formattedQuestWithRewards, _questAssetSavePath,
+                        _questProcessor.RecreateQuestAsset(_formattedQuestWithRewards, _questAssetSavePath,
                             ref _generatedQuestName);
 
                         EditorGUILayout.Space();
@@ -138,7 +137,7 @@ namespace Campbell.Editor.QuestGeneration
                     }
                     else
                     {
-                        _questProcessor.CreateQuestAssets(_formattedQuestWithRewards, _questAssetSavePath,
+                        _questProcessor.CreateQuestAsset(_formattedQuestWithRewards, _questAssetSavePath,
                             ref _generatedQuestName);
                     }
                 }
@@ -172,13 +171,13 @@ namespace Campbell.Editor.QuestGeneration
 
             EditorGUILayout.Space();
 
-            if (DoesDialogueAssetExist(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName))
+            if (DialogueGenerator.DoesDialogueAssetExist(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName))
             {
-                _dialogueProcessor.RecreateDialogueAssets(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName);
+                _dialogueProcessor.RecreateDialogueAsset(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName);
             }
             else
             {
-                _dialogueProcessor.CreateDialogueAssets(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName);
+                _dialogueProcessor.CreateDialogueAsset(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName);
             }
         }
 

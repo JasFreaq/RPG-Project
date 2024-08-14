@@ -1,75 +1,18 @@
-using System.Collections.Generic;
-using UnityEngine;
-using System.IO;
-using Campbell.Quests;
-using Unity.Plastic.Newtonsoft.Json;
-using System;
-using Campbell.Core;
 using Campbell.Dialogues;
-using Campbell.InventorySystem;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using Campbell.Core;
+using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor.SceneManagement;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Campbell.Editor.QuestGeneration
 {
-    public class AssetGenerator 
+    public class DialogueGenerator
     {
-        [System.Serializable]
-        public class QuestData
-        {
-            public string name;
-            public string description;
-            public string goal;
-            public List<ObjectiveData> objectives;
-            public List<RewardData> rewards;
-        }
-
-        [System.Serializable]
-        public class ObjectiveData
-        {
-            public string reference;
-            public string description;
-        }
-
-        [System.Serializable]
-        public class RewardData
-        {
-            public int number;
-            public string item;
-        }
-
-        [System.Serializable]
-        public class DialogueData
-        {
-            public string npc_name;
-            public string npc_dialogue;
-            public List<ChoiceData> choices;
-        }
-
-        [System.Serializable]
-        public class ChoiceData
-        {
-            public string condition;
-            public string player_dialogue;
-            public string npc_dialogue;
-            public string result;
-            public List<ChoiceData> choices;
-        }
-
-        public static bool DoesQuestAssetExist(string questJson, string savePath)
-        {
-            QuestData questData = JsonConvert.DeserializeObject<QuestData>(questJson);
-
-            string path = savePath + "/" + questData.name;
-            if (Directory.Exists(path))
-            {
-                path += "/" + questData.name + ".asset";
-                return File.Exists(path);
-            }
-
-            return false;
-        }
-        
         public static bool DoesDialogueAssetExist(string dialogueJson, string savePath, string generatedQuestName)
         {
             DialogueData dialogueData = JsonConvert.DeserializeObject<DialogueData>(dialogueJson);
@@ -84,50 +27,10 @@ namespace Campbell.Editor.QuestGeneration
             return false;
         }
 
-        public static string CreateQuestFromJson(string questJson, string savePath)
-        {
-            QuestData questData = JsonConvert.DeserializeObject<QuestData>(questJson);
-            
-            Quest quest = ScriptableObject.CreateInstance<Quest>();
-            
-            quest.QuestDescription = questData.description;
-            quest.QuestGoal = questData.goal;
-
-            foreach (ObjectiveData objective in questData.objectives)
-            {
-                quest.AddObjective(objective.reference, objective.description);
-            }
-
-            foreach (RewardData reward in questData.rewards)
-            {
-                InventoryItem item = Resources.Load<InventoryItem>(reward.item);
-                if (item != null)
-                {
-                    quest.AddReward((int)reward.number, item);
-                }
-                else
-                {
-                    Debug.LogError($"InventoryItem '{reward.item}' not found in Resources.");
-                }
-            }
-            
-            string path = savePath + "/" + questData.name;
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            path += "/" + questData.name + ".asset";
-            UnityEditor.AssetDatabase.CreateAsset(quest, path);
-            UnityEditor.AssetDatabase.SaveAssets();
-
-            return questData.name;
-        }
-        
         public static void CreateDialogueFromJson(string dialogueJson, string savePath)
         {
             DialogueData dialogueData = JsonConvert.DeserializeObject<DialogueData>(dialogueJson);
-            
+
             Dialogue dialogue = ScriptableObject.CreateInstance<Dialogue>();
             dialogue.name = dialogueData.npc_name;
 
@@ -136,10 +39,10 @@ namespace Campbell.Editor.QuestGeneration
             {
                 Directory.CreateDirectory(path);
             }
-            
+
             path += "/" + dialogueData.npc_name + ".asset";
             UnityEditor.AssetDatabase.CreateAsset(dialogue, path);
-            
+
             dialogue.CreateRootNode();
 
             dialogue.DialogueNodes[0].SetIsPlayer(false);
@@ -192,13 +95,13 @@ namespace Campbell.Editor.QuestGeneration
             for (int i = 0; i < children.Count; i++)
             {
                 DialogueNode childNode = children[i];
-                
+
                 childNode.PositionRect = new Rect(
-                    node.PositionRect.x + 450, 
-                    startY + i * 300, 
+                    node.PositionRect.x + 450,
+                    startY + i * 300,
                     DialogueNode.MIN_WIDTH, DialogueNode.MIN_HEIGHT
                 );
-                
+
                 ArrangeDialogueNodes(dialogue, childNode);
             }
         }
@@ -206,13 +109,13 @@ namespace Campbell.Editor.QuestGeneration
         private static Condition CreateCondition(string conditionString)
         {
             Condition condition = new Condition();
-            
+
             string[] andParts = conditionString.Split(new[] { " and " }, StringSplitOptions.None);
 
             foreach (string andPart in andParts)
             {
                 Condition.Disjunction disjunction = new Condition.Disjunction();
-                
+
                 string[] orParts = andPart.Split(new[] { " or " }, StringSplitOptions.None);
 
                 foreach (string orPart in orParts)
@@ -222,15 +125,15 @@ namespace Campbell.Editor.QuestGeneration
                     string predicateString = orPart.Replace("not ", "");
                     predicateString = predicateString.Replace("!", "");
                     predicateString = predicateString.Trim();
-                    
+
                     string predicateName = predicateString.Substring(0, predicateString.IndexOf('('));
                     string[] parameters = predicateString.Substring(predicateString.IndexOf('(') + 1, predicateString.IndexOf(')') - predicateString.IndexOf('(') - 1).Split(',');
-                    
+
                     for (int i = 0; i < parameters.Length; i++)
                     {
                         parameters[i] = parameters[i].Trim().Trim('\'');
                     }
-                    
+
                     Condition.PredicateType predicateType = predicateName switch
                     {
                         "has_quest" => Condition.PredicateType.HasQuest,
@@ -239,7 +142,7 @@ namespace Campbell.Editor.QuestGeneration
                         "has_item" => Condition.PredicateType.HasItem,
                         _ => Condition.PredicateType.None,
                     };
-                    
+
                     Condition.Predicate predicate = new Condition.Predicate
                     {
                         PredicateType = predicateType,
@@ -249,7 +152,7 @@ namespace Campbell.Editor.QuestGeneration
 
                     disjunction.Or.Add(predicate);
                 }
-                
+
                 condition.And.Add(disjunction);
             }
 
@@ -269,5 +172,23 @@ namespace Campbell.Editor.QuestGeneration
 
             return actionType;
         }
+    }
+
+    [System.Serializable]
+    public class DialogueData
+    {
+        public string npc_name;
+        public string npc_dialogue;
+        public List<ChoiceData> choices;
+    }
+
+    [System.Serializable]
+    public class ChoiceData
+    {
+        public string condition;
+        public string player_dialogue;
+        public string npc_dialogue;
+        public string result;
+        public List<ChoiceData> choices;
     }
 }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7814804318101853480
+--- !u!114 &-6174790473083692842
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
-  m_Name: 976c4f41-3f6b-49e1-9cdb-02b5dc513c07
+  m_Name: 7ccab34c-7159-42a9-9efb-1a693bc52364
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 1
-  _text: Who?
+  _text: Yes, I'd be happy to help you get it.
   _childrenIds:
-  - fb055577-dae9-4605-9b99-ebe8a16977d1
-  _onEnterActions: 
+  - 5bfce1e1-2735-4f67-95d5-0a1aef00cc37
+  _onEnterActions: 02000000
   _onExitActions: 
   _condition:
     _and: []
   _positionRect:
     serializedVersion: 2
-    x: 1192
-    y: 444
+    x: 1400
+    y: 450
     width: 300
     height: 225
---- !u!114 &-6300705035552813752
+--- !u!114 &-5145818121409234603
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -36,22 +36,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
-  m_Name: fb055577-dae9-4605-9b99-ebe8a16977d1
+  m_Name: 5bfce1e1-2735-4f67-95d5-0a1aef00cc37
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 0
-  _text: Don't you worry about it.
+  _text: Thank you, traveler! Be careful navigating through the Whispering Woods.
+    Return with the Forest Flower and complete my request.
   _childrenIds: []
   _onEnterActions: 
   _onExitActions: 
   _condition:
-    _and: []
+    _and:
+    - _or:
+      - _predicateType: 1
+        _negate: 1
+        _parameters:
+        - The Elusive Forest Flower
   _positionRect:
     serializedVersion: 2
-    x: 1643
-    y: 658
+    x: 1850
+    y: 450
     width: 300
     height: 225
---- !u!114 &-6236595919711504385
+--- !u!114 &-4277541091127687695
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -61,24 +67,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
-  m_Name: c4410c25-4afb-4824-a019-8f0a41b9fbd7
+  m_Name: 8d95bf0a-b025-4c60-a813-fbac823f2021
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 0
-  _text: You don't look like you're from around here.
+  _text: Indeed it is! I need your help to retrieve it from the Whispering Woods
+    without disturbing the pack of wolves that protect their territory. Can I trust
+    you to get it for me?
   _childrenIds:
-  - 0ebd87d1-e058-44da-b324-01f802f58e6f
-  - d472085d-91c1-4726-adf1-58b9197b8344
+  - 7ccab34c-7159-42a9-9efb-1a693bc52364
+  - 6076d488-5f0c-43a7-a704-e99965fce349
   _onEnterActions: 
   _onExitActions: 
   _condition:
     _and: []
   _positionRect:
     serializedVersion: 2
-    x: 38
-    y: 499
+    x: 950
+    y: 600
     width: 300
     height: 225
---- !u!114 &-6034336400922024306
+--- !u!114 &-2236046439885046834
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,96 +96,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
-  m_Name: e4791a0b-082b-4404-8be3-2b627e2e34bb
+  m_Name: d442c454-5dd8-477e-9c8d-0a052dd56b6e
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 1
-  _text: Mr. Bowler is a good friend of mine!
+  _text: Yes, I heard it's a rare and potent herb.
   _childrenIds:
-  - fbe14252-dfee-4326-9339-699edebaad25
+  - 8d95bf0a-b025-4c60-a813-fbac823f2021
   _onEnterActions: 
   _onExitActions: 
   _condition:
     _and: []
   _positionRect:
     serializedVersion: 2
-    x: 1193
-    y: 193
-    width: 300
-    height: 225
---- !u!114 &-4623397390501308984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
-  m_Name: fbe14252-dfee-4326-9339-699edebaad25
-  m_EditorClassIdentifier: 
-  _isPlayerSpeech: 0
-  _text: You liar! There ain't no Mr. Bowler, I made him up!
-  _childrenIds: []
-  _onEnterActions: 01000000
-  _onExitActions: 
-  _condition:
-    _and: []
-  _positionRect:
-    serializedVersion: 2
-    x: 1641
-    y: 194
-    width: 300
-    height: 225
---- !u!114 &-3027872917846250536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
-  m_Name: d472085d-91c1-4726-adf1-58b9197b8344
-  m_EditorClassIdentifier: 
-  _isPlayerSpeech: 1
-  _text: I came here from Newton.
-  _childrenIds:
-  - 89f81c0d-c59c-40a4-9045-c2f15d35ee24
-  _onEnterActions: 
-  _onExitActions: 
-  _condition:
-    _and: []
-  _positionRect:
-    serializedVersion: 2
-    x: 394
-    y: 795
-    width: 300
-    height: 225
---- !u!114 &-588124706808781754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
-  m_Name: fc4b642c-624e-4282-bd07-5eb2c6b5aaec
-  m_EditorClassIdentifier: 
-  _isPlayerSpeech: 0
-  _text: 
-  _childrenIds: []
-  _onEnterActions: 
-  _onExitActions: 
-  _condition:
-    _and: []
-  _positionRect:
-    serializedVersion: 2
-    x: 100
-    y: 100
+    x: 500
+    y: 600
     width: 300
     height: 225
 --- !u!114 &11400000
@@ -190,20 +122,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99daa080c5e0e784da792ad400c68782, type: 3}
-  m_Name: Example Dialogue
+  m_Name: Eldara, the Herbalist
   m_EditorClassIdentifier: 
   _dialogueNodes:
-  - {fileID: -6236595919711504385}
-  - {fileID: 7363191636441149651}
-  - {fileID: -3027872917846250536}
-  - {fileID: 4890424604047145874}
-  - {fileID: 2342034993064119847}
-  - {fileID: 2177250390040471762}
-  - {fileID: -7814804318101853480}
-  - {fileID: -6300705035552813752}
-  - {fileID: 4637399918601295540}
-  - {fileID: -6034336400922024306}
-  - {fileID: -4623397390501308984}
+  - {fileID: 5547037011807410634}
+  - {fileID: -2236046439885046834}
+  - {fileID: -4277541091127687695}
+  - {fileID: -6174790473083692842}
+  - {fileID: -5145818121409234603}
+  - {fileID: 8713064472579740428}
+  - {fileID: 2904684129092268207}
+  - {fileID: 4509817044006726156}
+  - {fileID: 6819809192611942840}
   _childrenIds: []
   _positionRect:
     serializedVersion: 2
@@ -211,7 +141,7 @@ MonoBehaviour:
     y: 100
     width: 300
     height: 225
---- !u!114 &2177250390040471762
+--- !u!114 &2904684129092268207
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,24 +151,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
-  m_Name: 68b1e1c7-11e9-4718-a405-0f87b58adf61
+  m_Name: 00fd9257-0dd0-4dde-91bd-f4b6c647dd0c
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 0
-  _text: Oh really? Then you must know Mr. Bowler.
-  _childrenIds:
-  - 976c4f41-3f6b-49e1-9cdb-02b5dc513c07
-  - e4791a0b-082b-4404-8be3-2b627e2e34bb
+  _text: Ah, excellent! Please make sure to return with the herb and complete my
+    request.
+  _childrenIds: []
   _onEnterActions: 
   _onExitActions: 
   _condition:
-    _and: []
+    _and:
+    - _or:
+      - _predicateType: 1
+        _negate: 0
+        _parameters:
+        - The Elusive Forest Flower
   _positionRect:
     serializedVersion: 2
-    x: 793
-    y: 342
+    x: 1850
+    y: 750
     width: 300
     height: 225
---- !u!114 &2342034993064119847
+--- !u!114 &4509817044006726156
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -248,23 +182,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
-  m_Name: cb8fe24d-f5bc-4614-92d1-ad2b24777e5f
+  m_Name: 9f0ebc27-c13b-4c47-a0aa-edd6350cf25e
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 1
-  _text: Did I say Newton? I'm actually from Springfield.
+  _text: I've returned with the Forest Flower!
   _childrenIds:
-  - 68b1e1c7-11e9-4718-a405-0f87b58adf61
-  _onEnterActions: 
+  - 401374fd-4494-4772-b2a4-4c514959dab1
+  _onEnterActions: 03000000
   _onExitActions: 
   _condition:
     _and: []
   _positionRect:
     serializedVersion: 2
-    x: 1193
-    y: 691
+    x: 500
+    y: 900
     width: 300
     height: 225
---- !u!114 &4637399918601295540
+--- !u!114 &5547037011807410634
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -274,50 +208,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
-  m_Name: 45e61c5e-7644-469c-b4e6-ce23d8474a17
-  m_EditorClassIdentifier: 
-  _isPlayerSpeech: 1
-  _text: I haven't heard about any trouble.
-  _childrenIds:
-  - fb055577-dae9-4605-9b99-ebe8a16977d1
-  _onEnterActions: 
-  _onExitActions: 
-  _condition:
-    _and: []
-  _positionRect:
-    serializedVersion: 2
-    x: 1193
-    y: 942
-    width: 300
-    height: 225
---- !u!114 &4890424604047145874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
-  m_Name: 89f81c0d-c59c-40a4-9045-c2f15d35ee24
+  m_Name: afc1a1d6-5679-485b-b07f-f526ec24dee0
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 0
-  _text: Newton, eh? I heard there's trouble brewing down there.
+  _text: Ah, traveler! I've been expecting you. You're here about the Forest Flower,
+    aren't you?
   _childrenIds:
-  - cb8fe24d-f5bc-4614-92d1-ad2b24777e5f
-  - 45e61c5e-7644-469c-b4e6-ce23d8474a17
+  - d442c454-5dd8-477e-9c8d-0a052dd56b6e
+  - 9f0ebc27-c13b-4c47-a0aa-edd6350cf25e
   _onEnterActions: 
   _onExitActions: 
   _condition:
     _and: []
   _positionRect:
     serializedVersion: 2
-    x: 741
-    y: 795
+    x: 50
+    y: 750
     width: 300
     height: 225
---- !u!114 &7363191636441149651
+--- !u!114 &6819809192611942840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,19 +236,59 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
-  m_Name: 0ebd87d1-e058-44da-b324-01f802f58e6f
+  m_Name: 401374fd-4494-4772-b2a4-4c514959dab1
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Ah, thank you so much! I'll make sure to create a special potion using this
+    rare herb. You've truly helped me out!
+  _childrenIds: []
+  _onEnterActions: 
+  _onExitActions: 
+  _condition:
+    _and:
+    - _or:
+      - _predicateType: 2
+        _negate: 0
+        _parameters:
+        - 5
+    - _or:
+      - _predicateType: 3
+        _negate: 1
+        _parameters:
+        - The Elusive Forest Flower
+      - _predicateType: 4
+        _negate: 1
+        _parameters:
+        - Potion of Healing
+  _positionRect:
+    serializedVersion: 2
+    x: 950
+    y: 900
+    width: 300
+    height: 225
+--- !u!114 &8713064472579740428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 6076d488-5f0c-43a7-a704-e99965fce349
   m_EditorClassIdentifier: 
   _isPlayerSpeech: 1
-  _text: I've lived here all my life!
+  _text: I'm already on a quest to get the Forest Flower.
   _childrenIds:
-  - 68b1e1c7-11e9-4718-a405-0f87b58adf61
+  - 00fd9257-0dd0-4dde-91bd-f4b6c647dd0c
   _onEnterActions: 
   _onExitActions: 
   _condition:
     _and: []
   _positionRect:
     serializedVersion: 2
-    x: 392
-    y: 341
+    x: 1400
+    y: 750
     width: 300
     height: 225

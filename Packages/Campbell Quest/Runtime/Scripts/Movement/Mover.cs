@@ -133,9 +133,10 @@ namespace Campbell.Movement
             _navMeshAgent.isStopped = true;
         }
 
-        private void Kill()
+        public void Kill()
         {
-            GetComponent<NavMeshAgent>().isStopped = true;
+            _navMeshAgent.isStopped = true;
+            _navMeshAgent.enabled = true;
             enabled = false;
         }
 

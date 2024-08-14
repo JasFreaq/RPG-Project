@@ -37,7 +37,7 @@ namespace Campbell.Dialogues
         {
             cursorType = CursorType.Dialogue;
             raycastableType = RaycastableType.Dialogue;
-            return enabled;
+            return true;
         }
 
         public Transform GetTransform()

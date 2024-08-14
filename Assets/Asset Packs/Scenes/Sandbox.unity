@@ -929,7 +929,7 @@ PrefabInstance:
     - target: {fileID: 5502906662121575704, guid: aad7363143cff2b4b90e96dc97b5baa8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -580.63086
+      value: -580.63074
       objectReference: {fileID: 0}
     - target: {fileID: 5503144122103106648, guid: aad7363143cff2b4b90e96dc97b5baa8,
         type: 3}
@@ -1024,7 +1024,7 @@ PrefabInstance:
     - target: {fileID: 5832460497959224150, guid: aad7363143cff2b4b90e96dc97b5baa8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00012207031
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6358403574323952280, guid: aad7363143cff2b4b90e96dc97b5baa8,
         type: 3}
@@ -3048,7 +3048,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggers:
-  - dialogueAction: 0
+  - dialogueAction: 1
     onTrigger:
       m_PersistentCalls:
         m_Calls:
@@ -3064,7 +3064,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-  - dialogueAction: 1
+  - dialogueAction: 2
     onTrigger:
       m_PersistentCalls:
         m_Calls:
@@ -3080,7 +3080,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - dialogueAction: 2
+  - dialogueAction: 3
     onTrigger:
       m_PersistentCalls:
         m_Calls:
@@ -3096,7 +3096,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - dialogueAction: 3
+  - dialogueAction: 4
     onTrigger:
       m_PersistentCalls:
         m_Calls:
@@ -3376,7 +3376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggers:
-  - dialogueAction: 0
+  - dialogueAction: 1
     onTrigger:
       m_PersistentCalls:
         m_Calls:
@@ -3527,7 +3527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1097878973
 Transform:
   m_ObjectHideFlags: 0

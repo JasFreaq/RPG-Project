@@ -47,7 +47,8 @@ namespace Campbell.Control
                 if (_cursorOverInteractable = InteractWithComponent()) 
                     return;
 
-                if (InteractWithMovement()) return;
+                if (InteractWithMovement()) 
+                    return;
 
                 SetCursor(CursorType.None);
             }
