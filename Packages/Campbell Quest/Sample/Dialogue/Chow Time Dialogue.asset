@@ -16,8 +16,7 @@ MonoBehaviour:
   _text: Still searching.
   _childrenIds:
   - b26b01d6-8e03-4f00-81d5-0980d6ab9f39
-  _onEnterActions: 
-  _onExitActions: 
+  _dialogueActions: []
   _condition:
     _and:
     - _or:
@@ -46,8 +45,7 @@ MonoBehaviour:
   _isPlayerSpeech: 0
   _text: Thank you so much for the food!
   _childrenIds: []
-  _onEnterActions: 
-  _onExitActions: 
+  _dialogueActions: []
   _condition:
     _and:
     - _or:
@@ -81,13 +79,22 @@ MonoBehaviour:
   _isPlayerSpeech: 1
   _text: Sure.
   _childrenIds: []
-  _onEnterActions: 02000000
-  _onExitActions: 
+  _dialogueActions:
+  - action: 2
+    parameter: 
+  - action: 1
+    parameter: 
+  - action: 3
+    parameter: 
+  - action: 4
+    parameter: 
+  - action: 5
+    parameter: 
   _condition:
     _and: []
   _positionRect:
     serializedVersion: 2
-    x: 1842
+    x: 1834
     y: 106
     width: 300
     height: 225
@@ -109,8 +116,7 @@ MonoBehaviour:
   - d22cd806-7755-4737-804f-01067d912f30
   - ae02cadf-8988-40e4-9ed4-b3e86e25821f
   - a28a1433-9a42-4eb4-a4b1-4b9a59e2ed8b
-  _onEnterActions: 
-  _onExitActions: 
+  _dialogueActions: []
   _condition:
     _and:
     - _or:
@@ -143,8 +149,7 @@ MonoBehaviour:
   _isPlayerSpeech: 0
   _text: Wow! Thank you so much.
   _childrenIds: []
-  _onEnterActions: 
-  _onExitActions: 
+  _dialogueActions: []
   _condition:
     _and: []
   _positionRect:
@@ -170,8 +175,7 @@ MonoBehaviour:
   _childrenIds:
   - 9ebde464-0ebb-4a16-8ede-83eddc9f6346
   - 247a2f3e-fff4-4e5f-b794-357b209843dd
-  _onEnterActions: 
-  _onExitActions: 
+  _dialogueActions: []
   _condition:
     _and: []
   _positionRect:
@@ -227,8 +231,7 @@ MonoBehaviour:
   _text: Yes, I found this.
   _childrenIds:
   - 57b8c523-972a-48ff-8ab8-cd7ada793424
-  _onEnterActions: 03000000
-  _onExitActions: 
+  _dialogueActions: []
   _condition:
     _and:
     - _or:
@@ -263,8 +266,7 @@ MonoBehaviour:
   _isPlayerSpeech: 1
   _text: No.
   _childrenIds: []
-  _onEnterActions: 01000000
-  _onExitActions: 
+  _dialogueActions: []
   _condition:
     _and: []
   _positionRect:
@@ -289,8 +291,7 @@ MonoBehaviour:
   _text: Nope.
   _childrenIds:
   - 88a30162-6268-4704-b3ab-a5c31ddd88fa
-  _onEnterActions: 
-  _onExitActions: 
+  _dialogueActions: []
   _condition:
     _and:
     - _or:
@@ -321,8 +322,7 @@ MonoBehaviour:
   _childrenIds:
   - 392186dc-c7eb-48cd-9d68-2e7169d1d243
   - c8710b7c-b282-4a4b-94a5-81c93ebe78ee
-  _onEnterActions: 
-  _onExitActions: 
+  _dialogueActions: []
   _condition:
     _and: []
   _positionRect:
@@ -346,8 +346,7 @@ MonoBehaviour:
   _isPlayerSpeech: 0
   _text: Thank you.
   _childrenIds: []
-  _onEnterActions: 
-  _onExitActions: 
+  _dialogueActions: []
   _condition:
     _and: []
   _positionRect:

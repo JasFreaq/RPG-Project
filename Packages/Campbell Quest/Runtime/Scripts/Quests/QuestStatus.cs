@@ -62,11 +62,22 @@ namespace Campbell.Quests
         {
             foreach (Quest.Objective objective in _quest.Objectives)
             {
-                if (!_clearedObjectives.Contains(objective.reference))
+                if (objective.required && !_clearedObjectives.Contains(objective.reference))
                     return false;
             }
 
             return true;
+        }
+        
+        public void Complete()
+        {
+            foreach (Quest.Objective objective in _quest.Objectives)
+            {
+                if (objective.required && !_clearedObjectives.Contains(objective.reference))
+                {
+                    _clearedObjectives.Add(objective.reference);
+                }
+            }
         }
 
         public object CaptureState()

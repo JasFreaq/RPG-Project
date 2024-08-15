@@ -4,37 +4,40 @@ using UnityEngine;
 using UnityEngine.Events;
 
 namespace Campbell.Dialogues
-{ 
+{
     [RequireComponent(typeof(AIConversationHandler))]
     public class DialogueTrigger : MonoBehaviour
     {
         [System.Serializable]
-        struct TriggerElement
+        public class TriggerElement
         {
             public DialogueAction dialogueAction;
             public UnityEvent onTrigger;
-
-            public bool IsEqual(IReadOnlyList<DialogueAction> actions)
-            {
-                for (int i = 0, n = actions.Count; i < n; i++)
-                {
-                    if (dialogueAction == actions[i])
-                        return true;
-                }
-
-                return false;
-            }
         }
 
-        [SerializeField] private List<TriggerElement> _triggers;
+        [SerializeField] private List<TriggerElement> _triggers = new();
+        
+        public void AddTrigger(DialogueAction action, UnityEvent onTrigger)
+        {
+            TriggerElement element = new TriggerElement
+            {
+                dialogueAction = action,
+                onTrigger = onTrigger
+            };
 
-        public void Trigger(IReadOnlyList<DialogueAction> actions)
+            _triggers.Add(element);
+        }
+        
+        public void Trigger(IReadOnlyList<DialogueActionData> actions)
         {
             foreach (TriggerElement element in _triggers)
             {
-                if (element.IsEqual(actions)) 
+                foreach (DialogueActionData actionData in actions)
                 {
-                    element.onTrigger?.Invoke();
+                    if (element.dialogueAction == actionData.action)
+                    {
+                        element.onTrigger?.Invoke();
+                    }
                 }
             }
         }

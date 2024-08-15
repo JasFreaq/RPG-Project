@@ -7,7 +7,7 @@ namespace Campbell.Editor.QuestGeneration
 {
     public class CampbellEditorWindow : EditorWindow
     {
-        private const string _questAssetSavePath = "Assets/Campbell Generated Quests/Resources";
+        private const string _questAssetSavePath = "Assets/Campbell Generated Quests";
 
         private int _baseTab = 0;
         private int _contextTab = 0;
@@ -154,6 +154,7 @@ namespace Campbell.Editor.QuestGeneration
             {
                 _dialogueTab = 0;
                 _baseTab = 1;
+                return;
             }
 
             EditorGUILayout.Space();
@@ -171,13 +172,18 @@ namespace Campbell.Editor.QuestGeneration
 
             EditorGUILayout.Space();
 
-            if (DialogueGenerator.DoesDialogueAssetExist(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName))
+            string dialogueAssetSavePath = _questAssetSavePath + "/" + _generatedQuestName;
+            if (DialogueGenerator.DoesDialogueAssetExist(_formattedDialogues[_dialogueTab], dialogueAssetSavePath))
             {
-                _dialogueProcessor.RecreateDialogueAsset(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName);
+                _dialogueProcessor.RecreateDialogueAsset(_formattedDialogues[_dialogueTab], dialogueAssetSavePath);
+
+                EditorGUILayout.Space();
+
+                _dialogueProcessor.CreateNpcAsset(_formattedQuestWithRewards, _formattedDialogues[_dialogueTab], dialogueAssetSavePath);
             }
             else
             {
-                _dialogueProcessor.CreateDialogueAsset(_formattedDialogues[_dialogueTab], _questAssetSavePath, _generatedQuestName);
+                _dialogueProcessor.CreateDialogueAsset(_formattedDialogues[_dialogueTab], dialogueAssetSavePath);
             }
         }
 
@@ -193,7 +199,7 @@ namespace Campbell.Editor.QuestGeneration
         private void DisplayGeneratedDialogues()
         {
             _dialoguesScrollPosition = EditorGUILayout.BeginScrollView(_dialoguesScrollPosition, GUILayout.ExpandHeight(true));
-
+            
             _formattedDialogues[_dialogueTab] = _dialogueProcessor.DisplayDialogueInformation(_formattedDialogues[_dialogueTab]);
             
             EditorGUILayout.EndScrollView();

@@ -1,0 +1,392 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4982977542491991850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 91410456-09ea-4db5-b753-2304b565c384
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Hello, adventurer! I'm Eldara, the Herbalist. I've heard you're looking
+    for work. I have a request that might interest you.
+  _childrenIds:
+  - 8c930d1d-c005-470d-88cd-03f18599d0c9
+  - 68161ff7-9368-4cab-b629-4083d102f84b
+  - aeeb78e1-c3f1-4957-9ad3-b60d056778e7
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 50
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &-3589854868740479706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 4be084e5-bb08-4653-87ac-25da98b3c687
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Excellent! You've done a great job. Now, let me just examine the flower...
+    Ah, yes. I can use its medicinal properties to create a Potion of Healing for
+    you.
+  _childrenIds: []
+  _dialogueActions: []
+  _condition:
+    _and:
+    - _or:
+      - _predicateType: 2
+        _negate: 0
+        _parameters:
+        - 2
+  _positionRect:
+    serializedVersion: 2
+    x: 950
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &-1730088481346214434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 6b3e2dda-fe0f-4f0e-883b-6682bfb4b3bf
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: What do I need to do first?
+  _childrenIds:
+  - aac03ed9-8fe3-4dfb-b35f-57fb78a513b8
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 1400
+    y: 600
+    width: 300
+    height: 225
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99daa080c5e0e784da792ad400c68782, type: 3}
+  m_Name: Eldara, the Herbalist Dialogue
+  m_EditorClassIdentifier: 
+  _dialogueNodes:
+  - {fileID: -4982977542491991850}
+  - {fileID: 3214934614959848790}
+  - {fileID: 2045842237570471226}
+  - {fileID: 5568793320668836865}
+  - {fileID: 6595101111246608115}
+  - {fileID: 838308105800776679}
+  - {fileID: 3586306976740031386}
+  - {fileID: -1730088481346214434}
+  - {fileID: 5288814427063023795}
+  - {fileID: 889959972130619372}
+  - {fileID: -3589854868740479706}
+  - {fileID: 1432134956063789158}
+  - {fileID: 3761788396001049644}
+  _childrenIds: []
+  _positionRect:
+    serializedVersion: 2
+    x: 100
+    y: 100
+    width: 300
+    height: 225
+--- !u!114 &838308105800776679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 72f84758-0aa7-4a94-b3de-e748f3c4aa07
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: I'll be careful.
+  _childrenIds:
+  - ed530eee-d201-4131-9b36-bcdf4d17a923
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 2300
+    y: 300
+    width: 300
+    height: 225
+--- !u!114 &889959972130619372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 68161ff7-9368-4cab-b629-4083d102f84b
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: I've returned with the Moonpetal flower!
+  _childrenIds:
+  - 4be084e5-bb08-4653-87ac-25da98b3c687
+  _dialogueActions:
+  - action: 4
+    parameter: '''Moonpetal Flower'''
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 500
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &1432134956063789158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: aeeb78e1-c3f1-4957-9ad3-b60d056778e7
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: What's in it for me?
+  _childrenIds:
+  - 1e717eb5-119c-471c-a420-d4c27be1214a
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 500
+    y: 1050
+    width: 300
+    height: 225
+--- !u!114 &2045842237570471226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: e1ef280e-146a-4648-826f-3029a7b4fe53
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: I need someone to collect a rare herb called Moonpetal flower from the Whispering
+    Woods. It's a delicate process, and I'd like you to bring it back to me so I
+    can use its medicinal properties.
+  _childrenIds:
+  - 71355d2c-c467-41c8-8762-95e477ce7b23
+  - 6b3e2dda-fe0f-4f0e-883b-6682bfb4b3bf
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 950
+    y: 450
+    width: 300
+    height: 225
+--- !u!114 &3214934614959848790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 8c930d1d-c005-470d-88cd-03f18599d0c9
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: What's your request?
+  _childrenIds:
+  - e1ef280e-146a-4648-826f-3029a7b4fe53
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 500
+    y: 450
+    width: 300
+    height: 225
+--- !u!114 &3586306976740031386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: ed530eee-d201-4131-9b36-bcdf4d17a923
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Good. Just bring it back to me when you're done.
+  _childrenIds: []
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 2750
+    y: 300
+    width: 300
+    height: 225
+--- !u!114 &3761788396001049644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 1e717eb5-119c-471c-a420-d4c27be1214a
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: As requested, I'll give you the Potion of Healing as a reward for collecting
+    the Moonpetal flower and bringing it back to me.
+  _childrenIds: []
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 950
+    y: 1050
+    width: 300
+    height: 225
+--- !u!114 &5288814427063023795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: aac03ed9-8fe3-4dfb-b35f-57fb78a513b8
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Speak with me again once you've journeyed through the Whispering Woods and
+    located the area where the Moonpetal flower grows.
+  _childrenIds: []
+  _dialogueActions: []
+  _condition:
+    _and:
+    - _or:
+      - _predicateType: 1
+        _negate: 0
+        _parameters:
+        - Moonpetal Flower
+    - _or:
+      - _predicateType: 2
+        _negate: 1
+        _parameters:
+        - 2
+  _positionRect:
+    serializedVersion: 2
+    x: 1850
+    y: 600
+    width: 300
+    height: 225
+--- !u!114 &5568793320668836865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 71355d2c-c467-41c8-8762-95e477ce7b23
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: I'd be happy to help you with that!
+  _childrenIds:
+  - 75661d7b-4695-4151-a551-dd499e46de00
+  _dialogueActions:
+  - action: 2
+    parameter: '''Moonpetal Flower'''
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 1400
+    y: 300
+    width: 300
+    height: 225
+--- !u!114 &6595101111246608115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 75661d7b-4695-4151-a551-dd499e46de00
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Thank you! Be careful in the Whispering Woods, and don't forget to avoid
+    any potential dangers. I have a special container for you to collect the Moonpetal
+    flower in.
+  _childrenIds:
+  - 72f84758-0aa7-4a94-b3de-e748f3c4aa07
+  _dialogueActions: []
+  _condition:
+    _and:
+    - _or:
+      - _predicateType: 1
+        _negate: 1
+        _parameters:
+        - Moonpetal Flower
+  _positionRect:
+    serializedVersion: 2
+    x: 1850
+    y: 300
+    width: 300
+    height: 225

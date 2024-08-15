@@ -15,10 +15,12 @@ namespace Campbell.Editor.QuestGeneration
 
         private void OnGUI()
         {
-            GUILayout.BeginVertical(GUILayout.Width(192), GUILayout.Height(108));
+            GUIContent message = new GUIContent("The Unity Editor needs to be restarted to install package dependencies.\nDo you want to restart the Unity Editor?");
+            Vector2 messageSize = EditorStyles.boldLabel.CalcSize(message);
 
-            GUILayout.Label("The Unity Editor needs to be restarted to install package dependencies.\nDo you want to restart the Unity Editor?",
-                EditorStyles.boldLabel);
+            GUILayout.BeginVertical(GUILayout.Width(messageSize.x), GUILayout.Height(messageSize.y + EditorGUIUtility.singleLineHeight * 2));
+
+            GUILayout.Label(message, EditorStyles.boldLabel);
 
             if (GUILayout.Button("Restart"))
             {

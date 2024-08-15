@@ -16,9 +16,7 @@ namespace Campbell.Dialogues
 
         [SerializeField] private List<string> _childrenIds = new List<string>();
 
-        [SerializeField] private List<DialogueAction> _onEnterActions = new List<DialogueAction>();
-
-        [SerializeField] private List<DialogueAction> _onExitActions = new List<DialogueAction>();
+        [SerializeField] private List<DialogueActionData> _dialogueActions = new List<DialogueActionData>();
 
         [SerializeField] private Condition _condition;
 
@@ -28,9 +26,7 @@ namespace Campbell.Dialogues
         [SerializeField] [HideInInspector]
         private Rect _positionRect = new Rect(100, 100, MIN_WIDTH, MIN_HEIGHT);
 
-        private bool _editingOnEnterActions = false;
-
-        private bool _editingOnExitActions = false;
+        private bool _editingDialogueActions = false;
 
         public void SetIsPlayer(bool value)
         {
@@ -60,16 +56,15 @@ namespace Campbell.Dialogues
             }
         }
 
-        public bool EditingOnEnterActions
+        public List<DialogueActionData> DialogueActions
         {
-            get { return _editingOnEnterActions; }
-            set { _editingOnEnterActions = value; }
+            get { return _dialogueActions; }
         }
 
-        public bool EditingOnExitActions
+        public bool EditingDialogueActions
         {
-            get { return _editingOnExitActions; }
-            set { _editingOnExitActions = value; }
+            get { return _editingDialogueActions; }
+            set { _editingDialogueActions = value; }
         }
 
         public void AddChild(string childNodeID)
@@ -91,52 +86,70 @@ namespace Campbell.Dialogues
             return _childrenIds.Contains(childNodeID);
         }
 
-        public void ModifyOnEnterAction(DialogueAction action, bool add)
+        public bool DialogueActionsContain(DialogueAction action, out string parameter)
+        {
+            bool contains = false;
+            parameter = null;
+            foreach (DialogueActionData data in _dialogueActions)
+            {
+                if (data.action == action)
+                {
+                    contains = true;
+                    parameter = data.parameter;
+                    break;
+                }
+            }
+
+            return contains;
+        }
+
+        public void ModifyDialogueAction(DialogueAction action, string parameter, bool add)
         {
             if (add)
             {
-                if (!_onEnterActions.Contains(action))
+                if (!DialogueActionsContain(action, out string _))
                 {
                     Undo.RecordObject(this, "Dialogue Added OnEnter Action");
-                    _onEnterActions.Add(action);
+                    AddDialogueAction(action, parameter);
                     EditorUtility.SetDirty(this);
                 }
             }
             else
             {
-                Undo.RecordObject(this, "Dialogue Removed OnEnter Action");
-                _onEnterActions.Remove(action);
-                EditorUtility.SetDirty(this);
-            }
-        }
-
-        public bool OnEnterActionsContain(DialogueAction action)
-        {
-            return _onEnterActions.Contains(action);
-        }
-
-        public void ModifyOnExitAction(DialogueAction action, bool add)
-        {
-            if (add)
-            {
-                if (!_onExitActions.Contains(action))
+                if (DialogueActionsContain(action, out string _))
                 {
-                    Undo.RecordObject(this, "Dialogue Added OnExit Action");
-                    _onExitActions.Add(action);
+                    Undo.RecordObject(this, "Dialogue Removed OnEnter Action");
+                    RemoveDialogueAction(action);
                     EditorUtility.SetDirty(this);
                 }
             }
-            else
-            {
-                Undo.RecordObject(this, "Dialogue Removed OnExit Action");
-                _onExitActions.Remove(action);
-                EditorUtility.SetDirty(this);
-            }
         }
 
-        public bool OnExitActionsContain(DialogueAction action)
+        private void AddDialogueAction(DialogueAction action, string parameter)
         {
-            return _onExitActions.Contains(action);
+            DialogueActionData data = new DialogueActionData();
+            data.action = action;
+            switch (data.action)
+            {
+                case DialogueAction.CompleteQuest:
+                case DialogueAction.EditInventory:
+                    data.parameter = parameter;
+                    break;
+            }
+
+            _dialogueActions.Add(data);
+        }
+
+        private void RemoveDialogueAction(DialogueAction action)
+        {
+            foreach (DialogueActionData data in _dialogueActions)
+            {
+                if (data.action == action)
+                {
+                    _dialogueActions.Remove(data);
+                    break;
+                }
+            }
         }
 
         public Condition Condition { set => _condition = value; }
@@ -157,16 +170,6 @@ namespace Campbell.Dialogues
         public IReadOnlyList<string> ChildrenIDs
         {
             get { return _childrenIds; }
-        }
-
-        public List<DialogueAction> OnEnterActions
-        {
-            get { return _onEnterActions; }
-        }
-        
-        public IReadOnlyList<DialogueAction> OnExitActions
-        {
-            get { return _onExitActions; }
         }
 
         public bool EvaluateCondition(IEnumerable<IPredicateEvaluable> evaluables)

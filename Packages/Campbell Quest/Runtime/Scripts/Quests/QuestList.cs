@@ -55,6 +55,18 @@ namespace Campbell.Quests
                 _onQuestUpdate?.Invoke();
             }
         }
+        
+        public void ClearQuest(Quest quest)
+        {
+            QuestStatus status = FindQuest(quest);
+            if (status != null)
+            {
+                status.Complete();
+                GiveReward(quest);
+
+                _onQuestUpdate?.Invoke();
+            }
+        }
 
         public void RegisterOnQuestUpdate(Action action)
         {

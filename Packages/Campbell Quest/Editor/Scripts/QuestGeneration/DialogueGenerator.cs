@@ -13,14 +13,14 @@ namespace Campbell.Editor.QuestGeneration
 {
     public class DialogueGenerator
     {
-        public static bool DoesDialogueAssetExist(string dialogueJson, string savePath, string generatedQuestName)
+        public static bool DoesDialogueAssetExist(string dialogueJson, string savePath)
         {
             DialogueData dialogueData = JsonConvert.DeserializeObject<DialogueData>(dialogueJson);
 
-            string path = savePath + "/" + generatedQuestName + "/Dialogues";
+            string path = savePath + "/Resources";
             if (Directory.Exists(path))
             {
-                path += "/" + dialogueData.npc_name + ".asset";
+                path += "/" + dialogueData.npc_name + " Dialogue.asset";
                 return File.Exists(path);
             }
 
@@ -34,13 +34,13 @@ namespace Campbell.Editor.QuestGeneration
             Dialogue dialogue = ScriptableObject.CreateInstance<Dialogue>();
             dialogue.name = dialogueData.npc_name;
 
-            string path = savePath + "/Dialogues";
+            string path = savePath + "/Resources";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            path += "/" + dialogueData.npc_name + ".asset";
+            path += "/" + dialogueData.npc_name + " Dialogue.asset";
             UnityEditor.AssetDatabase.CreateAsset(dialogue, path);
 
             dialogue.CreateRootNode();
@@ -69,7 +69,7 @@ namespace Campbell.Editor.QuestGeneration
                 playerNode.SetText(choice.player_dialogue);
                 if (!string.IsNullOrWhiteSpace(choice.result))
                 {
-                    playerNode.OnEnterActions.Add(CreateDialogueAction(choice.result));
+                    playerNode.DialogueActions.Add(CreateDialogueAction(choice.result));
                 }
 
                 DialogueNode npcResponseNode = dialogue.CreateNode(playerNode);
@@ -80,7 +80,7 @@ namespace Campbell.Editor.QuestGeneration
                     npcResponseNode.Condition = CreateCondition(choice.condition);
                 }
 
-                if (choice.choices != null && choice.choices.Count > 0)
+                if (choice.choices is { Count: > 0 })
                 {
                     ProcessDialogueChoices(dialogue, npcResponseNode, choice.choices);
                 }
@@ -159,18 +159,33 @@ namespace Campbell.Editor.QuestGeneration
             return condition;
         }
 
-        private static DialogueAction CreateDialogueAction(string actionString)
+        private static DialogueActionData CreateDialogueAction(string actionString)
         {
             string actionName = actionString.Substring(0, actionString.IndexOf('('));
+            string[] parameters = actionString.Substring(actionString.IndexOf('(') + 1, actionString.IndexOf(')') - actionString.IndexOf('(') - 1).Split(',');
 
             DialogueAction actionType = actionName switch
             {
                 "receive_quest" => DialogueAction.GiveQuest,
+                "complete_objective" => DialogueAction.CompleteObjective,
                 "complete_quest" => DialogueAction.CompleteQuest,
+                "attack_player" => DialogueAction.Attack,
+                "add_item" => DialogueAction.EditInventory,
+                "remove_item" => DialogueAction.EditInventory,
                 _ => DialogueAction.None,
             };
 
-            return actionType;
+            DialogueActionData actionData = new DialogueActionData
+            {
+                action = actionType
+            };
+
+            if (parameters.Length > 0)
+            {
+                actionData.parameter = parameters[0];
+            }
+
+            return actionData;
         }
     }
 

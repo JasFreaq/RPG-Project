@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Campbell.Dialogues;
 using Campbell.Editor.QuestGeneration.Utility;
+using Campbell.Quests;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
@@ -8,8 +10,6 @@ namespace Campbell.Editor.QuestGeneration
 {
     public class DialogueProcessor
     {
-        private bool _canNpcFight = false;
-
         public bool GenerateDialogues(string formattedQuest, string locationInformation, string characterInformation, ref List<string> formattedDialogues)
         {
             if (GUILayout.Button("Generate Dialogues"))
@@ -53,7 +53,13 @@ namespace Campbell.Editor.QuestGeneration
                 }
 
                 formattedDialogues = dialoguesBuilder;
-                return true;
+                if (formattedDialogues.Count > 0)
+                {
+                    return true;
+                }
+                
+                Debug.LogWarning("No dialogues generated.");
+                return false;
             }
 
             return false;
@@ -71,8 +77,8 @@ namespace Campbell.Editor.QuestGeneration
             dialogueData.npc_dialogue = EditorGUILayout.TextField(dialogueData.npc_dialogue);
 
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Choices", EditorStyles.boldLabel);
 
+            EditorGUILayout.LabelField("Choices", EditorStyles.boldLabel);
             if (dialogueData.choices != null)
             {
                 DrawChoices(dialogueData.choices, 0);
@@ -85,17 +91,6 @@ namespace Campbell.Editor.QuestGeneration
             }
 
             return dialogueJson;
-
-            //GUIStyle textStyle = new GUIStyle(EditorStyles.textField)
-            //{
-            //    padding = new RectOffset(5, 5, 5, 5),
-            //    wordWrap = true
-            //};
-
-            //dialogue = EditorGUILayout.TextArea(dialogue, textStyle, GUILayout.MinWidth(100),
-            //    GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
-
-            //return dialogue;
         }
 
         private void DrawChoices(List<ChoiceData> choices, int indentLevel)
@@ -158,31 +153,37 @@ namespace Campbell.Editor.QuestGeneration
             return false;
         }
 
-        public void CreateDialogueAsset(string dialogue, string questAssetSavePath, string generatedQuestName)
+        public void CreateDialogueAsset(string dialogue, string dialogueAssetSavePath)
         {
             if (GUILayout.Button("Create Dialogue Assets"))
             {
-                string dialogueSavePath = questAssetSavePath + "/" + generatedQuestName;
-                DialogueGenerator.CreateDialogueFromJson(dialogue, dialogueSavePath);
+                DialogueGenerator.CreateDialogueFromJson(dialogue, dialogueAssetSavePath);
             }
         }
 
-        public void RecreateDialogueAsset(string dialogue, string questAssetSavePath, string generatedQuestName)
+        public void RecreateDialogueAsset(string dialogue, string dialogueAssetSavePath)
         {
             if (GUILayout.Button("Recreate Dialogue Assets"))
             {
-                string dialogueSavePath = questAssetSavePath + "/" + generatedQuestName;
-                DialogueGenerator.CreateDialogueFromJson(dialogue, dialogueSavePath);
+                DialogueGenerator.CreateDialogueFromJson(dialogue, dialogueAssetSavePath);
             }
         }
 
-        public void CreateNpcAsset(string dialogue, string questAssetSavePath, string generatedQuestName)
+        public void CreateNpcAsset(string quest, string dialogue, string npcAssetSavePath)
         {
+            EditorGUILayout.BeginHorizontal();
+
             if (GUILayout.Button("Create Npc Asset"))
             {
-                string dialogueSavePath = questAssetSavePath + "/" + generatedQuestName;
-                //CreateDialogueFromJson(dialogue, dialogueSavePath);
+                QuestData questData = JsonConvert.DeserializeObject<QuestData>(quest);
+                Quest questAsset = Resources.Load<Quest>($"{questData.name} Quest");
+
+                DialogueData dialogueData = JsonConvert.DeserializeObject<DialogueData>(dialogue);
+                
+                NpcGenerator.CreateNpcPrefab(dialogueData, questAsset, npcAssetSavePath);
             }
+
+            EditorGUILayout.EndHorizontal();
         }
     }
 }

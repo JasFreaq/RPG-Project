@@ -267,6 +267,8 @@ namespace Campbell.Editor.QuestGeneration
             }
             else
             {
+                bool changedName = UtilityLibrary.RemoveInvalidFileNameChars(ref questData.name);
+
                 questData.name = EditorGUILayout.TextField("Quest Name", questData.name);
 
                 EditorGUILayout.Space();
@@ -285,7 +287,7 @@ namespace Campbell.Editor.QuestGeneration
 
                 _rewardsList.DoLayoutList();
                 
-                if (GUI.changed)
+                if (GUI.changed || changedName)
                 {
                     formattedQuestWithRewards = JsonConvert.SerializeObject(questData);
                 }

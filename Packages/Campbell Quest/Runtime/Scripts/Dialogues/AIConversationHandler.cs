@@ -20,17 +20,21 @@ namespace Campbell.Dialogues
         public string ConversantName
         {
             get { return _conversantName; }
+            set { _conversantName = value; }
         }
 
         public Dialogue Dialogue
         {
             get { return _dialogue; }
+            set { _dialogue = value; }
         }
 
-        public void TriggerDialogueAction(IReadOnlyList<DialogueAction> actions)
+        public void TriggerDialogueAction(IReadOnlyList<DialogueActionData> actions)
         {
             if (_trigger)
+            {
                 _trigger.Trigger(actions);
+            }
         }
 
         public bool IsRaycastHit(out CursorType cursorType, out RaycastableType raycastableType)

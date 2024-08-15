@@ -87,11 +87,9 @@ namespace Campbell.Dialogues
                 if (playerChildren.Count > 0)
                 {
                     _isChoosing = true;
-                    TriggerExitAction();
                 }
                 else
                 {
-                    TriggerExitAction();
                     _currentDialogueNode = aIChildren[Random.Range(0, aIChildren.Count)];
                     TriggerEnterAction();
                 }
@@ -130,29 +128,17 @@ namespace Campbell.Dialogues
 
         void TriggerEnterAction()
         {
-            if (_currentAIHandler && _currentDialogueNode.OnEnterActions.Count > 0)
+            if (_currentAIHandler && _currentDialogueNode.DialogueActions.Count > 0)
             {
-                _currentAIHandler.TriggerDialogueAction(_currentDialogueNode.OnEnterActions);
-            }
-        }
-
-        void TriggerExitAction()
-        {
-            if (_currentAIHandler && _currentDialogueNode.OnExitActions.Count > 0)
-            {
-                _currentAIHandler.TriggerDialogueAction(_currentDialogueNode.OnExitActions);
+                _currentAIHandler.TriggerDialogueAction(_currentDialogueNode.DialogueActions);
             }
         }
 
         public void Quit()
         {
             _currentDialogue = null;
-
-            TriggerExitAction();
             _currentDialogueNode = null;
-
             _currentAIHandler = null;
-
             _isChoosing = false;
 
             _onConversationUpdated?.Invoke();

@@ -1,5 +1,6 @@
 using Python.Runtime;
 using System.IO;
+using System.Linq;
 using System.Text;
 using UnityEditor.Scripting.Python;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace Campbell.Editor.QuestGeneration.Utility
                 Debug.LogWarning("Input string is null.");
                 return null;
             }
-
+            
             StringBuilder formattedString = new StringBuilder();
 
             foreach (char c in input)
@@ -60,6 +61,20 @@ namespace Campbell.Editor.QuestGeneration.Utility
             }
 
             return stringWriter.ToString();
+        }
+
+        public static bool RemoveInvalidFileNameChars(ref string fileName)
+        {
+            char[] invalidChars = Path.GetInvalidFileNameChars();
+            
+            bool foundInvalidChars = fileName.Any(c => invalidChars.Contains(c));
+            
+            if (foundInvalidChars)
+            {
+                fileName = new string(fileName.Where(c => !invalidChars.Contains(c)).ToArray());
+            }
+
+            return foundInvalidChars;
         }
     }
 }

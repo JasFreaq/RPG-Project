@@ -929,7 +929,7 @@ PrefabInstance:
     - target: {fileID: 5502906662121575704, guid: aad7363143cff2b4b90e96dc97b5baa8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -580.63074
+      value: -580.6308
       objectReference: {fileID: 0}
     - target: {fileID: 5503144122103106648, guid: aad7363143cff2b4b90e96dc97b5baa8,
         type: 3}
@@ -1477,6 +1477,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aad7363143cff2b4b90e96dc97b5baa8, type: 3}
+--- !u!114 &4117527 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3350495626477392818, guid: aad7363143cff2b4b90e96dc97b5baa8,
+    type: 3}
+  m_PrefabInstance: {fileID: 4117526}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9598790
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1887,7 +1899,7 @@ PlayableDirector:
   m_InitialTime: 0
   m_SceneBindings:
   - key: {fileID: -8314333950126835921, guid: fb401559ac72ac14493451a20382b430, type: 2}
-    value: {fileID: 0}
+    value: {fileID: 4117527}
   - key: {fileID: 488392235637067882, guid: fb401559ac72ac14493451a20382b430, type: 2}
     value: {fileID: 1241387439}
   m_ExposedReferences:
@@ -3051,67 +3063,19 @@ MonoBehaviour:
   - dialogueAction: 1
     onTrigger:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 356342917}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: Activate
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
+        m_Calls: []
   - dialogueAction: 2
     onTrigger:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 915821794}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: GiveQuest
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
   - dialogueAction: 3
     onTrigger:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 915821810}
-          m_TargetAssemblyTypeName: RPG.Quests.QuestClearer, Assembly-CSharp
-          m_MethodName: UpdateQuestCompletion
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
   - dialogueAction: 4
     onTrigger:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 915821811}
-          m_TargetAssemblyTypeName: RPG.InventorySystem.InventoryEditor, Assembly-CSharp
-          m_MethodName: EditInventory
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
 --- !u!114 &915821797 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5155479070648397201, guid: 3cccd9306ad94eb449a0670785312c06,
@@ -3137,7 +3101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _quest: {fileID: 11400000, guid: 90cd32f73771f504aa2c9d53a3a33347, type: 2}
-  _objectiveReference: 2
 --- !u!114 &915821811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3379,19 +3342,7 @@ MonoBehaviour:
   - dialogueAction: 1
     onTrigger:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 356342917}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: Activate
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
+        m_Calls: []
 --- !u!114 &1048123088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3527,7 +3478,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1097878973
 Transform:
   m_ObjectHideFlags: 0

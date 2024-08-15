@@ -14,10 +14,10 @@ namespace Campbell.Editor.QuestGeneration
         {
             QuestData questData = JsonConvert.DeserializeObject<QuestData>(questJson);
 
-            string path = savePath + "/" + questData.name;
+            string path = savePath + "/" + questData.name + "/Resources";
             if (Directory.Exists(path))
             {
-                path += "/" + questData.name + ".asset";
+                path += "/" + questData.name + " Quest.asset";
                 return File.Exists(path);
             }
 
@@ -43,7 +43,7 @@ namespace Campbell.Editor.QuestGeneration
                 InventoryItem item = Resources.Load<InventoryItem>(reward.item);
                 if (item != null)
                 {
-                    quest.AddReward((int)reward.number, item);
+                    quest.AddReward(reward.number, item);
                 }
                 else
                 {
@@ -51,13 +51,13 @@ namespace Campbell.Editor.QuestGeneration
                 }
             }
 
-            string path = savePath + "/" + questData.name;
+            string path = savePath + "/" + questData.name + "/Resources";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            path += "/" + questData.name + ".asset";
+            path += "/" + questData.name + " Quest.asset";
             UnityEditor.AssetDatabase.CreateAsset(quest, path);
             UnityEditor.AssetDatabase.SaveAssets();
 

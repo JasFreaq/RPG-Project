@@ -294,64 +294,49 @@ namespace Campbell.Editor.Dialogues
         private static void DrawDialogueActions(DialogueNode node)
         {
             GUILayout.BeginVertical();
-            GUILayout.Label("OnEnterActions");
-            if (node.EditingOnEnterActions)
+            GUILayout.Label("Dialogue Actions");
+            if (node.EditingDialogueActions)
             {
                 foreach (DialogueAction action in Enum.GetValues(typeof(DialogueAction)))
                 {
-                    node.ModifyOnEnterAction(action,
-                        GUILayout.Toggle(node.OnEnterActionsContain(action), action.ToString()));
+                    if (action == DialogueAction.None)
+                        continue;
+
+                    bool addAction = GUILayout.Toggle(node.DialogueActionsContain(action, out string parameter), action.ToString());
+
+                    if (addAction)
+                    {
+                        switch (action)
+                        {
+                            case DialogueAction.CompleteObjective:
+                                parameter = EditorGUILayout.TextField(parameter);
+                                break;
+                        }
+                    }
+
+                    node.ModifyDialogueAction(action, parameter, addAction);
                 }
 
                 if (GUILayout.Button("Stop Edit"))
                 {
-                    node.EditingOnEnterActions = false;
+                    node.EditingDialogueActions = false;
                 }
             }
             else
             {
-                foreach (DialogueAction action in node.OnEnterActions)
+                foreach (DialogueActionData actionData in node.DialogueActions)
                 {
-                    GUILayout.Label(action.ToString());
+                    GUILayout.Label(actionData.ToString());
                 }
 
                 if (GUILayout.Button("Edit"))
                 {
-                    node.EditingOnEnterActions = true;
+                    node.EditingDialogueActions = true;
                 }
             }
             GUILayout.EndVertical();
             
             GUILayout.FlexibleSpace();
-
-            GUILayout.BeginVertical();
-            GUILayout.Label("OnExitActions");
-            if (node.EditingOnExitActions)
-            {
-                foreach (DialogueAction action in Enum.GetValues(typeof(DialogueAction)))
-                {
-                    node.ModifyOnExitAction(action,
-                        GUILayout.Toggle(node.OnExitActionsContain(action), action.ToString()));
-                }
-
-                if (GUILayout.Button("Stop Edit"))
-                {
-                    node.EditingOnExitActions = false;
-                }
-            }
-            else
-            {
-                foreach (DialogueAction action in node.OnExitActions)
-                {
-                    GUILayout.Label(action.ToString());
-                }
-
-                if (GUILayout.Button("Edit"))
-                {
-                    node.EditingOnExitActions = true;
-                }
-            }
-            GUILayout.EndVertical();
         }
 
         private void DrawConnections(DialogueNode node)

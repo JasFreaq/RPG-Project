@@ -205,8 +205,12 @@ GameObject:
   - component: {fileID: 1301889662}
   - component: {fileID: 554229365781571245}
   - component: {fileID: 7606948792750337385}
+  - component: {fileID: -5540275882816278071}
+  - component: {fileID: 2254770123615641394}
+  - component: {fileID: 2960196841072051175}
+  - component: {fileID: 3534838767025416851}
   m_Layer: 0
-  m_Name: BaseCharacter
+  m_Name: Eldara, the Herbalist NPC Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -448,6 +452,91 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &-5540275882816278071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993987367173071957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 019ec60736beecd46a93df9cee54bdec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _conversantName: Eldara, the Herbalist
+  _dialogue: {fileID: 11400000, guid: 84858a853e68dd0439c3b100f7b1e8d9, type: 2}
+--- !u!114 &2254770123615641394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993987367173071957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47057fa80930db940b790b9bbb2baa52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggers:
+  - dialogueAction: 2
+    onTrigger:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2960196841072051175}
+          m_TargetAssemblyTypeName: Campbell.Quests.QuestGiver, Campbell
+          m_MethodName: GiveQuest
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - dialogueAction: 4
+    onTrigger:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3534838767025416851}
+          m_TargetAssemblyTypeName: Campbell.Quests.QuestClearer, Campbell
+          m_MethodName: CompleteQuest
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &2960196841072051175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993987367173071957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f1767a0c6d4aa244894a7ff1f988426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _quest: {fileID: 11400000, guid: 5389841f189f7394bbf1a0aa3773a1f0, type: 2}
+--- !u!114 &3534838767025416851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1993987367173071957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df2f3b3f8bea2248bd471e69d90a739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _quest: {fileID: 11400000, guid: 5389841f189f7394bbf1a0aa3773a1f0, type: 2}
 --- !u!1 &3237003015632514277
 GameObject:
   m_ObjectHideFlags: 0
