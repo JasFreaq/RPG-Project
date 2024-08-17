@@ -1,0 +1,15 @@
+{
+    "item" : {
+        "name": "Iron Sword",
+        "description": "A nondescript sword made of iron.",
+        "stackable": false,
+        "allowedEquipLocation": "Weapon"
+    },
+    "item_type": "Equipment",
+    "objectives": [
+        {
+            "objective_reference": "3",
+            "objective_type": "Pickup Item"
+        }
+    ]
+}

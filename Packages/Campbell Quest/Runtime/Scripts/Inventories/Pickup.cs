@@ -22,7 +22,7 @@ namespace Campbell.InventorySystem
 
         private void Awake()
         {
-            var player = GameObject.FindGameObjectWithTag("Player");
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
             inventory = player.GetComponent<Inventory>();
 
             _trigger = GetComponent<PickupTrigger>();

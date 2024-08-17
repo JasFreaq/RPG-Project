@@ -10,6 +10,14 @@ namespace Campbell.InventorySystem
         [SerializeField] Modifier[] _additiveBonuses;
         [SerializeField] Modifier[] _multiplicativeBonuses;
 
+#if UNITY_EDITOR
+
+        public Modifier[] AdditiveBonuses { set => _additiveBonuses = value; }
+
+        public Modifier[] MultiplicativeBonuses { set => _multiplicativeBonuses = value; }
+
+#endif
+
         public IEnumerable<float> GetAdditive(Stat stat)
         {
             foreach (Modifier modifier in _additiveBonuses) 

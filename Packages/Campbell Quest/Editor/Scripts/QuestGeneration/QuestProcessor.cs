@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Campbell.Editor.QuestGeneration.Utility;
+using Campbell.Quests;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
 using UnityEditorInternal;
@@ -202,9 +203,15 @@ namespace Campbell.Editor.QuestGeneration
 
                     formattedQuestWithRewards = UtilityLibrary.RunPythonScript(formatQuestWithRewardsScript);
 
-                    InitializeLists(formattedQuestWithRewards);
+                    if (!string.IsNullOrWhiteSpace(formattedQuestWithRewards))
+                    {
+                        InitializeObjectivesList(formattedQuestWithRewards);
+                        InitializeRewardsList(formattedQuestWithRewards);
+                        return true;
+                    }
 
-                    return true;
+                    Debug.LogWarning("No quest generated.");
+                    return false;
                 }
 
                 return false;
@@ -213,9 +220,9 @@ namespace Campbell.Editor.QuestGeneration
             return false;
         }
 
-        private void InitializeLists(string formattedQuestWithRewards)
+        private void InitializeObjectivesList(string formattedQuestWithRewards)
         {
-            QuestData questData = JsonConvert.DeserializeObject<QuestData>(formattedQuestWithRewards);
+            QuestData questData = UtilityLibrary.DeserializeJson<QuestData>(formattedQuestWithRewards);
             
             _objectivesList = new ReorderableList(questData.objectives, typeof(ObjectiveData), true, true, true, true)
             {
@@ -236,7 +243,12 @@ namespace Campbell.Editor.QuestGeneration
                             objective.description);
                 }
             };
-
+        }
+        
+        private void InitializeRewardsList(string formattedQuestWithRewards)
+        {
+            QuestData questData = UtilityLibrary.DeserializeJson<QuestData>(formattedQuestWithRewards);
+            
             _rewardsList = new ReorderableList(questData.rewards, typeof(RewardData), true, true, true, true)
             {
                 drawHeaderCallback = (Rect rect) => { EditorGUI.LabelField(rect, "Rewards"); },
@@ -260,7 +272,7 @@ namespace Campbell.Editor.QuestGeneration
 
         public string DisplayQuestInformation(string formattedQuestWithRewards)
         {
-            QuestData questData = JsonConvert.DeserializeObject<QuestData>(formattedQuestWithRewards);
+            QuestData questData = UtilityLibrary.DeserializeJson<QuestData>(formattedQuestWithRewards);
             if (questData == null)
             {
                 EditorGUILayout.HelpBox("Ollama response does not match required Schema. Try to generate quest again.", MessageType.Warning);
@@ -281,10 +293,18 @@ namespace Campbell.Editor.QuestGeneration
 
                 EditorGUILayout.Space();
 
+                if (_objectivesList == null)
+                {
+                   InitializeObjectivesList(formattedQuestWithRewards);
+                }
                 _objectivesList.DoLayoutList();
                 
                 EditorGUILayout.Space();
 
+                if (_rewardsList == null)
+                {
+                    InitializeRewardsList(formattedQuestWithRewards);
+                }
                 _rewardsList.DoLayoutList();
                 
                 if (GUI.changed || changedName)
@@ -307,19 +327,19 @@ namespace Campbell.Editor.QuestGeneration
             return false;
         }
 
-        public void CreateQuestAsset(string formattedQuestWithRewards, string questAssetSavePath, ref string generatedQuestName)
+        public void CreateQuestAsset(string formattedQuestWithRewards, Quest.QuestMetadata metadata)
         {
             if (GUILayout.Button("Create Quest Assets"))
             {
-                generatedQuestName = QuestGenerator.CreateQuestFromJson(formattedQuestWithRewards, questAssetSavePath);
+                QuestGenerator.CreateQuestFromJson(formattedQuestWithRewards, metadata);
             }
         }
         
-        public void RecreateQuestAsset(string formattedQuestWithRewards, string questAssetSavePath, ref string generatedQuestName)
+        public void RecreateQuestAsset(string formattedQuestWithRewards, Quest.QuestMetadata metadata)
         {
             if (GUILayout.Button("Recreate Quest Assets"))
             {
-                generatedQuestName = QuestGenerator.CreateQuestFromJson(formattedQuestWithRewards, questAssetSavePath);
+                QuestGenerator.CreateQuestFromJson(formattedQuestWithRewards, metadata);
             }
         }
     }

@@ -7,16 +7,24 @@ namespace Campbell.Stats
 {
     public class BaseStats : MonoBehaviour, ISaveable
     {
-        [SerializeField] Progression _progression = null;
-        [SerializeField] CharacterClass _class;
+        [SerializeField] private Progression _progression = null;
+        [SerializeField] private CharacterClass _class;
 
-        [SerializeField] [Range(1, 100)] int _startingLevel = 1;
-        [Range(1, 100)] int _level = 0;
-        float _levelingXP = -1;
+        [SerializeField] [Range(1, 100)] private int _startingLevel = 1;
+        [Range(1, 100)] private int _level = 0;
+        private float _levelingXP = -1;
 
         public event Action OnLevelUp;
-        [SerializeField] GameObject _levelUpEffectPrefab = null;
-        [SerializeField] bool _shouldUseModifiers = false;
+        [SerializeField] private GameObject _levelUpEffectPrefab = null;
+        [SerializeField] private bool _shouldUseModifiers = false;
+
+#if UNITY_EDITOR
+
+        public Progression Progression { set => _progression = value; }
+
+        public CharacterClass Class { set => _class = value; }
+
+#endif
 
         private void Awake()
         {

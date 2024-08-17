@@ -86,3 +86,8 @@ MonoBehaviour:
       - 5
       - 10
       - 20
+  - _class: 4
+    _stats:
+    - _stat: 0
+      _levels:
+      - 5

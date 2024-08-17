@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 namespace Campbell.Attributes
 {
-    [SelectionBase]
+    [SelectionBase, RequireComponent(typeof(BaseStats))]
     public class Health : MonoBehaviour, ISaveable
     {
         [System.Serializable]
@@ -31,6 +31,9 @@ namespace Campbell.Attributes
 
         [SerializeField] UnityEvent _onDeath;
 
+#if UNITY_EDITOR
+        public UnityEvent OnDeath => _onDeath;
+#endif
 
         private void Awake()
         {
@@ -89,8 +92,6 @@ namespace Campbell.Attributes
 
             if (_isAlive && _healthPoints.value <= Mathf.Epsilon)
             {
-                _onDeath.Invoke();
-
                 _experience = instigator.GetComponent<Experience>();
                 if (_experience) 
                     _experience.GainXP(_baseStats.GetStat(Stat.ExperienceReward));
@@ -101,9 +102,12 @@ namespace Campbell.Attributes
                 
         private void Death()
         {
-            _animator.SetTrigger("death");
-            _isAlive = false;
+            if (_animator)
+                _animator.SetTrigger("death");
 
+            _isAlive = false;
+            
+            _onDeath.Invoke();
             BroadcastMessage("Kill");
         }
 

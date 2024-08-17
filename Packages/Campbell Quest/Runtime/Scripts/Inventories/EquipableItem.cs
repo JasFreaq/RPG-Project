@@ -15,6 +15,12 @@ namespace Campbell.InventorySystem
 
         // PUBLIC
 
+#if UNITY_EDITOR
+
+        public EquipLocation AllowedEquipLocation { set => allowedEquipLocation = value; }
+
+#endif
+
         public EquipLocation GetAllowedEquipLocation()
         {
             return allowedEquipLocation;

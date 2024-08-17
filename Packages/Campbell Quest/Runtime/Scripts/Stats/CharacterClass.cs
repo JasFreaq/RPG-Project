@@ -5,6 +5,7 @@
         Player,
         Grunt,
         Archer,
-        Mage
+        Mage,
+        Item
     }
 }

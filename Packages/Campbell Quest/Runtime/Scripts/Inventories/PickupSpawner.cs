@@ -13,6 +13,10 @@ namespace Campbell.InventorySystem
         [SerializeField] InventoryItem item = null;
         [SerializeField] int number = 1;
 
+#if UNITY_EDITOR
+        public InventoryItem Item { set => item = value; }
+#endif
+
         // LIFECYCLE METHODS
         private void Awake()
         {

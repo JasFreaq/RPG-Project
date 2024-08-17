@@ -1,0 +1,38 @@
+{
+  "title": "Required Items",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_name": {
+            "type": "string"
+          },
+          "item_type": {
+            "type": "string"
+          },
+          "objectives": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "objective_reference": {
+                  "type": "string"
+                },
+                "objective_type": {
+                  "type": "string"
+                }
+              },
+              "required": ["objective_reference", "objective_type"]
+            }
+          }
+        },
+        "required": ["item_name", "item_type", "objectives"]
+      }
+    }
+  },
+  "required": ["items"]
+}
+  

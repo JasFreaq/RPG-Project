@@ -1,0 +1,23 @@
+{
+    "item" : {
+        "name": "Helm of Darkness",
+        "description": "Powerful helm made from darkness. Increases health and damage dealt.",
+        "stackable": false,
+        "allowedEquipLocation": "Helmet",
+        "additiveBonuses": [
+            { "stat": "health", "value": 50 },
+            { "stat": "damage", "value": 20 }
+        ]
+    },
+    "item_type": "Stat-Boosting Equipment",
+    "objectives": [
+        {
+            "objective_reference": "3",
+            "objective_type": "Pickup Item"
+        },
+        {
+            "objective_reference": "4",
+            "objective_type": "Destroy Item"
+        }
+    ]
+}

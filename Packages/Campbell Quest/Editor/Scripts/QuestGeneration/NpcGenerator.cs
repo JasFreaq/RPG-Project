@@ -4,17 +4,11 @@ using Campbell.Combat;
 using Campbell.Control;
 using Campbell.Dialogues;
 using Campbell.InventorySystem;
-using Campbell.Movement;
 using Campbell.Quests;
-using Campbell.UI;
-using Python.Runtime;
-using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
 using UnityEditor.Events;
 using UnityEngine;
 using UnityEngine.Events;
-using static Campbell.Quests.Quest;
-using static Codice.Client.Common.Connection.AskCredentialsToUser;
 
 namespace Campbell.Editor.QuestGeneration
 {
@@ -22,7 +16,7 @@ namespace Campbell.Editor.QuestGeneration
     {
         public static void CreateNpcPrefab(DialogueData dialogueData, Quest questAsset, string savePath)
         {
-            MonoBehaviour baseCharacter = Resources.Load<MonoBehaviour>("BaseCharacter");
+            MonoBehaviour baseCharacter = Resources.Load<MonoBehaviour>("Base Character");
             
             string path = savePath + "/Resources";
             if (!Directory.Exists(path))
@@ -31,7 +25,6 @@ namespace Campbell.Editor.QuestGeneration
             }
 
             path += "/" + dialogueData.npc_name + " NPC Prefab.prefab";
-
             // Create a prefab from the base character
             GameObject npc = PrefabUtility.SaveAsPrefabAsset(baseCharacter.gameObject, path);
 
@@ -78,10 +71,10 @@ namespace Campbell.Editor.QuestGeneration
                         questGiver = npc.AddComponent<QuestGiver>();
                     }
                     questGiver.Quest = questAsset;
-                    UnityEvent onReceiveTrigger = new UnityEvent();
+                    UnityEvent onReceiveEvent = new UnityEvent();
                     UnityAction onReceiveAction = questGiver.GiveQuest;
-                    UnityEventTools.AddVoidPersistentListener(onReceiveTrigger, onReceiveAction);
-                    dialogueTrigger.AddTrigger(DialogueAction.GiveQuest, onReceiveTrigger);
+                    UnityEventTools.AddVoidPersistentListener(onReceiveEvent, onReceiveAction);
+                    dialogueTrigger.AddTrigger(DialogueAction.GiveQuest, onReceiveEvent);
                     break;
 
                 case "complete_objective":
@@ -91,10 +84,10 @@ namespace Campbell.Editor.QuestGeneration
                         objectiveClearer = npc.AddComponent<QuestClearer>();
                     }
                     objectiveClearer.Quest = questAsset;
-                    UnityEvent onObjectiveClearTrigger = new UnityEvent();
+                    UnityEvent onObjectiveClearEvent = new UnityEvent();
                     UnityAction<string> onObjectiveClearAction = objectiveClearer.CompleteQuestObjective;
-                    UnityEventTools.AddStringPersistentListener(onObjectiveClearTrigger, onObjectiveClearAction, parameters[0]);
-                    dialogueTrigger.AddTrigger(DialogueAction.CompleteObjective, onObjectiveClearTrigger);
+                    UnityEventTools.AddStringPersistentListener(onObjectiveClearEvent, onObjectiveClearAction, parameters[0]);
+                    dialogueTrigger.AddTrigger(DialogueAction.CompleteObjective, onObjectiveClearEvent);
                     break;
                 
                 case "complete_quest":
@@ -104,10 +97,10 @@ namespace Campbell.Editor.QuestGeneration
                         questClearer = npc.AddComponent<QuestClearer>();
                     }
                     questClearer.Quest = questAsset;
-                    UnityEvent onQuestClearTrigger = new UnityEvent();
+                    UnityEvent onQuestClearEvent = new UnityEvent();
                     UnityAction onQuestClearAction = questClearer.CompleteQuest;
-                    UnityEventTools.AddVoidPersistentListener(onQuestClearTrigger, onQuestClearAction);
-                    dialogueTrigger.AddTrigger(DialogueAction.CompleteQuest, onQuestClearTrigger);
+                    UnityEventTools.AddVoidPersistentListener(onQuestClearEvent, onQuestClearAction);
+                    dialogueTrigger.AddTrigger(DialogueAction.CompleteQuest, onQuestClearEvent);
                     break;
 
                 case "attack_player":
@@ -116,11 +109,11 @@ namespace Campbell.Editor.QuestGeneration
                     {
                         aiController = npc.AddComponent<AIController>();
                     }
-                    UnityEvent onAttackTrigger = new UnityEvent();
+                    UnityEvent onAttackEvent = new UnityEvent();
                     UnityAction onAttackAction = aiController.Aggravate;
                     onAttackAction += aiController.AggravateNearbyEnemies;
-                    UnityEventTools.AddVoidPersistentListener(onAttackTrigger, onAttackAction);
-                    dialogueTrigger.AddTrigger(DialogueAction.Attack, onAttackTrigger);
+                    UnityEventTools.AddVoidPersistentListener(onAttackEvent, onAttackAction);
+                    dialogueTrigger.AddTrigger(DialogueAction.Attack, onAttackEvent);
 
                     npc.AddComponent<CombatTarget>();
                     break;
@@ -139,10 +132,10 @@ namespace Campbell.Editor.QuestGeneration
                         inventoryChanger.Remove = true;
                     }
                     inventoryChanger.Number = 1;
-                    UnityEvent onInventoryTrigger = new UnityEvent();
+                    UnityEvent onInventoryEvent = new UnityEvent();
                     UnityAction onInventoryAction = inventoryChanger.EditInventory;
-                    UnityEventTools.AddVoidPersistentListener(onInventoryTrigger, onInventoryAction);
-                    dialogueTrigger.AddTrigger(DialogueAction.EditInventory, onInventoryTrigger);
+                    UnityEventTools.AddVoidPersistentListener(onInventoryEvent, onInventoryAction);
+                    dialogueTrigger.AddTrigger(DialogueAction.EditInventory, onInventoryEvent);
                     break;
             }
         }

@@ -31,6 +31,14 @@ namespace Campbell.Combat
         [SerializeField] Modifier[] _additiveBonuses;
         [SerializeField] Modifier[] _multiplicativeBonuses;
 
+#if UNITY_EDITOR
+
+        public Modifier[] AdditiveBonuses { set => _additiveBonuses = value; }
+
+        public Modifier[] MultiplicativeBonuses { set => _multiplicativeBonuses = value; }
+
+#endif
+
         public WeaponProperties Spawn(Transform[] handTransforms, Animator animator, out Weapon weapon)
         {
             _handTransforms = handTransforms;

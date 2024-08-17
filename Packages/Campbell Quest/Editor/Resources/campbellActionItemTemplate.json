@@ -1,0 +1,15 @@
+{
+    "item" : {
+        "name": "Healing Potion",
+        "description": "Restores health.",
+        "stackable": true,
+        "consumable": true
+    },
+    "item_type": "Action Item",
+    "objectives": [
+        {
+            "objective_reference": "3",
+            "objective_type": "Pickup Item"
+        }
+    ]
+}

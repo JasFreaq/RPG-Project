@@ -7,7 +7,16 @@ namespace Campbell.InventorySystem.Pickups
     [RequireComponent(typeof(Pickup))]
     public class PickupTrigger : MonoBehaviour
     {
-        [SerializeField] private List<UnityEvent> _triggers;
+        [SerializeField] private List<UnityEvent> _triggers = new List<UnityEvent>();
+
+#if UNITY_EDITOR
+        
+        public void AddTrigger(UnityEvent unityEvent)
+        {
+            _triggers.Add(unityEvent);
+        }
+        
+#endif
 
         public void Trigger()
         {

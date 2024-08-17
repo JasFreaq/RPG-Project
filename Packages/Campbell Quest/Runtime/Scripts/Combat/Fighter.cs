@@ -181,7 +181,7 @@ namespace Campbell.Combat
 
         private void Kill()
         {
-            this.enabled = false;
+            enabled = false;
         }
 
         //Getter(s)

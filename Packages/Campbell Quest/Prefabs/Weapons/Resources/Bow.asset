@@ -23,7 +23,6 @@ MonoBehaviour:
     weaponsRange: 12.5
     timeBetweenAttacks: 1.25
     weaponsDamage: 5
-    weaponsDamageModifier: 1.25
     isProjectile: 1
   _weaponPrefab: {fileID: -3079502293952554228, guid: 063801efed42800438db9faa769e0423,
     type: 3}
@@ -32,3 +31,5 @@ MonoBehaviour:
   _projectile: {fileID: 6248115068666984910, guid: 23f32693708894942aef204976b35e67,
     type: 3}
   _handIndex: 0
+  _additiveBonuses: []
+  _multiplicativeBonuses: []

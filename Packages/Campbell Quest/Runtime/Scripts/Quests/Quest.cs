@@ -22,16 +22,33 @@ namespace Campbell.Quests
             public InventoryItem item;
         }
 
+#if UNITY_EDITOR
+        [System.Serializable]
+        public struct QuestMetadata
+        {
+            public string formattedQuest;
+            public string locationInformation;
+            public string characterInformation;
+        }
+#endif
+
         [SerializeField] private string _questDescription;
         [SerializeField] private string _questGoal;
         [SerializeField] private List<Objective> _objectives = new List<Objective>();
         [SerializeField] private List<Reward> _rewards = new List<Reward>();
 
 #if UNITY_EDITOR
+        [SerializeField][HideInInspector] private QuestMetadata _metadata;
 
         public string QuestDescription { set => _questDescription = value; }
 
         public string QuestGoal { set => _questGoal = value; }
+
+        public QuestMetadata Metadata
+        {
+            get => _metadata;
+            set => _metadata = value;
+        }
 
         public void AddObjective(string reference, string description)
         {

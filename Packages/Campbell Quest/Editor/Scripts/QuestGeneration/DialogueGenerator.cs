@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Campbell.Core;
+using Campbell.Editor.QuestGeneration.Utility;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace Campbell.Editor.QuestGeneration
     {
         public static bool DoesDialogueAssetExist(string dialogueJson, string savePath)
         {
-            DialogueData dialogueData = JsonConvert.DeserializeObject<DialogueData>(dialogueJson);
+            DialogueData dialogueData = UtilityLibrary.DeserializeJson<DialogueData>(dialogueJson);
 
             string path = savePath + "/Resources";
             if (Directory.Exists(path))
@@ -29,7 +30,7 @@ namespace Campbell.Editor.QuestGeneration
 
         public static void CreateDialogueFromJson(string dialogueJson, string savePath)
         {
-            DialogueData dialogueData = JsonConvert.DeserializeObject<DialogueData>(dialogueJson);
+            DialogueData dialogueData = UtilityLibrary.DeserializeJson<DialogueData>(dialogueJson);
 
             Dialogue dialogue = ScriptableObject.CreateInstance<Dialogue>();
             dialogue.name = dialogueData.npc_name;

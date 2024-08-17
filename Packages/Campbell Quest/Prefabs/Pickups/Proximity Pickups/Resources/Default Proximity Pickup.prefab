@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2944557389912191662}
   - component: {fileID: 7002828572129290078}
   m_Layer: 0
-  m_Name: Root Pickup
+  m_Name: Default Proximity Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

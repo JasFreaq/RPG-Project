@@ -66,7 +66,7 @@ namespace Campbell.InventorySystem
         {
             if (dockedItems.ContainsKey(index))
             {  
-                if (object.ReferenceEquals(item, dockedItems[index].item))
+                if (ReferenceEquals(item, dockedItems[index].item))
                 {
                     dockedItems[index].number += number;
                 }
@@ -78,6 +78,7 @@ namespace Campbell.InventorySystem
                 slot.number = number;
                 dockedItems[index] = slot;
             }
+
             if (storeUpdated != null)
             {
                 storeUpdated();
@@ -95,7 +96,7 @@ namespace Campbell.InventorySystem
             if (dockedItems.ContainsKey(index))
             {
                 dockedItems[index].item.Use(user);
-                if (dockedItems[index].item.isConsumable())
+                if (dockedItems[index].item.IsConsumable())
                 {
                     RemoveItems(index, 1);
                 }
@@ -141,7 +142,7 @@ namespace Campbell.InventorySystem
             {
                 return 0;
             }
-            if (actionItem.isConsumable())
+            if (actionItem.IsConsumable())
             {
                 return int.MaxValue;
             }

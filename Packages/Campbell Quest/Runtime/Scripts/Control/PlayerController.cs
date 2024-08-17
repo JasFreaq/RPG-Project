@@ -5,6 +5,7 @@ using System.Collections;
 using Campbell.Combat;
 using Campbell.Core;
 using Campbell.Dialogues;
+using Campbell.InventorySystem;
 using Campbell.Movement;
 using UnityEngine.AI;
 
@@ -18,15 +19,16 @@ namespace Campbell.Control
             public CursorType type;
             public Texture2D icon;
         }
-
-        private Mover _mover;
-        private Fighter _fighter;
-        private PlayerConversationHandler _playerConversationHandler;
-
+        
         [Header("Cursor Config")]
         [SerializeField] float _selectionRadius = 0.25f;
         [SerializeField] CursorMapping[] _cursorMappings = null;
         [SerializeField] float _maxNavMeshProjectionDist = 1f, _maxNavPathLength = 25f;
+
+        private Mover _mover;
+        private Fighter _fighter;
+        private PlayerConversationHandler _playerConversationHandler;
+        private ActionStore _actionStore;
 
         bool _cursorOverInteractable = false;
         bool _isdraggingUI = false;
@@ -37,11 +39,14 @@ namespace Campbell.Control
             _mover = GetComponent<Mover>();
             _fighter = GetComponent<Fighter>();
             _playerConversationHandler = GetComponent<PlayerConversationHandler>();
+            _actionStore = GetComponent<ActionStore>();
         }
 
         // Update is called once per frame
         void Update()
         {
+            CheckAbilityKeys();
+
             if (!InteractWithUI() && !_isdraggingUI)  
             {
                 if (_cursorOverInteractable = InteractWithComponent()) 
@@ -53,7 +58,40 @@ namespace Campbell.Control
                 SetCursor(CursorType.None);
             }
         }
-        
+
+        private void CheckAbilityKeys()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                _actionStore.Use(0, gameObject);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                _actionStore.Use(1, gameObject);
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                _actionStore.Use(2, gameObject);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                _actionStore.Use(3, gameObject);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                _actionStore.Use(4, gameObject);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                _actionStore.Use(5, gameObject);
+            }
+        }
+
         private bool InteractWithUI()
         {
             if (Input.GetMouseButtonUp(0))
@@ -254,11 +292,6 @@ namespace Campbell.Control
         private static Ray GetMouseRay()
         {
             return Camera.main.ScreenPointToRay(Input.mousePosition);
-        }
-
-        private void Kill()
-        {
-            this.enabled = false;
         }
     }
 }

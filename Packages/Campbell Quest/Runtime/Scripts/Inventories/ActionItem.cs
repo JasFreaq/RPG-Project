@@ -19,6 +19,12 @@ namespace Campbell.InventorySystem
 
         // PUBLIC
 
+#if UNITY_EDITOR
+
+        public bool Consumable { set => consumable = value; }
+
+#endif
+
         /// <summary>
         /// Trigger the use of this item. Override to provide functionality.
         /// </summary>
@@ -28,7 +34,7 @@ namespace Campbell.InventorySystem
             Debug.Log("Using action: " + this);
         }
 
-        public bool isConsumable()
+        public bool IsConsumable()
         {
             return consumable;
         }

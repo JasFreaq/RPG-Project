@@ -10,7 +10,7 @@ namespace Campbell.Editor.QuestGeneration
 {
     public class DialogueProcessor
     {
-        public bool GenerateDialogues(string formattedQuest, string locationInformation, string characterInformation, ref List<string> formattedDialogues)
+        public void GenerateDialogues(string formattedQuest, string locationInformation, string characterInformation, ref List<string> formattedDialogues)
         {
             if (GUILayout.Button("Generate Dialogues"))
             {
@@ -53,21 +53,16 @@ namespace Campbell.Editor.QuestGeneration
                 }
 
                 formattedDialogues = dialoguesBuilder;
-                if (formattedDialogues.Count > 0)
+                if (formattedDialogues.Count == 0)
                 {
-                    return true;
+                    Debug.LogWarning("No dialogues generated.");
                 }
-                
-                Debug.LogWarning("No dialogues generated.");
-                return false;
             }
-
-            return false;
         }
 
         public string DisplayDialogueInformation(string dialogueJson)
         {
-            DialogueData dialogueData = JsonConvert.DeserializeObject<DialogueData>(dialogueJson);
+            DialogueData dialogueData = UtilityLibrary.DeserializeJson<DialogueData>(dialogueJson);
 
             // Start custom inspector
             EditorGUILayout.LabelField("NPC Name", EditorStyles.boldLabel);
@@ -169,16 +164,13 @@ namespace Campbell.Editor.QuestGeneration
             }
         }
 
-        public void CreateNpcAsset(string quest, string dialogue, string npcAssetSavePath)
+        public void CreateNpcAsset(string dialogue, Quest questAsset, string npcAssetSavePath)
         {
             EditorGUILayout.BeginHorizontal();
 
             if (GUILayout.Button("Create Npc Asset"))
             {
-                QuestData questData = JsonConvert.DeserializeObject<QuestData>(quest);
-                Quest questAsset = Resources.Load<Quest>($"{questData.name} Quest");
-
-                DialogueData dialogueData = JsonConvert.DeserializeObject<DialogueData>(dialogue);
+                DialogueData dialogueData = UtilityLibrary.DeserializeJson<DialogueData>(dialogue);
                 
                 NpcGenerator.CreateNpcPrefab(dialogueData, questAsset, npcAssetSavePath);
             }

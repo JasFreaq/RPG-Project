@@ -2,6 +2,7 @@ using Python.Runtime;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor.Scripting.Python;
 using UnityEngine;
 
@@ -75,6 +76,19 @@ namespace Campbell.Editor.QuestGeneration.Utility
             }
 
             return foundInvalidChars;
+        }
+
+        public static T DeserializeJson<T>(string json)
+        {
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(json);
+            }
+            catch (JsonException e)
+            {
+                Debug.LogError("Failed to deserialize JSON: " + e.Message);
+                return default;
+            }
         }
     }
 }

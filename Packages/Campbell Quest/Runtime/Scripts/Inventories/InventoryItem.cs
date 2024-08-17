@@ -33,6 +33,18 @@ namespace Campbell.InventorySystem
 
         // PUBLIC
 
+#if UNITY_EDITOR
+
+        public string DisplayName { set => displayName = value; }
+
+        public string Description { set => description = value; }
+
+        public Pickup Pickup { set => pickup = value; }
+
+        public bool Stackable { set => stackable = value; }
+
+#endif
+
         /// <summary>
         /// Get the inventory item instance from its UUID.
         /// </summary>
