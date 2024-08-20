@@ -95,8 +95,6 @@ GameObject:
   - component: {fileID: 6056032636691227955}
   - component: {fileID: 6842822462518824917}
   - component: {fileID: 6843580643448797553}
-  - component: {fileID: -1571074555378547905}
-  - component: {fileID: -2603505981998322455}
   m_Layer: 0
   m_Name: Default Clickable Pickup
   m_TagString: Untagged
@@ -165,57 +163,3 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.35
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-1571074555378547905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7395961149493413075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3df2f3b3f8bea2248bd471e69d90a739, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _quest: {fileID: 11400000, guid: acc77ab98b537734fbd8f7c41ab194df, type: 2}
---- !u!114 &-2603505981998322455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7395961149493413075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 007708bf5987a084d93f348b8e0e0ead, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _triggers:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -1571074555378547905}
-        m_TargetAssemblyTypeName: Campbell.Quests.QuestClearer, Campbell
-        m_MethodName: CompleteQuestObjective
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 4
-          m_BoolArgument: 0
-        m_CallState: 2
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -1571074555378547905}
-        m_TargetAssemblyTypeName: Campbell.Quests.QuestClearer, Campbell
-        m_MethodName: CompleteQuestObjective
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 5
-          m_BoolArgument: 0
-        m_CallState: 2

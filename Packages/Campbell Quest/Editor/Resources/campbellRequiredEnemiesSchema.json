@@ -1,0 +1,23 @@
+{
+  "title": "Required Enemies",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "enemy_name": {
+            "type": "string"
+          },
+          "objective_reference": {
+            "type": "string"
+          }
+        },
+        "required": ["enemy_name", "objective_reference"]
+      }
+    }
+  },
+  "required": ["items"]
+}
+  

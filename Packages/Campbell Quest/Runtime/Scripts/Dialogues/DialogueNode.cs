@@ -66,7 +66,7 @@ namespace Campbell.Dialogues
             get { return _editingDialogueActions; }
             set { _editingDialogueActions = value; }
         }
-
+        
         public void AddChild(string childNodeID)
         {
             Undo.RecordObject(this, "Dialogue Linked Node");
@@ -152,7 +152,11 @@ namespace Campbell.Dialogues
             }
         }
 
-        public Condition Condition { set => _condition = value; }
+        public Condition Condition
+        {
+            get => _condition;
+            set => _condition = value;
+        }
 
 #endif
         #endregion

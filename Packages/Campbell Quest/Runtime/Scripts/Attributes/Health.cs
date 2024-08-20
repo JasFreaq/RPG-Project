@@ -25,13 +25,14 @@ namespace Campbell.Attributes
         BaseStats _baseStats;
         StatsEquipment _equipment; 
         Experience _experience;
-
-        [System.Serializable] public class OnTakeDamage : UnityEvent<float> { }
-        [SerializeField] OnTakeDamage _onTakeDamage;
+        
+        [SerializeField] UnityEvent<float> _onTakeDamage;
 
         [SerializeField] UnityEvent _onDeath;
 
 #if UNITY_EDITOR
+        public UnityEvent<float> OnTakeDamage => _onTakeDamage;
+
         public UnityEvent OnDeath => _onDeath;
 #endif
 

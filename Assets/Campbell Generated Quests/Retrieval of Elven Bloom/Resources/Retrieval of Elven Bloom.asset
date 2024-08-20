@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aa975b6e72390f4db516dfd61219966, type: 3}
+  m_Name: Retrieval of Elven Bloom
+  m_EditorClassIdentifier: 
+  _questDescription: Eldara, the Herbalist in the Village of Elderglen has requested
+    your help. She needs you to retrieve a rare herb called Elven Bloom, which can
+    only be found in the mystical forest of Whispering Woods.
+  _questGoal: Retrieve the Elven Bloom and bring it back to Eldara.
+  _objectives:
+  - reference: 1
+    description: Speak with Eldara, the Herbalist, in the Village of Elderglen to
+      confirm her request for the Elven Bloom.
+  - reference: 2
+    description: Navigate through the Whispering Woods without alerting Sylvara's
+      pack of wolves.
+  - reference: 3
+    description: Locate the rare herb called Elven Bloom within the Whispering Woods.
+  - reference: 4
+    description: Retrieve the Elven Bloom from its location in the woods.
+  - reference: 5
+    description: Return with the Elven Bloom to Eldara, the Herbalist, in the Village
+      of Elderglen.
+  _rewards: []
+  _metadata:
+    formattedQuest: '{"title":"Quest","name":"Retrieval of Elven Bloom","description":"Eldara,
+      the Herbalist in the Village of Elderglen has requested your help. She needs
+      you to retrieve a rare herb called Elven Bloom, which can only be found in
+      the mystical forest of Whispering Woods.","goal":"Retrieve the Elven Bloom
+      and bring it back to Eldara.","objectives":[{"reference":"1","description":"Speak
+      with Eldara, the Herbalist, in the Village of Elderglen to confirm her request
+      for the Elven Bloom."},{"reference":"2","description":"Navigate through the
+      Whispering Woods without alerting Sylvara''s pack of wolves."},{"reference":"3","description":"Locate
+      the rare herb called Elven Bloom within the Whispering Woods."},{"reference":"4","description":"Retrieve
+      the Elven Bloom from its location in the woods."},{"reference":"5","description":"Return
+      with the Elven Bloom to Eldara, the Herbalist, in the Village of Elderglen."}]}'
+    locationInformation: "{\r\n    \"locations\": [\r\n      {\r\n        \"Name\":
+      \"Village of Elderglen\",\r\n        \"Description\": \"A quaint and serene
+      village nestled in a lush valley, Elderglen is known for its thatched-roof
+      cottages and vibrant flower gardens. The villagers are a tight-knit community,
+      relying on farming and craftwork, and the village green is often filled with
+      children playing and adults trading stories.\"\r\n      },\r\n      {\r\n       
+      \"Name\": \"Town of Stonebridge\",\r\n        \"Description\": \"Stonebridge
+      is a bustling small town with cobblestone streets and a prominent stone bridge
+      arching over a swift river. The town boasts a variety of shops, a lively marketplace,
+      and a well-guarded town hall. Its residents are known for their industrious
+      nature and strong sense of civic pride.\"\r\n      },\r\n      {\r\n       
+      \"Name\": \"Whispering Woods\",\r\n        \"Description\": \"This dense, mystical
+      forest stretches between Elderglen and Stonebridge, filled with towering ancient
+      trees and a perpetual, ethereal mist. The  forest is teeming with magical creatures
+      and hidden secrets, with paths that twist and turn, making it a challenging
+      journey for travelers. The sound of whispers on the wind gives the woods its
+      name, adding to its enigmatic allure.\"\r\n      }\r\n    ]\r\n  }\r\n  "
+    characterInformation: "{\r\n    \"characters\": [\r\n      {\r\n        \"Name\":
+      \"Eldara, the Herbalist\",\r\n        \"Location\": \"Village of Elderglen\",\r\n       
+      \"Description\": \"Eldara is a wise and elderly herbalist who has lived in
+      Elderglen her entire life. She is known for her extensive knowledge of plants
+      and their medicinal properties, which she uses to heal the villagers and create
+      potent potions. Eldara's quaint cottage is surrounded by a vibrant herb garden,
+      and she often teaches local children about the wonders of nature.\"\r\n     
+      },\r\n      {\r\n        \"Name\": \"Thorn Blackstone, the Blacksmith\",\r\n       
+      \"Location\": \"Town of Stonebridge\",\r\n        \"Description\": \"Thorn
+      Blackstone is a rugged and hardworking blacksmith whose skill in metalwork
+      is renowned throughout Stonebridge. He runs the busiest forge in town, producing
+      high-quality weapons and tools. Thorn is a former adventurer with a mysterious
+      past, and he occasionally offers quests or valuable information to those he
+      deems worthy.\"\r\n      },\r\n      {\r\n        \"Name\": \"Sylvara, the
+      Forest Guardian\",\r\n        \"Location\": \"Whispering Woods\",\r\n       
+      \"Description\": \"Sylvara is a reclusive and enigmatic druid who has lived
+      in the Whispering Woods for centuries. She has a deep connection with the forest
+      and its magical inhabitants, often seen accompanied by a spectral wolf. Sylvara
+      can guide travelers safely through the woods, but only if they earn her trust
+      and prove their respect for nature.\"\r\n      }\r\n    ]\r\n  }\r\n  "

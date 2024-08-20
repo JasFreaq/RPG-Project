@@ -25,11 +25,23 @@ namespace Campbell.Core
             [SerializeField] private bool _negate;
             [SerializeField] private string[] _parameters;
 
-            public PredicateType PredicateType { set => _predicateType = value; }
+            public PredicateType PredicateType
+            {
+                get => _predicateType;
+                set => _predicateType = value;
+            }
 
-            public bool Negate { set => _negate = value; }
+            public bool Negate
+            {
+                get => _negate;
+                set => _negate = value;
+            }
 
-            public string[] Parameters { set => _parameters = value; }
+            public string[] Parameters
+            {
+                get => _parameters;
+                set => _parameters = value;
+            }
 
             public bool Evaluate(IEnumerable<IPredicateEvaluable> evaluables)
             {
@@ -84,6 +96,41 @@ namespace Campbell.Core
             }
 
             return true;
+        }
+
+        public override string ToString()
+        {
+            List<string> andParts = new List<string>();
+            
+            foreach (Disjunction disjunction in _and)
+            {
+                List<string> orParts = new List<string>();
+                
+                foreach (Predicate predicate in disjunction.Or)
+                {
+                    string predicateFunction = predicate.PredicateType switch
+                    {
+                        PredicateType.HasQuest => "has_quest",
+                        PredicateType.CompletedObjective => "completed_objective",
+                        PredicateType.CompletedQuest => "completed_quest",
+                        PredicateType.HasItem => "has_item",
+                        _ => string.Empty,
+                    };
+                    
+                    string predicateString = $"{predicateFunction}('{string.Join("', '", predicate.Parameters)}')";
+                    
+                    if (predicate.Negate)
+                    {
+                        predicateString = $"not {predicateString}";
+                    }
+
+                    orParts.Add(predicateString);
+                }
+                
+                andParts.Add(string.Join(" or ", orParts));
+            }
+            
+            return string.Join(" and ", andParts);
         }
     }
 }

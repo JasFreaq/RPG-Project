@@ -18,7 +18,7 @@ namespace Campbell.Editor.QuestGeneration
             string path = savePath + "/" + questData.name + "/Resources";
             if (Directory.Exists(path))
             {
-                path += "/" + questData.name + " Quest.asset";
+                path += "/" + questData.name + ".asset";
                 return File.Exists(path);
             }
 
@@ -60,12 +60,22 @@ namespace Campbell.Editor.QuestGeneration
                 Directory.CreateDirectory(path);
             }
 
-            path += "/" + questData.name + " Quest.asset";
+            path += "/" + questData.name + ".asset";
             UnityEditor.AssetDatabase.CreateAsset(quest, path);
             UnityEditor.AssetDatabase.SaveAssets();
         }
     }
 
+    [System.Serializable]
+    public class NoRewardQuestData
+    {
+        public string title;
+        public string name;
+        public string description;
+        public string goal;
+        public List<ObjectiveData> objectives;
+    }
+    
     [System.Serializable]
     public class QuestData
     {

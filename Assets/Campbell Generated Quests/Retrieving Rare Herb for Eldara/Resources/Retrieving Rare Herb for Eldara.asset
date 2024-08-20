@@ -10,55 +10,44 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2aa975b6e72390f4db516dfd61219966, type: 3}
-  m_Name: The Rare Herb of the Whispering Woods Quest
+  m_Name: Retrieving Rare Herb for Eldara
   m_EditorClassIdentifier: 
-  _questDescription: Eldara, the Herbalist from the Village of Elderglen, has asked
-    you to retrieve a rare herb called Starlight Petal that only grows in the Whispering
-    Woods. Be careful, though, as a pack of wolves calls this forest home and may
-    see you as intruders.
-  _questGoal: Retrieve the Starlight Petal herb from the Whispering Woods
+  _questDescription: Eldara, the Herbalist in Village of Elderglen, has asked you
+    to retrieve a rare Moonpetal herb found deep within the Whispering Woods. This
+    delicate flower blooms only under the light of a full moon and is highly sought
+    after for its medicinal properties.
+  _questGoal: Gather a rare herb called "Moonpetal" from the Whispering Woods.
   _objectives:
-  - required: 0
-    reference: 1
-    description: Speak with Eldara, the Herbalist, in the Village of Elderglen to
-      confirm her request for the Starlight Petal herb.
-  - required: 0
-    reference: 2
-    description: Enter the Whispering Woods and navigate through its dense foliage.
-  - required: 0
-    reference: 3
-    description: Avoid or defeat a pack of wolves that inhabit the forest.
-  - required: 0
-    reference: 4
-    description: Locate the area where the Starlight Petal herb grows within the
-      Whispering Woods.
-  - required: 0
-    reference: 5
-    description: Harvest the Starlight Petal herb, taking care not to damage it.
-  - required: 0
-    reference: 6
-    description: Return to Eldara in the Village of Elderglen with the retrieved
-      Starlight Petal herb.
-  _rewards: []
+  - reference: 1
+    description: Speak with Eldara, the Herbalist in Village of Elderglen to confirm
+      her request.
+  - reference: 2
+    description: Enter the Whispering Woods and navigate through the dense forest.
+  - reference: 3
+    description: Avoid or defend yourself against a pack of wolves that may be encountered
+      within the woods.
+  - reference: 4
+    description: Locate the Moonpetal herb, which blooms only under the light of
+      a full moon.
+  - reference: 5
+    description: Return the Moonpetal herb to Eldara in Village of Elderglen for
+      your reward.
+  _rewards:
+  - number: 1
+    item: {fileID: 11400000, guid: 7a30ede99c6fbde4cad9bbd54f1dd825, type: 2}
   _metadata:
-    formattedQuest: "{\n  \"name\": \"The Rare Herb of the Whispering Woods\",\n 
-      \"description\": \"Eldara, the Herbalist from the Village of Elderglen, has
-      asked you to retrieve a rare herb called Starlight Petal that only grows in
-      the Whispering Woods. Be careful, though, as a pack of wolves calls this forest
-      home and may see you as intruders.\",\n  \"goal\": \"Retrieve the Starlight
-      Petal herb from the Whispering Woods\",\n  \"objectives\": [\n    {\n     
-      \"reference\": \"1\",\n      \"description\": \"Speak with Eldara, the Herbalist,
-      in the Village of Elderglen to confirm her request for the Starlight Petal
-      herb.\"\n    },\n    {\n      \"reference\": \"2\",\n      \"description\":
-      \"Enter the Whispering Woods and navigate through its dense foliage.\"\n   
-      },\n    {\n      \"reference\": \"3\",\n      \"description\": \"Avoid or defeat
-      a pack of wolves that inhabit the forest.\"\n    },\n    {\n      \"reference\":
-      \"4\",\n      \"description\": \"Locate the area where the Starlight Petal
-      herb grows within the Whispering Woods.\"\n    },\n    {\n      \"reference\":
-      \"5\",\n      \"description\": \"Harvest the Starlight Petal herb, taking care
-      not to damage it.\"\n    },\n    {\n      \"reference\": \"6\",\n      \"description\":
-      \"Return to Eldara in the Village of Elderglen with the retrieved Starlight
-      Petal herb.\"\n    }\n  ],\n  \"rewards\": []\n}\n"
+    formattedQuest: '{"title":"Quest","name":"Retrieving Rare Herb for Eldara","description":"Eldara,
+      the Herbalist in Village of Elderglen, has asked you to retrieve a rare Moonpetal
+      herb found deep within the Whispering Woods. This delicate flower blooms only
+      under the light of a full moon and is highly sought after for its medicinal
+      properties.","goal":"Gather a rare herb called \"Moonpetal\" from the Whispering
+      Woods.","objectives":[{"reference":"1","description":"Speak with Eldara, the
+      Herbalist in Village of Elderglen to confirm her request."},{"reference":"2","description":"Enter
+      the Whispering Woods and navigate through the dense forest."},{"reference":"3","description":"Avoid
+      or defend yourself against a pack of wolves that may be encountered within
+      the woods."},{"reference":"4","description":"Locate the Moonpetal herb, which
+      blooms only under the light of a full moon."},{"reference":"5","description":"Return
+      the Moonpetal herb to Eldara in Village of Elderglen for your reward."}]}'
     locationInformation: "{\r\n    \"locations\": [\r\n      {\r\n        \"Name\":
       \"Village of Elderglen\",\r\n        \"Description\": \"A quaint and serene
       village nestled in a lush valley, Elderglen is known for its thatched-roof

@@ -1,8 +1,11 @@
 ﻿using System;
+using Campbell.Core;
 using Campbell.Dialogues;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.UI.Dropdown;
 
 namespace Campbell.Editor.Dialogues
 {
@@ -280,6 +283,16 @@ namespace Campbell.Editor.Dialogues
 
             GUILayout.Space(10);
 
+            //Horizontal Space for Modifying Condition of Node
+            GUILayout.BeginHorizontal();
+
+            DrawConditions(node);
+
+            GUILayout.EndHorizontal();
+            //End Horizontal Space
+
+            GUILayout.Space(10);
+
             //Horizontal Space for Modifying Dialogue Action of Node
             GUILayout.BeginHorizontal();
 
@@ -291,10 +304,28 @@ namespace Campbell.Editor.Dialogues
             GUILayout.EndArea();
         }
 
+        private static void DrawConditions(DialogueNode node)
+        {
+            GUILayout.BeginVertical();
+
+            GUILayout.Label("Condition", EditorStyles.boldLabel);
+
+            Condition condition = node.Condition;
+            if (condition != null)
+            {
+                GUIStyle style = new GUIStyle(EditorStyles.label);
+                style.wordWrap = true;
+
+                GUILayout.Label(condition.ToString(), style);
+            }
+
+            GUILayout.EndVertical();
+        }
+
         private static void DrawDialogueActions(DialogueNode node)
         {
             GUILayout.BeginVertical();
-            GUILayout.Label("Dialogue Actions");
+            GUILayout.Label("Dialogue Actions", EditorStyles.boldLabel);
             if (node.EditingDialogueActions)
             {
                 foreach (DialogueAction action in Enum.GetValues(typeof(DialogueAction)))

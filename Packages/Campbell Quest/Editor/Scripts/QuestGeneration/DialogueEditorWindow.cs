@@ -87,10 +87,6 @@ namespace Campbell.Editor.QuestGeneration
             if (DialogueGenerator.DoesDialogueAssetExist(_formattedDialogues[_dialogueTab], dialogueAssetSavePath))
             {
                 _dialogueProcessor.RecreateDialogueAsset(_formattedDialogues[_dialogueTab], dialogueAssetSavePath);
-
-                EditorGUILayout.Space();
-                
-                _dialogueProcessor.CreateNpcAsset(_formattedDialogues[_dialogueTab], _quest, dialogueAssetSavePath);
             }
             else
             {

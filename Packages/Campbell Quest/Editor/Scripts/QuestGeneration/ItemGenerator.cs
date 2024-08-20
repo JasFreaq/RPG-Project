@@ -14,30 +14,43 @@ using log4net;
 using UnityEditor.Events;
 using UnityEngine.Events;
 using UnityEditor;
-using NUnit.Framework.Interfaces;
 
 namespace Campbell.Editor.QuestGeneration
 {
     public class ItemGenerator
     {
+        public static bool DoesItemAssetExist(string itemJson, string savePath)
+        {
+            ItemData itemData = UtilityLibrary.DeserializeJson<ItemData>(itemJson);
+
+            string path = savePath + "/Resources/Items";
+            if (Directory.Exists(path))
+            {
+                path += "/" + itemData.item.name + " Item.asset";
+                return File.Exists(path);
+            }
+
+            return false;
+        }
+
         public static void CreateItemFromJson(string itemJson, Quest questAsset, string savePath)
         {
             ItemData itemData = UtilityLibrary.DeserializeJson<ItemData>(itemJson);
 
-            string path = savePath + "/Resources";
+            string path = savePath + "/Resources/Items";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
             // Create the pickup prefab
-            Pickup basePickup = Resources.Load<Pickup>("Default Clickable Pickup");
+            Pickup basePickup = Resources.Load<Pickup>("Default Proximity Pickup");
             string pickupPath = path + "/" + itemData.item.name + " Pickup.prefab";
             GameObject pickup = PrefabUtility.SaveAsPrefabAsset(basePickup.gameObject, pickupPath);
 
             foreach (ItemObjective objective in itemData.objectives)
             {
-                AssignPickupObjectives(basePickup.gameObject, questAsset, objective);
+                AssignPickupObjectives(pickup, questAsset, objective);
             }
             PrefabUtility.SavePrefabAsset(pickup);
 
@@ -66,7 +79,7 @@ namespace Campbell.Editor.QuestGeneration
             string spawnerPath = path + "/" + itemData.item.name + " Pickup Spawner.prefab";
             GameObject spawner = PrefabUtility.SaveAsPrefabAsset(baseSpawner.gameObject, spawnerPath);
             
-            item = Resources.Load<InventoryItem>($"{itemData.item.name} Item");
+            item = Resources.Load<InventoryItem>($"Items/{itemData.item.name} Item");
             spawner.GetComponent<PickupSpawner>().Item = item;
             PrefabUtility.SavePrefabAsset(spawner);
         }

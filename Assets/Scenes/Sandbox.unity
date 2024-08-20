@@ -641,6 +641,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Core
       objectReference: {fileID: 0}
+    - target: {fileID: 3350495626477392819, guid: aad7363143cff2b4b90e96dc97b5baa8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 45.49669
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350495626477392819, guid: aad7363143cff2b4b90e96dc97b5baa8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 15.880283
+      objectReference: {fileID: 0}
+    - target: {fileID: 3350495626477392819, guid: aad7363143cff2b4b90e96dc97b5baa8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 38.40942
+      objectReference: {fileID: 0}
     - target: {fileID: 3350495626477392820, guid: aad7363143cff2b4b90e96dc97b5baa8,
         type: 3}
       propertyPath: orthographic size
@@ -929,7 +944,7 @@ PrefabInstance:
     - target: {fileID: 5502906662121575704, guid: aad7363143cff2b4b90e96dc97b5baa8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -580.6298
+      value: -580.63074
       objectReference: {fileID: 0}
     - target: {fileID: 5503144122103106648, guid: aad7363143cff2b4b90e96dc97b5baa8,
         type: 3}
@@ -2197,6 +2212,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1942174388}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &508695623 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6640522553185539044, guid: 3cccd9306ad94eb449a0670785312c06,
+    type: 3}
+  m_PrefabInstance: {fileID: 915821791}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 915821793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1ec96117107e841beaff2108532702, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &533537728
 GameObject:
   m_ObjectHideFlags: 0
@@ -2922,6 +2949,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222329510605280852, guid: 3cccd9306ad94eb449a0670785312c06,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222329510605280852, guid: 3cccd9306ad94eb449a0670785312c06,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222329510605280852, guid: 3cccd9306ad94eb449a0670785312c06,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 508695623}
+    - target: {fileID: 6222329510605280852, guid: 3cccd9306ad94eb449a0670785312c06,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: Kill
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222329510605280852, guid: 3cccd9306ad94eb449a0670785312c06,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Campbell.Movement.Mover, Campbell
       objectReference: {fileID: 0}
     - target: {fileID: 6640522552950885249, guid: 3cccd9306ad94eb449a0670785312c06,
         type: 3}

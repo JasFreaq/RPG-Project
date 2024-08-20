@@ -18,10 +18,10 @@ namespace Campbell.Editor.QuestGeneration
         {
             DialogueData dialogueData = UtilityLibrary.DeserializeJson<DialogueData>(dialogueJson);
 
-            string path = savePath + "/Resources";
+            string path = savePath + "/Resources/Dialogues";
             if (Directory.Exists(path))
             {
-                path += "/" + dialogueData.npc_name + " Dialogue.asset";
+                path += "/" + dialogueData.npc_name + ".asset";
                 return File.Exists(path);
             }
 
@@ -35,13 +35,13 @@ namespace Campbell.Editor.QuestGeneration
             Dialogue dialogue = ScriptableObject.CreateInstance<Dialogue>();
             dialogue.name = dialogueData.npc_name;
 
-            string path = savePath + "/Resources";
+            string path = savePath + "/Resources/Dialogues";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            path += "/" + dialogueData.npc_name + " Dialogue.asset";
+            path += "/" + dialogueData.npc_name + ".asset";
             UnityEditor.AssetDatabase.CreateAsset(dialogue, path);
 
             dialogue.CreateRootNode();
@@ -54,6 +54,8 @@ namespace Campbell.Editor.QuestGeneration
             dialogue.DialogueNodes[0].PositionRect = new Rect(50, 750, DialogueNode.MIN_WIDTH, DialogueNode.MIN_HEIGHT);
             ArrangeDialogueNodes(dialogue, dialogue.DialogueNodes[0]);
             dialogue.EditorScrollPosition = new Vector2(0, 500);
+
+            dialogue.RawDialogueJson = dialogueJson;
 
             UnityEditor.AssetDatabase.SaveAssets();
 
@@ -68,6 +70,10 @@ namespace Campbell.Editor.QuestGeneration
                 DialogueNode playerNode = dialogue.CreateNode(parentNode);
                 playerNode.SetIsPlayer(true);
                 playerNode.SetText(choice.player_dialogue);
+                if (!string.IsNullOrWhiteSpace(choice.condition))
+                {
+                    playerNode.Condition = CreateCondition(choice.condition);
+                }
                 if (!string.IsNullOrWhiteSpace(choice.result))
                 {
                     playerNode.DialogueActions.Add(CreateDialogueAction(choice.result));
@@ -76,10 +82,6 @@ namespace Campbell.Editor.QuestGeneration
                 DialogueNode npcResponseNode = dialogue.CreateNode(playerNode);
                 npcResponseNode.SetIsPlayer(false);
                 npcResponseNode.SetText(choice.npc_dialogue);
-                if (!string.IsNullOrWhiteSpace(choice.condition))
-                {
-                    npcResponseNode.Condition = CreateCondition(choice.condition);
-                }
 
                 if (choice.choices is { Count: > 0 })
                 {
@@ -194,6 +196,7 @@ namespace Campbell.Editor.QuestGeneration
     public class DialogueData
     {
         public string npc_name;
+        public string npc_type;
         public string npc_dialogue;
         public List<ChoiceData> choices;
     }

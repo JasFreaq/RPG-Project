@@ -83,7 +83,7 @@ namespace Campbell.Editor.QuestGeneration
             Quest.QuestMetadata metadata = _quest.Metadata;
             string questName = UtilityLibrary.DeserializeJson<QuestData>(metadata.formattedQuest).name;
             string itemAssetSavePath = QuestEditorWindow.QuestAssetSavePath + "/" + questName;
-            if (DialogueGenerator.DoesDialogueAssetExist(_formattedItems[_itemTab], itemAssetSavePath))
+            if (ItemGenerator.DoesItemAssetExist(_formattedItems[_itemTab], itemAssetSavePath))
             {
                 _itemProcessor.RecreateItemAsset(_formattedItems[_itemTab], _quest, itemAssetSavePath);
             }

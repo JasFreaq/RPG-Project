@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Campbell.Quests;
+using NUnit.Framework.Internal;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
@@ -16,9 +17,6 @@ namespace Campbell.Editor.QuestGeneration
 
         private string[] _baseTabNames = { "Context Editor", "Quest Editor" };
         private string[] _contextEditorTabNames = { "Prompt", "Objectives", "Locations", "Characters", "Rewards" };
-
-        private string _formattedQuest;
-        private string _formattedQuestWithRewards;
 
         private Vector2 _contextScrollPosition;
         private Vector2 _questScrollPosition;
@@ -85,7 +83,7 @@ namespace Campbell.Editor.QuestGeneration
 
             EditorGUILayout.Space();
             
-            if (_questProcessor.GenerateQuest(ref _formattedQuest, ref _formattedQuestWithRewards))
+            if (_questProcessor.GenerateQuest())
             {
                 _baseTab = 1;
             }
@@ -95,9 +93,9 @@ namespace Campbell.Editor.QuestGeneration
 
         private void FormatQuestWindow()
         {
-            if (!string.IsNullOrWhiteSpace(_formattedQuestWithRewards))
+            if (!string.IsNullOrWhiteSpace(_questProcessor.formattedQuestWithRewards))
             {
-                if (!_questProcessor.ClearQuest(ref _formattedQuestWithRewards))
+                if (!_questProcessor.ClearQuest())
                 {
                     EditorGUILayout.Space();
 
@@ -105,29 +103,31 @@ namespace Campbell.Editor.QuestGeneration
 
                     EditorGUILayout.Space();
 
-                    if (QuestGenerator.DoesQuestAssetExist(_formattedQuestWithRewards, QuestAssetSavePath))
+                    if (QuestGenerator.DoesQuestAssetExist(_questProcessor.formattedQuestWithRewards, QuestAssetSavePath))
                     {
-                        _questProcessor.RecreateQuestAsset(_formattedQuestWithRewards, new Quest.QuestMetadata
-                            {
-                                formattedQuest = _formattedQuest,
-                                locationInformation = _questProcessor.LocationInformation,
-                                characterInformation = _questProcessor.CharacterInformation
-                            });
+                        Quest.QuestMetadata metadata = new Quest.QuestMetadata
+                        {
+                            formattedQuest = _questProcessor.formattedQuest,
+                            locationInformation = _questProcessor.locationInformation,
+                            characterInformation = _questProcessor.characterInformation
+                        };
+                        _questProcessor.RecreateQuestAsset(metadata);
                     }
                     else
                     {
-                        _questProcessor.CreateQuestAsset(_formattedQuestWithRewards, new Quest.QuestMetadata
-                            {
-                                formattedQuest = _formattedQuest,
-                                locationInformation = _questProcessor.LocationInformation,
-                                characterInformation = _questProcessor.CharacterInformation
-                            });
+                        Quest.QuestMetadata metadata = new Quest.QuestMetadata
+                        {
+                            formattedQuest = _questProcessor.formattedQuest,
+                            locationInformation = _questProcessor.locationInformation,
+                            characterInformation = _questProcessor.characterInformation
+                        };
+                        _questProcessor.CreateQuestAsset(metadata);
                     }
                 }
             }
             else
             {
-                _questProcessor.GenerateQuest(ref _formattedQuest, ref _formattedQuestWithRewards);
+                _questProcessor.GenerateQuest();
             }
         }
 
@@ -135,7 +135,7 @@ namespace Campbell.Editor.QuestGeneration
         {
             _questScrollPosition = EditorGUILayout.BeginScrollView(_questScrollPosition, GUILayout.ExpandHeight(true));
 
-            _formattedQuestWithRewards = _questProcessor.DisplayQuestInformation(_formattedQuestWithRewards);
+            _questProcessor.DisplayQuestInformation();
 
             EditorGUILayout.EndScrollView();
         }

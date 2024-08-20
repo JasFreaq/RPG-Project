@@ -10,13 +10,16 @@ using UnityEngine;
 
 namespace Campbell.Editor.QuestGeneration
 {
-    public class QuestProcessor
+    public class QuestProcessor 
     {
-        private string _questPrompt;
-        private string _objectiveInformation;
-        private string _locationInformation;
-        private string _characterInformation;
-        private string _rewardInformation;
+        public string questPrompt;
+        public string objectiveInformation;
+        public string locationInformation;
+        public string characterInformation;
+        public string rewardInformation;
+
+        public string formattedQuest;
+        public string formattedQuestWithRewards;
 
         private Vector2 _questPromptScrollPosition;
         private Vector2 _objectiveScrollPosition;
@@ -26,46 +29,42 @@ namespace Campbell.Editor.QuestGeneration
 
         private ReorderableList _objectivesList;
         private ReorderableList _rewardsList;
-
-        public string LocationInformation => _locationInformation;
-
-        public string CharacterInformation => _characterInformation;
-
+        
         public void PopulateFromSamples()
         {
             if (GUILayout.Button("Populate With Samples"))
             {
-                _questPrompt = Resources.Load<TextAsset>("campbellSamplePrompt").text;
-                _objectiveInformation = Resources.Load<TextAsset>("campbellSampleObjectives").text;
-                _locationInformation = Resources.Load<TextAsset>("campbellSampleLocations").text;
-                _characterInformation = Resources.Load<TextAsset>("campbellSampleCharacters").text;
-                _rewardInformation = Resources.Load<TextAsset>("campbellSampleRewards").text;
+                questPrompt = Resources.Load<TextAsset>("campbellSamplePrompt").text;
+                objectiveInformation = Resources.Load<TextAsset>("campbellSampleObjectives").text;
+                locationInformation = Resources.Load<TextAsset>("campbellSampleLocations").text;
+                characterInformation = Resources.Load<TextAsset>("campbellSampleCharacters").text;
+                rewardInformation = Resources.Load<TextAsset>("campbellSampleRewards").text;
             }
         }
         
         public void DisplayQuestPrompt()
         {
-            DisplayTextArea("Quest Prompt", ref _questPrompt, ref _questPromptScrollPosition);
+            DisplayTextArea("Quest Prompt", ref questPrompt, ref _questPromptScrollPosition);
         }
 
         public void DisplayObjectiveInformation()
         {
-            DisplayTextArea("Objective Information", ref _objectiveInformation, ref _objectiveScrollPosition);
+            DisplayTextArea("Objective Information", ref objectiveInformation, ref _objectiveScrollPosition);
         }
 
         public void DisplayLocationInformation()
         {
-            DisplayTextArea("Location Information", ref _locationInformation, ref _locationScrollPosition);
+            DisplayTextArea("Location Information", ref locationInformation, ref _locationScrollPosition);
         }
 
         public void DisplayCharacterInformation()
         {
-            DisplayTextArea("Character Information", ref _characterInformation, ref _characterScrollPosition);
+            DisplayTextArea("Character Information", ref characterInformation, ref _characterScrollPosition);
         }
 
         public void DisplayRewardInformation()
         {
-            DisplayTextArea("Reward Information", ref _rewardInformation, ref _rewardScrollPosition);
+            DisplayTextArea("Reward Information", ref rewardInformation, ref _rewardScrollPosition);
         }
 
         private void DisplayTextArea(string label, ref string content, ref Vector2 scrollPosition)
@@ -105,11 +104,11 @@ namespace Campbell.Editor.QuestGeneration
             string helpText = "";
             Dictionary<string, string> contextFields = new Dictionary<string, string>()
             {
-                { "Quest Prompt", _questPrompt },
-                { "Objective Information", _objectiveInformation },
-                { "Location Information", _locationInformation },
-                { "Character Information", _characterInformation },
-                { "Reward Information", _rewardInformation },
+                { "Quest Prompt", questPrompt },
+                { "Objective Information", objectiveInformation },
+                { "Location Information", locationInformation },
+                { "Character Information", characterInformation },
+                { "Reward Information", rewardInformation },
             };
 
             foreach (var field in contextFields)
@@ -128,8 +127,7 @@ namespace Campbell.Editor.QuestGeneration
             return contextFields.Values.All(x => !string.IsNullOrWhiteSpace(x));
         }
 
-
-        public bool GenerateQuest(ref string formattedQuest, ref string formattedQuestWithRewards)
+        public bool GenerateQuest()
         {
             if (IsAllContextValid())
             {
@@ -140,11 +138,11 @@ namespace Campbell.Editor.QuestGeneration
                         formattedQuestWithRewards = null;
                     }
 
-                    string prompt = UtilityLibrary.FormatStringForPython(_questPrompt);
-                    string objectives = UtilityLibrary.FormatStringForPython(_objectiveInformation);
-                    string locations = UtilityLibrary.FormatStringForPython(_locationInformation);
-                    string characters = UtilityLibrary.FormatStringForPython(_characterInformation);
-                    string rewards = UtilityLibrary.FormatStringForPython(_rewardInformation);
+                    string prompt = UtilityLibrary.FormatStringForPython(questPrompt);
+                    string objectives = UtilityLibrary.FormatStringForPython(objectiveInformation);
+                    string locations = UtilityLibrary.FormatStringForPython(locationInformation);
+                    string characters = UtilityLibrary.FormatStringForPython(characterInformation);
+                    string rewards = UtilityLibrary.FormatStringForPython(rewardInformation);
 
                     string questSchema = UtilityLibrary.FormatStringForPython(Resources.Load<TextAsset>("campbellQuestSchema").text);
                     string questWithRewardsSchema = UtilityLibrary.FormatStringForPython(Resources.Load<TextAsset>("campbellQuestWithRewardsSchema").text);
@@ -205,8 +203,8 @@ namespace Campbell.Editor.QuestGeneration
 
                     if (!string.IsNullOrWhiteSpace(formattedQuestWithRewards))
                     {
-                        InitializeObjectivesList(formattedQuestWithRewards);
-                        InitializeRewardsList(formattedQuestWithRewards);
+                        InitializeObjectivesList();
+                        InitializeRewardsList();
                         return true;
                     }
 
@@ -220,22 +218,23 @@ namespace Campbell.Editor.QuestGeneration
             return false;
         }
 
-        private void InitializeObjectivesList(string formattedQuestWithRewards)
+        private void InitializeObjectivesList()
         {
-            QuestData questData = UtilityLibrary.DeserializeJson<QuestData>(formattedQuestWithRewards);
+            QuestData questWithRewardsData = UtilityLibrary.DeserializeJson<QuestData>(formattedQuestWithRewards);
             
-            _objectivesList = new ReorderableList(questData.objectives, typeof(ObjectiveData), true, true, true, true)
+            _objectivesList = new ReorderableList(questWithRewardsData.objectives, typeof(ObjectiveData), true, true, true, true)
             {
                 drawHeaderCallback = (Rect rect) => { EditorGUI.LabelField(rect, "Objectives"); },
                 elementHeight = EditorGUIUtility.singleLineHeight * 2 + 5f,
                 drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
                 {
-                    ObjectiveData objective = questData.objectives[index];
+                    ObjectiveData objective = questWithRewardsData.objectives[index];
                     rect.y += 2.5f;
 
-                    objective.reference =
-                        EditorGUI.TextField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "Reference",
+                    objective.reference = EditorGUI.TextField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "Reference",
                             objective.reference);
+                    objective.reference = (index + 1).ToString();
+
                     rect.y += EditorGUIUtility.singleLineHeight + 2.5f;
 
                     objective.description =
@@ -245,7 +244,7 @@ namespace Campbell.Editor.QuestGeneration
             };
         }
         
-        private void InitializeRewardsList(string formattedQuestWithRewards)
+        private void InitializeRewardsList()
         {
             QuestData questData = UtilityLibrary.DeserializeJson<QuestData>(formattedQuestWithRewards);
             
@@ -270,7 +269,7 @@ namespace Campbell.Editor.QuestGeneration
             };
         }
 
-        public string DisplayQuestInformation(string formattedQuestWithRewards)
+        public void DisplayQuestInformation()
         {
             QuestData questData = UtilityLibrary.DeserializeJson<QuestData>(formattedQuestWithRewards);
             if (questData == null)
@@ -295,7 +294,7 @@ namespace Campbell.Editor.QuestGeneration
 
                 if (_objectivesList == null)
                 {
-                   InitializeObjectivesList(formattedQuestWithRewards);
+                   InitializeObjectivesList();
                 }
                 _objectivesList.DoLayoutList();
                 
@@ -303,20 +302,24 @@ namespace Campbell.Editor.QuestGeneration
 
                 if (_rewardsList == null)
                 {
-                    InitializeRewardsList(formattedQuestWithRewards);
+                    InitializeRewardsList();
                 }
                 _rewardsList.DoLayoutList();
-                
-                if (GUI.changed || changedName)
-                {
-                    formattedQuestWithRewards = JsonConvert.SerializeObject(questData);
-                }
-            }
 
-            return formattedQuestWithRewards;
+                NoRewardQuestData questWithoutRewardsData = UtilityLibrary.DeserializeJson<NoRewardQuestData>(formattedQuest);
+                questWithoutRewardsData.title = "Quest";
+                questWithoutRewardsData.name = questData.name;
+                questWithoutRewardsData.description = questData.description;
+                questWithoutRewardsData.goal = questData.goal;
+                questWithoutRewardsData.objectives = questData.objectives;
+
+                formattedQuest = JsonConvert.SerializeObject(questWithoutRewardsData);
+
+                formattedQuestWithRewards = JsonConvert.SerializeObject(questData);
+            }
         }
 
-        public bool ClearQuest(ref string formattedQuestWithRewards)
+        public bool ClearQuest()
         {
             if (GUILayout.Button("Clear Quest"))
             {
@@ -327,7 +330,7 @@ namespace Campbell.Editor.QuestGeneration
             return false;
         }
 
-        public void CreateQuestAsset(string formattedQuestWithRewards, Quest.QuestMetadata metadata)
+        public void CreateQuestAsset(Quest.QuestMetadata metadata)
         {
             if (GUILayout.Button("Create Quest Assets"))
             {
@@ -335,7 +338,7 @@ namespace Campbell.Editor.QuestGeneration
             }
         }
         
-        public void RecreateQuestAsset(string formattedQuestWithRewards, Quest.QuestMetadata metadata)
+        public void RecreateQuestAsset(Quest.QuestMetadata metadata)
         {
             if (GUILayout.Button("Recreate Quest Assets"))
             {

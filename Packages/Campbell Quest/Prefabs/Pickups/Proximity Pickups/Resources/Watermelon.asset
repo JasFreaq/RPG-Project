@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Watermelon
   m_EditorClassIdentifier: 
   itemID: 64628277-22ee-4543-b79d-9e621b02494c
-  displayName: 
+  displayName: Watermelon
   description: A watermelon.
   icon: {fileID: 21300000, guid: 458b96fa7bc9e4c409f9b7f0b8bb2630, type: 3}
   pickup: {fileID: 6807696601708513025, guid: fd4f53520de09d5479d77bc9b9d73b47, type: 3}

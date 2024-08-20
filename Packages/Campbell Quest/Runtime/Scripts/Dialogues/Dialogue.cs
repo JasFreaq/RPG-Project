@@ -15,31 +15,37 @@ namespace Campbell.Dialogues
         [SerializeField] private List<DialogueNode> _dialogueNodes = new List<DialogueNode>();
 
         [SerializeField] private List<string> _childrenIds = new List<string>();
-
+        
         private Dictionary<string, DialogueNode> _nodeLookup = new Dictionary<string, DialogueNode>();
 
-        public IReadOnlyList<string> ChildrenIDs
-        {
-            get { return _childrenIds; }
-        }
+        public IReadOnlyList<string> ChildrenIDs => _childrenIds;
 
         #region Editor Specific
 #if UNITY_EDITOR
+
+        [SerializeField][HideInInspector] 
+        private string _rawDialogueJson;
 
         private Vector2 _editorScrollPosition = Vector2.zero;
 
         [SerializeField] [HideInInspector]
         private Rect _positionRect = new Rect(100, 100, MIN_WIDTH, MIN_HEIGHT);
 
+        public string RawDialogueJson
+        {
+            get => _rawDialogueJson;
+            set => _rawDialogueJson = value;
+        }
+
         public Vector2 EditorScrollPosition
         {
-            get { return _editorScrollPosition; }
-            set { _editorScrollPosition = value; }
+            get => _editorScrollPosition;
+            set => _editorScrollPosition = value;
         }
 
         public Rect PositionRect
         {
-            get { return _positionRect; }
+            get => _positionRect;
 
             set
             {
@@ -131,11 +137,8 @@ namespace Campbell.Dialogues
             }
         }
 
-        public List<DialogueNode> DialogueNodes
-        {
-            get { return _dialogueNodes; }
-        }
-        
+        public List<DialogueNode> DialogueNodes => _dialogueNodes;
+
         public IReadOnlyList<DialogueNode> GetChildrenOfNode(DialogueNode node)
         {
             List<DialogueNode> children = new List<DialogueNode>();

@@ -163,19 +163,5 @@ namespace Campbell.Editor.QuestGeneration
                 DialogueGenerator.CreateDialogueFromJson(dialogue, dialogueAssetSavePath);
             }
         }
-
-        public void CreateNpcAsset(string dialogue, Quest questAsset, string npcAssetSavePath)
-        {
-            EditorGUILayout.BeginHorizontal();
-
-            if (GUILayout.Button("Create Npc Asset"))
-            {
-                DialogueData dialogueData = UtilityLibrary.DeserializeJson<DialogueData>(dialogue);
-                
-                NpcGenerator.CreateNpcPrefab(dialogueData, questAsset, npcAssetSavePath);
-            }
-
-            EditorGUILayout.EndHorizontal();
-        }
     }
 }

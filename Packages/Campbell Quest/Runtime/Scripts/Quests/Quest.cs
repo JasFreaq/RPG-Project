@@ -10,7 +10,6 @@ namespace Campbell.Quests
         [System.Serializable]
         public struct Objective
         {
-            public bool required;
             public string reference;
             public string description;
         }

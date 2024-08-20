@@ -95,6 +95,13 @@ namespace Campbell.UI
             }
 
             IReadOnlyList<DialogueNode> playerChildren = _conversationHandler.GetPlayerChildren();
+            if (_choiceBlocks.Count < playerChildren.Count)
+            {
+                for (int i = _choiceBlocks.Count; i < playerChildren.Count; i++)
+                {
+                    AddChoice();
+                }
+            }
 
             for (int i = 0; i < playerChildren.Count; i++)
             {

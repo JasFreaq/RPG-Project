@@ -7,7 +7,16 @@ namespace Campbell.InventorySystem
     public class EnemyRandomDropper : RandomDropper
     {
         //Config Data
-        [SerializeField] DropLibrary _dropLibrary;
+        [SerializeField] private DropLibrary _dropLibrary;
+
+#if UNITY_EDITOR
+
+        public DropLibrary DropLibrary
+        {
+            set { _dropLibrary = value; }
+        }
+
+#endif
 
         public void RandomDrop()
         {
