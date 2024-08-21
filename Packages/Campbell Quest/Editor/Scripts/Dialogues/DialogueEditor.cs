@@ -1,6 +1,7 @@
 ﻿using System;
 using Campbell.Core;
 using Campbell.Dialogues;
+using Campbell.Quests;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -394,6 +395,9 @@ namespace Campbell.Editor.Dialogues
             if (GUILayout.Button("+"))
             {
                 _createUsingNode = node;
+
+                EditorUtility.SetDirty(this);
+                AssetDatabase.SaveAssetIfDirty(this);
             }
 
             DrawLinkButtons(node);
@@ -401,6 +405,9 @@ namespace Campbell.Editor.Dialogues
             if (GUILayout.Button("-"))
             {
                 _deleteNode = node;
+
+                EditorUtility.SetDirty(this);
+                AssetDatabase.SaveAssetIfDirty(this);
             }
         }
 
@@ -420,6 +427,9 @@ namespace Campbell.Editor.Dialogues
                     if (GUILayout.Button("finish"))
                     {
                         _linkingNode = null;
+
+                        EditorUtility.SetDirty(this);
+                        AssetDatabase.SaveAssetIfDirty(this);
                     }
                 }
                 else if (_linkingNode.ContainsChild(node.name))

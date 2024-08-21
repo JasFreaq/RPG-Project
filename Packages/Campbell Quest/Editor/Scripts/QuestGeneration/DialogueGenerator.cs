@@ -54,9 +54,7 @@ namespace Campbell.Editor.QuestGeneration
             dialogue.DialogueNodes[0].PositionRect = new Rect(50, 750, DialogueNode.MIN_WIDTH, DialogueNode.MIN_HEIGHT);
             ArrangeDialogueNodes(dialogue, dialogue.DialogueNodes[0]);
             dialogue.EditorScrollPosition = new Vector2(0, 500);
-
-            dialogue.RawDialogueJson = dialogueJson;
-
+            
             UnityEditor.AssetDatabase.SaveAssets();
 
             Scene activeScene = SceneManager.GetActiveScene();
@@ -196,7 +194,6 @@ namespace Campbell.Editor.QuestGeneration
     public class DialogueData
     {
         public string npc_name;
-        public string npc_type;
         public string npc_dialogue;
         public List<ChoiceData> choices;
     }

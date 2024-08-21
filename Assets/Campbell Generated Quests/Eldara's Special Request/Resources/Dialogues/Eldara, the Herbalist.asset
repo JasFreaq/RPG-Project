@@ -1,0 +1,343 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8550701215671336816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 5b5e4afc-fc14-46e2-b147-b2e4414468ff
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Oh, thank you! I was worried it might be too much to ask. Be careful in
+    the Whispering Woods; the paths can twist and turn. Remember, your goal is to
+    find a single Starlight Bloom herb.
+  _childrenIds:
+  - 4cf3be31-0638-4919-a59b-5e98776d812a
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 1874
+    y: 601
+    width: 300
+    height: 225
+--- !u!114 &-3603427771474556926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 79f1d223-75ca-42fa-a533-1d586d970e87
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: Here is the Starlight Bloom herb.
+  _childrenIds:
+  - 478b5b56-a4a1-4dcc-9c68-e634667be2ec
+  _dialogueActions:
+  - action: 3
+    parameter: 4
+  - action: 4
+    parameter: '''Eldara''s Special Request'''
+  _condition:
+    _and:
+    - _or:
+      - _predicateType: 2
+        _negate: 0
+        _parameters:
+        - Eldara's Special Request
+        - 3
+    - _or:
+      - _predicateType: 3
+        _negate: 1
+        _parameters:
+        - Eldara's Special Request
+  _positionRect:
+    serializedVersion: 2
+    x: 1400
+    y: 900
+    width: 300
+    height: 225
+--- !u!114 &-3440143417966009021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: bff819cb-0d09-427c-bcbb-5008160ce9d3
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Oh, thank you! Be careful in the Whispering Woods; the paths can twist and
+    turn.
+  _childrenIds: []
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 1852
+    y: 1174
+    width: 300
+    height: 225
+--- !u!114 &-3192865817468133822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 4cf3be31-0638-4919-a59b-5e98776d812a
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: I'll do my best!
+  _childrenIds:
+  - 89523f44-b9ad-4e4b-b313-1d5105701e8e
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 2300
+    y: 600
+    width: 300
+    height: 225
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99daa080c5e0e784da792ad400c68782, type: 3}
+  m_Name: Eldara, the Herbalist
+  m_EditorClassIdentifier: 
+  _dialogueNodes:
+  - {fileID: 7053546310314838414}
+  - {fileID: 1007706393562856321}
+  - {fileID: 7797041018660312048}
+  - {fileID: 8933786650375261533}
+  - {fileID: -8550701215671336816}
+  - {fileID: -3192865817468133822}
+  - {fileID: 8801339570034297299}
+  - {fileID: -3603427771474556926}
+  - {fileID: 6197040093533433957}
+  - {fileID: 5709920942633110353}
+  - {fileID: -3440143417966009021}
+  _childrenIds: []
+  _positionRect:
+    serializedVersion: 2
+    x: 100
+    y: 100
+    width: 300
+    height: 225
+--- !u!114 &1007706393562856321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: bed99f42-db95-446c-9d80-803b81e0f082
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: What do you need with the Starlight Bloom herb?
+  _childrenIds:
+  - 8a506977-3d74-4093-aaa3-d51f2eb089a8
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 500
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &5709920942633110353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: a0c8c3b4-b473-4cde-a536-10dcc83d3c7b
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: I'm already looking for it.
+  _childrenIds:
+  - bff819cb-0d09-427c-bcbb-5008160ce9d3
+  _dialogueActions: []
+  _condition:
+    _and:
+    - _or:
+      - _predicateType: 1
+        _negate: 0
+        _parameters:
+        - Eldara's Special Request
+  _positionRect:
+    serializedVersion: 2
+    x: 1397
+    y: 1171
+    width: 300
+    height: 225
+--- !u!114 &6197040093533433957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 478b5b56-a4a1-4dcc-9c68-e634667be2ec
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Excellent! You've done it. I can now create the potion to help our village.
+  _childrenIds: []
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 1850
+    y: 900
+    width: 300
+    height: 225
+--- !u!114 &7053546310314838414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 364d7a7a-931e-4bb7-9840-051cc2eef2c6
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: Ah, traveler! I need your help. I require the rare Starlight Bloom herb
+    for a crucial potion.
+  _childrenIds:
+  - bed99f42-db95-446c-9d80-803b81e0f082
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 50
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &7797041018660312048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 8a506977-3d74-4093-aaa3-d51f2eb089a8
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: It's a key ingredient for a special potion. I've tried other methods, but
+    they haven't worked out. I fear it's time to venture into the Whispering Woods.
+  _childrenIds:
+  - 87436f3b-17dd-4fa2-b43a-ae5dcafb52a3
+  - 79f1d223-75ca-42fa-a533-1d586d970e87
+  - a0c8c3b4-b473-4cde-a536-10dcc83d3c7b
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 950
+    y: 750
+    width: 300
+    height: 225
+--- !u!114 &8801339570034297299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 89523f44-b9ad-4e4b-b313-1d5105701e8e
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 0
+  _text: I appreciate that! You're truly a lifesaver.
+  _childrenIds: []
+  _dialogueActions: []
+  _condition:
+    _and: []
+  _positionRect:
+    serializedVersion: 2
+    x: 2750
+    y: 600
+    width: 300
+    height: 225
+--- !u!114 &8933786650375261533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed38c69632a2c5d4ba0c0975612d5441, type: 3}
+  m_Name: 87436f3b-17dd-4fa2-b43a-ae5dcafb52a3
+  m_EditorClassIdentifier: 
+  _isPlayerSpeech: 1
+  _text: I'll go get the Starlight Bloom herb for you.
+  _childrenIds:
+  - 5b5e4afc-fc14-46e2-b147-b2e4414468ff
+  _dialogueActions:
+  - action: 2
+    parameter: '''Eldara''s Special Request'''
+  - action: 3
+    parameter: 1
+  - action: 5
+    parameter: 
+  _condition:
+    _and:
+    - _or:
+      - _predicateType: 1
+        _negate: 1
+        _parameters:
+        - Eldara's Special Request
+  _positionRect:
+    serializedVersion: 2
+    x: 1400
+    y: 600
+    width: 300
+    height: 225

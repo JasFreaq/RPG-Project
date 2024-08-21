@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,16 +14,19 @@ namespace Campbell.Dialogues
         {
             public DialogueAction dialogueAction;
             public UnityEvent onTrigger;
+
+            [HideInInspector] public string parameter;
         }
 
         [SerializeField] private List<TriggerElement> _triggers = new();
         
-        public void AddTrigger(DialogueAction action, UnityEvent onTrigger)
+        public void AddTrigger(DialogueAction action, UnityEvent onTrigger, string parameter = null)
         {
             TriggerElement element = new TriggerElement
             {
                 dialogueAction = action,
-                onTrigger = onTrigger
+                onTrigger = onTrigger,
+                parameter = parameter
             };
 
             _triggers.Add(element);
@@ -36,7 +40,10 @@ namespace Campbell.Dialogues
                 {
                     if (element.dialogueAction == actionData.action)
                     {
-                        element.onTrigger?.Invoke();
+                        if (string.IsNullOrWhiteSpace(element.parameter) || element.parameter == actionData.parameter)
+                        {
+                            element.onTrigger?.Invoke();
+                        }
                     }
                 }
             }

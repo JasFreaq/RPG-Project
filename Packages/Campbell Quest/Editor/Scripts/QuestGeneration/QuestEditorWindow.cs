@@ -13,6 +13,7 @@ namespace Campbell.Editor.QuestGeneration
         public const string QuestAssetSavePath = "Assets/Campbell Generated Quests";
 
         private int _baseTab = 0;
+        private int _previousFrameContextTab = 0;
         private int _contextTab = 0;
 
         private string[] _baseTabNames = { "Context Editor", "Quest Editor" };
@@ -59,6 +60,11 @@ namespace Campbell.Editor.QuestGeneration
             EditorGUILayout.Space();
 
             _contextTab = GUILayout.Toolbar(_contextTab, _contextEditorTabNames);
+            if (_contextTab != _previousFrameContextTab)
+            {
+                _previousFrameContextTab = _contextTab;
+                GUI.FocusControl(null);
+            }
 
             if (_contextTab == 0)
             {
@@ -86,6 +92,7 @@ namespace Campbell.Editor.QuestGeneration
             if (_questProcessor.GenerateQuest())
             {
                 _baseTab = 1;
+                GUI.FocusControl(null);
             }
 
             EditorGUILayout.EndScrollView();

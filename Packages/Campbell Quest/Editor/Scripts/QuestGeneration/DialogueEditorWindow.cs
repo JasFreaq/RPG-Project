@@ -68,10 +68,19 @@ namespace Campbell.Editor.QuestGeneration
 
             EditorGUILayout.Space();
 
+            Quest.QuestMetadata metadata = _quest.Metadata;
             string[] dialogueTabNames = new string[_formattedDialogues.Count];
             for (int i = 0; i < _formattedDialogues.Count; i++)
             {
                 DialogueData dialogueData = UtilityLibrary.DeserializeJson<DialogueData>(_formattedDialogues[i]);
+                if (dialogueData == null)
+                {
+                    _dialogueProcessor.GenerateDialogues(metadata.formattedQuest, metadata.locationInformation, metadata.characterInformation,
+                        ref _formattedDialogues);
+                    _formattedDialogues.Clear();
+                    return;
+                }
+
                 dialogueTabNames[i] = $"{dialogueData.npc_name}";
             }
 
@@ -81,7 +90,7 @@ namespace Campbell.Editor.QuestGeneration
 
             EditorGUILayout.Space();
 
-            Quest.QuestMetadata metadata = _quest.Metadata;
+            
             string questName = UtilityLibrary.DeserializeJson<QuestData>(metadata.formattedQuest).name;
             string dialogueAssetSavePath = QuestEditorWindow.QuestAssetSavePath + "/" + questName;
             if (DialogueGenerator.DoesDialogueAssetExist(_formattedDialogues[_dialogueTab], dialogueAssetSavePath))

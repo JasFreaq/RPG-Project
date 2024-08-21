@@ -22,21 +22,12 @@ namespace Campbell.Dialogues
 
         #region Editor Specific
 #if UNITY_EDITOR
-
-        [SerializeField][HideInInspector] 
-        private string _rawDialogueJson;
-
+        
         private Vector2 _editorScrollPosition = Vector2.zero;
 
         [SerializeField] [HideInInspector]
         private Rect _positionRect = new Rect(100, 100, MIN_WIDTH, MIN_HEIGHT);
-
-        public string RawDialogueJson
-        {
-            get => _rawDialogueJson;
-            set => _rawDialogueJson = value;
-        }
-
+        
         public Vector2 EditorScrollPosition
         {
             get => _editorScrollPosition;

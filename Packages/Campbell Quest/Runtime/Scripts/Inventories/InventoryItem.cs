@@ -59,16 +59,21 @@ namespace Campbell.InventorySystem
             if (itemLookupCache == null)
             {
                 itemLookupCache = new Dictionary<string, InventoryItem>();
-                var itemList = Resources.LoadAll<InventoryItem>("");
-                foreach (var item in itemList)
+                InventoryItem[] itemList = Resources.LoadAll<InventoryItem>("");
+                foreach (InventoryItem item in itemList)
                 {
-                    if (itemLookupCache.ContainsKey(item.itemID))
+                    if (!string.IsNullOrWhiteSpace(item.itemID))
                     {
-                        Debug.LogError(string.Format("Looks like there's a duplicate Campbell.InventorySystem ID for objects: {0} and {1}", itemLookupCache[item.itemID], item));
-                        continue;
-                    }
+                        if (itemLookupCache.ContainsKey(item.itemID))
+                        {
+                            Debug.LogError(string.Format(
+                                "Looks like there's a duplicate Campbell.InventorySystem ID for objects: {0} and {1}",
+                                itemLookupCache[item.itemID], item));
+                            continue;
+                        }
 
-                    itemLookupCache[item.itemID] = item;
+                        itemLookupCache[item.itemID] = item;
+                    }
                 }
             }
 

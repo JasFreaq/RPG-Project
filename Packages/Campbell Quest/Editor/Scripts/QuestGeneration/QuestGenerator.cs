@@ -1,10 +1,8 @@
 using Campbell.Editor.QuestGeneration.Utility;
 using Campbell.InventorySystem;
 using Campbell.Quests;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
 namespace Campbell.Editor.QuestGeneration
@@ -67,7 +65,7 @@ namespace Campbell.Editor.QuestGeneration
     }
 
     [System.Serializable]
-    public class NoRewardQuestData
+    public class QuestMetadataFormat
     {
         public string title;
         public string name;
@@ -75,7 +73,7 @@ namespace Campbell.Editor.QuestGeneration
         public string goal;
         public List<ObjectiveData> objectives;
     }
-    
+
     [System.Serializable]
     public class QuestData
     {

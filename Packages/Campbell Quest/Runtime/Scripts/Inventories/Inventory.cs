@@ -15,10 +15,10 @@ namespace Campbell.InventorySystem
     {
         // CONFIG DATA
         [Tooltip("Allowed size")]
-        [SerializeField] int inventorySize = 16;
+        [SerializeField] private int _inventorySize = 16;
 
         // STATE
-        InventorySlot[] slots;
+        private InventorySlot[] _slots;
 
         public struct InventorySlot
         {
@@ -38,7 +38,7 @@ namespace Campbell.InventorySystem
         /// </summary>
         public static Inventory GetPlayerInventory()
         {
-            var player = GameObject.FindWithTag("Player");
+            GameObject player = GameObject.FindWithTag("Player");
             return player.GetComponent<Inventory>();
         }
 
@@ -55,7 +55,7 @@ namespace Campbell.InventorySystem
         /// </summary>
         public int GetSize()
         {
-            return slots.Length;
+            return _slots.Length;
         }
 
         /// <summary>
@@ -73,8 +73,8 @@ namespace Campbell.InventorySystem
                 return false;
             }
 
-            slots[i].item = item;
-            slots[i].number += number;
+            _slots[i].item = item;
+            _slots[i].number += number;
             if (inventoryUpdated != null)
             {
                 inventoryUpdated();
@@ -87,9 +87,9 @@ namespace Campbell.InventorySystem
         /// </summary>
         public bool HasItem(InventoryItem item, out int slot)
         {
-            for (int i = 0; i < slots.Length; i++)
+            for (int i = 0; i < _slots.Length; i++)
             {
-                if (ReferenceEquals(slots[i].item, item))
+                if (ReferenceEquals(_slots[i].item, item))
                 {
                     slot = i;
                     return true;
@@ -104,7 +104,7 @@ namespace Campbell.InventorySystem
         /// </summary>
         public InventoryItem GetItemInSlot(int slot)
         {
-            return slots[slot].item;
+            return _slots[slot].item;
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Campbell.InventorySystem
         /// </summary>
         public int GetNumberInSlot(int slot)
         {
-            return slots[slot].number;
+            return _slots[slot].number;
         }
 
         /// <summary>
@@ -121,11 +121,11 @@ namespace Campbell.InventorySystem
         /// </summary>
         public void RemoveFromSlot(int slot, int number)
         {
-            slots[slot].number -= number;
-            if (slots[slot].number <= 0)
+            _slots[slot].number -= number;
+            if (_slots[slot].number <= 0)
             {
-                slots[slot].number = 0;
-                slots[slot].item = null;
+                _slots[slot].number = 0;
+                _slots[slot].item = null;
             }
             if (inventoryUpdated != null)
             {
@@ -144,7 +144,7 @@ namespace Campbell.InventorySystem
         /// <returns>True if the item was added anywhere in the inventory.</returns>
         public bool AddItemToSlot(int slot, InventoryItem item, int number)
         {
-            if (slots[slot].item != null)
+            if (_slots[slot].item != null)
             {
                 return AddToFirstEmptySlot(item, number); ;
             }
@@ -155,8 +155,8 @@ namespace Campbell.InventorySystem
                 slot = i;
             }
 
-            slots[slot].item = item;
-            slots[slot].number += number;
+            _slots[slot].item = item;
+            _slots[slot].number += number;
             if (inventoryUpdated != null)
             {
                 inventoryUpdated();
@@ -168,7 +168,7 @@ namespace Campbell.InventorySystem
 
         private void Awake()
         {
-            slots = new InventorySlot[inventorySize];
+            _slots = new InventorySlot[_inventorySize];
         }
 
         /// <summary>
@@ -191,9 +191,9 @@ namespace Campbell.InventorySystem
         /// <returns>-1 if all slots are full.</returns>
         private int FindEmptySlot()
         {
-            for (int i = 0; i < slots.Length; i++)
+            for (int i = 0; i < _slots.Length; i++)
             {
-                if (slots[i].item == null)
+                if (_slots[i].item == null)
                 {
                     return i;
                 }
@@ -212,9 +212,9 @@ namespace Campbell.InventorySystem
                 return -1;
             }
 
-            for (int i = 0; i < slots.Length; i++)
+            for (int i = 0; i < _slots.Length; i++)
             {
-                if (object.ReferenceEquals(slots[i].item, item))
+                if (object.ReferenceEquals(_slots[i].item, item))
                 {
                     return i;
                 }
@@ -255,13 +255,13 @@ namespace Campbell.InventorySystem
 
         object ISaveable.CaptureState()
         {
-            var slotStrings = new InventorySlotRecord[inventorySize];
-            for (int i = 0; i < inventorySize; i++)
+            InventorySlotRecord[] slotStrings = new InventorySlotRecord[_inventorySize];
+            for (int i = 0; i < _inventorySize; i++)
             {
-                if (slots[i].item != null)
+                if (_slots[i].item != null)
                 {
-                    slotStrings[i].itemID = slots[i].item.GetItemID();
-                    slotStrings[i].number = slots[i].number;
+                    slotStrings[i].itemID = _slots[i].item.GetItemID();
+                    slotStrings[i].number = _slots[i].number;
                 }
             }
             return slotStrings;
@@ -269,11 +269,11 @@ namespace Campbell.InventorySystem
 
         void ISaveable.RestoreState(object state)
         {
-            var slotStrings = (InventorySlotRecord[])state;
-            for (int i = 0; i < inventorySize; i++)
+            InventorySlotRecord[] slotStrings = (InventorySlotRecord[])state;
+            for (int i = 0; i < _inventorySize; i++)
             {
-                slots[i].item = InventoryItem.GetFromID(slotStrings[i].itemID);
-                slots[i].number = slotStrings[i].number;
+                _slots[i].item = InventoryItem.GetFromID(slotStrings[i].itemID);
+                _slots[i].number = slotStrings[i].number;
             }
             if (inventoryUpdated != null)
             {

@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
 using Campbell.InventorySystem;
+using Unity.Plastic.Newtonsoft.Json;
+using UnityEditor;
 using UnityEngine;
+using static Campbell.Quests.Quest;
+using static Campbell.Quests.Quest.QuestMetadata;
 
 namespace Campbell.Quests
 {
@@ -39,9 +43,17 @@ namespace Campbell.Quests
 #if UNITY_EDITOR
         [SerializeField][HideInInspector] private QuestMetadata _metadata;
 
-        public string QuestDescription { set => _questDescription = value; }
+        public string QuestDescription
+        {
+            get => _questDescription;
+            set => _questDescription = value;
+        }
 
-        public string QuestGoal { set => _questGoal = value; }
+        public string QuestGoal
+        {
+            get => _questGoal;
+            set => _questGoal = value;
+        }
 
         public QuestMetadata Metadata
         {

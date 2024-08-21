@@ -65,53 +65,45 @@ namespace Campbell.Editor.QuestGeneration
         {
             MonoBehaviour baseCharacter = Resources.Load<MonoBehaviour>("Base Character");
             
-            DialogueData dialogueData = UtilityLibrary.DeserializeJson<DialogueData>(dialogueAsset.RawDialogueJson);
-
             string path = savePath + "/Resources/Npcs";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            path += "/" + dialogueData.npc_name + " NPC.prefab";
+            path += "/" + dialogueAsset.name + " NPC.prefab";
 
             // Create a prefab from the base character
             GameObject npc = PrefabUtility.SaveAsPrefabAsset(baseCharacter.gameObject, path);
 
             AIConversationHandler aiConversation = npc.AddComponent<AIConversationHandler>();
-            aiConversation.ConversantName = dialogueData.npc_name;
+            aiConversation.ConversantName = dialogueAsset.name;
             aiConversation.Dialogue = dialogueAsset;
 
             DialogueTrigger dialogueTrigger = npc.AddComponent<DialogueTrigger>();
 
-            IterateDialogueResults(npc, questAsset, dialogueTrigger, dialogueData.choices);
+            IterateDialogueResults(npc, questAsset, dialogueTrigger, dialogueAsset, dialogueAsset.DialogueNodes[0]);
             PrefabUtility.SavePrefabAsset(npc);
         }
 
-        private static void IterateDialogueResults(GameObject npc, Quest questAsset, DialogueTrigger dialogueTrigger, List<ChoiceData> choices)
+        private static void IterateDialogueResults(GameObject npc, Quest questAsset, DialogueTrigger dialogueTrigger, Dialogue dialogueAsset, DialogueNode node)
         {
-            foreach (ChoiceData choice in choices)
+            foreach (DialogueActionData action in node.DialogueActions)
             {
-                if (!string.IsNullOrWhiteSpace(choice.result))
-                {
-                    LinkDialogueAction(npc, questAsset, dialogueTrigger, choice.result);
-                }
+                LinkDialogueAction(npc, questAsset, dialogueTrigger, action);
+            }
 
-                if (choice.choices is { Count: > 0 })
-                {
-                    IterateDialogueResults(npc, questAsset, dialogueTrigger, choice.choices);
-                }
+            foreach (DialogueNode childNode in dialogueAsset.GetChildrenOfNode(node))
+            {
+                IterateDialogueResults(npc, questAsset, dialogueTrigger, dialogueAsset, childNode);
             }
         }
 
-        private static void LinkDialogueAction(GameObject npc, Quest questAsset, DialogueTrigger dialogueTrigger, string actionString)
+        private static void LinkDialogueAction(GameObject npc, Quest questAsset, DialogueTrigger dialogueTrigger, DialogueActionData action)
         {
-            string actionName = actionString.Substring(0, actionString.IndexOf('('));
-            string[] parameters = actionString.Substring(actionString.IndexOf('(') + 1, actionString.IndexOf(')') - actionString.IndexOf('(') - 1).Split(',');
-            
-            switch (actionName)
+            switch (action.action)
             {
-                case "receive_quest":
+                case DialogueAction.GiveQuest:
                     QuestGiver questGiver = npc.GetComponent<QuestGiver>();
                     if (questGiver == null)
                     {
@@ -124,7 +116,7 @@ namespace Campbell.Editor.QuestGeneration
                     dialogueTrigger.AddTrigger(DialogueAction.GiveQuest, onReceiveEvent);
                     break;
 
-                case "complete_objective":
+                case DialogueAction.CompleteObjective:
                     QuestClearer objectiveClearer = npc.GetComponent<QuestClearer>();
                     if (objectiveClearer == null)
                     {
@@ -133,11 +125,11 @@ namespace Campbell.Editor.QuestGeneration
                     objectiveClearer.Quest = questAsset;
                     UnityEvent onObjectiveClearEvent = new UnityEvent();
                     UnityAction<string> onObjectiveClearAction = objectiveClearer.CompleteQuestObjective;
-                    UnityEventTools.AddStringPersistentListener(onObjectiveClearEvent, onObjectiveClearAction, parameters[0]);
-                    dialogueTrigger.AddTrigger(DialogueAction.CompleteObjective, onObjectiveClearEvent);
+                    UnityEventTools.AddStringPersistentListener(onObjectiveClearEvent, onObjectiveClearAction, action.parameter);
+                    dialogueTrigger.AddTrigger(DialogueAction.CompleteObjective, onObjectiveClearEvent, action.parameter);
                     break;
                 
-                case "complete_quest":
+                case DialogueAction.CompleteQuest:
                     QuestClearer questClearer = npc.GetComponent<QuestClearer>();
                     if (questClearer == null)
                     {
@@ -150,7 +142,7 @@ namespace Campbell.Editor.QuestGeneration
                     dialogueTrigger.AddTrigger(DialogueAction.CompleteQuest, onQuestClearEvent);
                     break;
 
-                case "attack_player":
+                case DialogueAction.Attack:
                     SetupEnemy(npc);
 
                     AIController aiController = npc.GetComponent<AIController>();
@@ -161,19 +153,14 @@ namespace Campbell.Editor.QuestGeneration
                     dialogueTrigger.AddTrigger(DialogueAction.Attack, onAttackEvent);
                     break;
 
-                case "add_item":
-                case "remove_item":
+                case DialogueAction.EditInventory:
                     InventoryChanger inventoryChanger = npc.GetComponent<InventoryChanger>();
                     if (inventoryChanger == null)
                     {
                         inventoryChanger = npc.AddComponent<InventoryChanger>();
                     }
-                    InventoryItem item = Resources.Load<InventoryItem>(parameters[0]);
+                    InventoryItem item = Resources.Load<InventoryItem>(action.parameter);
                     inventoryChanger.Item = item;
-                    if (actionName == "remove_item")
-                    {
-                        inventoryChanger.Remove = true;
-                    }
                     inventoryChanger.Number = 1;
                     UnityEvent onInventoryEvent = new UnityEvent();
                     UnityAction onInventoryAction = inventoryChanger.EditInventory;

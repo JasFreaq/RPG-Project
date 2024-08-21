@@ -42,7 +42,7 @@ namespace Campbell.Quests
 
         public void ClearObjective(string objectiveRef)
         {
-            if (_quest.ContainsObjective(objectiveRef))
+            if (_quest.ContainsObjective(objectiveRef) && !_clearedObjectives.Contains(objectiveRef))
             {
                 _clearedObjectives.Add(objectiveRef);
             }

@@ -71,17 +71,13 @@ namespace Campbell.Editor.QuestGeneration
 
                 if (_dialogue != null)
                 {
-                    DialogueData dialogueData = UtilityLibrary.DeserializeJson<DialogueData>(_dialogue.RawDialogueJson);
-                    if (dialogueData != null)
+                    if (NpcGenerator.DoesNpcAssetExist(_dialogue.name, npcAssetSavePath))
                     {
-                        if (NpcGenerator.DoesNpcAssetExist(dialogueData.npc_name, npcAssetSavePath))
-                        {
-                            _npcProcessor.RecreateNpcAsset(_dialogue, _quest, npcAssetSavePath);
-                        }
-                        else
-                        {
-                            _npcProcessor.CreateNpcAsset(_dialogue, _quest, npcAssetSavePath);
-                        }
+                        _npcProcessor.RecreateNpcAsset(_dialogue, _quest, npcAssetSavePath);
+                    }
+                    else
+                    {
+                        _npcProcessor.CreateNpcAsset(_dialogue, _quest, npcAssetSavePath);
                     }
                 }
             }

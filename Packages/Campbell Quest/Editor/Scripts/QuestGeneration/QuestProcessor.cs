@@ -7,6 +7,8 @@ using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
+using static Campbell.Quests.Quest;
+using static Campbell.Quests.Quest.QuestMetadata;
 
 namespace Campbell.Editor.QuestGeneration
 {
@@ -220,15 +222,15 @@ namespace Campbell.Editor.QuestGeneration
 
         private void InitializeObjectivesList()
         {
-            QuestData questWithRewardsData = UtilityLibrary.DeserializeJson<QuestData>(formattedQuestWithRewards);
+            QuestData questData = UtilityLibrary.DeserializeJson<QuestData>(formattedQuestWithRewards);
             
-            _objectivesList = new ReorderableList(questWithRewardsData.objectives, typeof(ObjectiveData), true, true, true, true)
+            _objectivesList = new ReorderableList(questData.objectives, typeof(ObjectiveData), true, true, true, true)
             {
                 drawHeaderCallback = (Rect rect) => { EditorGUI.LabelField(rect, "Objectives"); },
                 elementHeight = EditorGUIUtility.singleLineHeight * 2 + 5f,
                 drawElementCallback = (Rect rect, int index, bool isActive, bool isFocused) =>
                 {
-                    ObjectiveData objective = questWithRewardsData.objectives[index];
+                    ObjectiveData objective = questData.objectives[index];
                     rect.y += 2.5f;
 
                     objective.reference = EditorGUI.TextField(new Rect(rect.x, rect.y, rect.width, EditorGUIUtility.singleLineHeight), "Reference",
@@ -278,8 +280,6 @@ namespace Campbell.Editor.QuestGeneration
             }
             else
             {
-                bool changedName = UtilityLibrary.RemoveInvalidFileNameChars(ref questData.name);
-
                 questData.name = EditorGUILayout.TextField("Quest Name", questData.name);
 
                 EditorGUILayout.Space();
@@ -297,6 +297,7 @@ namespace Campbell.Editor.QuestGeneration
                    InitializeObjectivesList();
                 }
                 _objectivesList.DoLayoutList();
+                questData.objectives = new List<ObjectiveData>(_objectivesList.list.Cast<ObjectiveData>());
                 
                 EditorGUILayout.Space();
 
@@ -305,15 +306,21 @@ namespace Campbell.Editor.QuestGeneration
                     InitializeRewardsList();
                 }
                 _rewardsList.DoLayoutList();
+                questData.rewards = new List<RewardData>(_rewardsList.list.Cast<RewardData>());
 
-                NoRewardQuestData questWithoutRewardsData = UtilityLibrary.DeserializeJson<NoRewardQuestData>(formattedQuest);
-                questWithoutRewardsData.title = "Quest";
-                questWithoutRewardsData.name = questData.name;
-                questWithoutRewardsData.description = questData.description;
-                questWithoutRewardsData.goal = questData.goal;
-                questWithoutRewardsData.objectives = questData.objectives;
+                QuestMetadataFormat questMetadataFormat = UtilityLibrary.DeserializeJson<QuestMetadataFormat>(formattedQuest);
+                questMetadataFormat.title = "Quest";
+                questMetadataFormat.name = questData.name;
+                questMetadataFormat.description = questData.description;
+                questMetadataFormat.goal = questData.goal;
+                List<ObjectiveData> objectives = new List<ObjectiveData>();
+                foreach (ObjectiveData objective in questData.objectives)
+                {
+                    objectives.Add(new ObjectiveData { reference = objective.reference, description = objective.description });
+                }
+                questMetadataFormat.objectives = objectives;
 
-                formattedQuest = JsonConvert.SerializeObject(questWithoutRewardsData);
+                formattedQuest = JsonConvert.SerializeObject(questMetadataFormat);
 
                 formattedQuestWithRewards = JsonConvert.SerializeObject(questData);
             }

@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aa975b6e72390f4db516dfd61219966, type: 3}
+  m_Name: Eldara's Special Request
+  m_EditorClassIdentifier: 
+  _questDescription: Eldara, the Herbalist, approaches you in the village of Elderglen
+    with a concerned look on her face. She tells you that she needs the extremely
+    rare Starlight Bloom herb for a crucial potion, but it's known to only grow deep
+    within the mystical and mysterious Whispering Woods.
+  _questGoal: Retrieve the rare, mystical Starlight Bloom herb from the Whispering
+    Woods.
+  _objectives:
+  - reference: 1
+    description: Ask Eldara about her need for the Starlight Bloom herb.
+  - reference: 2
+    description: Enter the Whispering Woods from the village of Elderglen.
+  - reference: 3
+    description: Retrieve a single Starlight Bloom herb from its location in the
+      Whispering Woods.
+  - reference: 4
+    description: Return to Eldara with the retrieved Starlight Bloom herb in the
+      village of Elderglen.
+  _rewards:
+  - number: 1
+    item: {fileID: 11400000, guid: 7a30ede99c6fbde4cad9bbd54f1dd825, type: 2}
+  _metadata:
+    formattedQuest: '{"title":"Quest","name":"Eldara''s Special Request","description":"Eldara,
+      the Herbalist, approaches you in the village of Elderglen with a concerned
+      look on her face. She tells you that she needs the extremely rare Starlight
+      Bloom herb for a crucial potion, but it''s known to only grow deep within the
+      mystical and mysterious Whispering Woods.","goal":"Retrieve the rare, mystical
+      Starlight Bloom herb from the Whispering Woods.","objectives":[{"reference":"1","description":"Ask
+      Eldara about her need for the Starlight Bloom herb."},{"reference":"2","description":"Enter
+      the Whispering Woods from the village of Elderglen."},{"reference":"3","description":"Retrieve
+      a single Starlight Bloom herb from its location in the Whispering Woods."},{"reference":"4","description":"Return
+      to Eldara with the retrieved Starlight Bloom herb in the village of Elderglen."}]}'
+    locationInformation: "{\r\n    \"locations\": [\r\n      {\r\n        \"Name\":
+      \"Village of Elderglen\",\r\n        \"Description\": \"A quaint and serene
+      village nestled in a lush valley, Elderglen is known for its thatched-roof
+      cottages and vibrant flower gardens. The villagers are a tight-knit community,
+      relying on farming and craftwork, and the village green is often filled with
+      children playing and adults trading stories.\"\r\n      },\r\n      {\r\n       
+      \"Name\": \"Whispering Woods\",\r\n        \"Description\": \"This dense, mystical
+      forest stretches between Elderglen and Stonebridge, filled with towering ancient
+      trees and a perpetual, ethereal mist. The  forest is teeming with magical creatures
+      and hidden secrets, with paths that twist and turn, making it a challenging
+      journey for travelers. The sound of whispers on the wind gives the woods its
+      name, adding to its enigmatic allure.\"\r\n      }\r\n    ]\r\n  }\r\n  "
+    characterInformation: "{\r\n    \"characters\": [\r\n      {\r\n        \"Name\":
+      \"Eldara, the Herbalist\",\r\n        \"Location\": \"Village of Elderglen\",\r\n       
+      \"Description\": \"Eldara is a wise and elderly herbalist who has lived in
+      Elderglen her entire life. She is known for her extensive knowledge of plants
+      and their medicinal properties, which she uses to heal the villagers and create
+      potent potions. Eldara's quaint cottage is surrounded by a vibrant herb garden,
+      and she often teaches local children about the wonders of nature.\"\r\n     
+      }\n    ]\r\n  }\r\n  "

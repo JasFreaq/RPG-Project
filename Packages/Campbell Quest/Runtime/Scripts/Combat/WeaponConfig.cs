@@ -76,13 +76,10 @@ namespace Campbell.Combat
 
         public void DestroyWeapon()
         {
-            //Debug.Log($"{name} is Destroying old weapons");
             for (int i = 0; i < 2; i++)
             {
-                //Debug.Log($"{name} checking {_handTransforms[i]}");
                 foreach (Transform transform in _handTransforms[i])
                 {
-                    //Debug.Log($"{ name} -> { transform.name}/{ transform.tag}");
                     if (transform.tag == "Weapon Prefab")
                     {
                         Destroy(transform.gameObject);                     

@@ -10,12 +10,11 @@ namespace Campbell.InventorySystem
     public class Pickup : MonoBehaviour
     {
         // STATE
-        InventoryItem item;
-        int number = 1;
+        private InventoryItem _item;
+        private int _number = 1;
 
         // CACHED REFERENCE
-        Inventory inventory;
-
+        private Inventory _inventory;
         private PickupTrigger _trigger;
 
         // LIFECYCLE METHODS
@@ -23,7 +22,7 @@ namespace Campbell.InventorySystem
         private void Awake()
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            inventory = player.GetComponent<Inventory>();
+            _inventory = player.GetComponent<Inventory>();
 
             _trigger = GetComponent<PickupTrigger>();
         }
@@ -37,27 +36,27 @@ namespace Campbell.InventorySystem
         /// <param name="number">The number of items represented.</param>
         public void Setup(InventoryItem item, int number)
         {
-            this.item = item;
+            _item = item;
             if (!item.IsStackable())
             {
                 number = 1;
             }
-            this.number = number;
+            _number = number;
         }
 
         public InventoryItem GetItem()
         {
-            return item;
+            return _item;
         }
 
         public int GetNumber()
         {
-            return number;
+            return _number;
         }
 
         public void PickupItem()
         {
-            bool foundSlot = inventory.AddToFirstEmptySlot(item, number);
+            bool foundSlot = _inventory.AddToFirstEmptySlot(_item, _number);
             if (foundSlot)
             {
                 if (_trigger != null)
@@ -71,7 +70,7 @@ namespace Campbell.InventorySystem
 
         public bool CanBePickedUp()
         {
-            return inventory.HasSpaceFor(item);
+            return _inventory.HasSpaceFor(_item);
         }
     }
 }

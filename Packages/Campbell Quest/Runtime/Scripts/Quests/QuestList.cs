@@ -44,7 +44,7 @@ namespace Campbell.Quests
         public void ClearQuest(Quest quest, string objectiveRef)
         {
             QuestStatus status = FindQuest(quest);
-            if (status != null)
+            if (status != null && !status.IsComplete())
             {
                 status.ClearObjective(objectiveRef);
                 if (status.IsComplete())
@@ -59,7 +59,7 @@ namespace Campbell.Quests
         public void ClearQuest(Quest quest)
         {
             QuestStatus status = FindQuest(quest);
-            if (status != null)
+            if (status != null && !status.IsComplete())
             {
                 status.Complete();
                 GiveReward(quest);
@@ -121,8 +121,10 @@ namespace Campbell.Quests
                         Debug.LogError($"Quest of ID '{parameters[0]}' does not exist.");
                     }
                     else
+                    {
                         Debug.LogError("Parameter list error.");
-
+                    } 
+                    
                     break;
                 
                 case Condition.PredicateType.CompletedObjective:
@@ -131,13 +133,22 @@ namespace Campbell.Quests
                         Quest quest = Quest.FindQuest(parameters[0]);
                         if (quest)
                         {
-                            return FindQuest(quest).HasCleared(parameters[1]);
-                        }
+                            if (HasQuest(quest))
+                            {
+                                return FindQuest(quest).HasCleared(parameters[1]);
+                            }
 
-                        Debug.LogError($"Quest of ID '{parameters[0]}' does not exist.");
+                            return false;
+                        }
+                        else
+                        {
+                            Debug.LogError($"Quest of ID '{parameters[0]}' does not exist.");
+                        }
                     }
                     else
+                    {
                         Debug.LogError("Parameter list error.");
+                    }
 
                     break;
                 
@@ -147,13 +158,22 @@ namespace Campbell.Quests
                         Quest quest = Quest.FindQuest(parameters[0]);
                         if (quest)
                         {
-                            return FindQuest(quest).IsComplete();
-                        }
+                            if (HasQuest(quest))
+                            {
+                                return FindQuest(quest).IsComplete();
+                            }
 
-                        Debug.LogError($"Quest of ID '{parameters[0]}' does not exist.");
+                            return false;
+                        }
+                        else
+                        {
+                            Debug.LogError($"Quest of ID '{parameters[0]}' does not exist.");
+                        }
                     }
                     else
+                    {
                         Debug.LogError("Parameter list error.");
+                    }
 
                     break;
             }

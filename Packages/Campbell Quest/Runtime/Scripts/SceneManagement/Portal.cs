@@ -9,16 +9,16 @@ namespace Campbell.SceneManagement
     public class Portal : MonoBehaviour
     {
         [Header("Connections")]
-        [SerializeField] int _sceneToLoad = -1;
-        [SerializeField] Transform _spawnPoint;
-        [SerializeField] PortalIdentifier _identifier;
+        [SerializeField] private int _sceneToLoad = -1;
+        [SerializeField] private Transform _spawnPoint;
+        [SerializeField] private PortalIdentifier _identifier;
 
         [Header("Transition")]
-        [SerializeField] float _fadeOutTime=2f;
-        [SerializeField] float _fadeInTime = 1f, _fadeWaitTime = 0.5f;
-        Fader _fader;
+        [SerializeField] private float _fadeOutTime =2f;
+        [SerializeField] private float _fadeInTime = 1f, _fadeWaitTime = 0.5f;
+        private Fader _fader;
 
-        SavingWrapper _savingWrapper;
+        private SavingWrapper _savingWrapper;
 
 
         private void Awake()
