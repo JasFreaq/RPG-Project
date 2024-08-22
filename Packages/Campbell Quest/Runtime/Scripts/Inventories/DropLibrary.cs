@@ -55,6 +55,12 @@ namespace Campbell.InventorySystem
 
         private DropLevel GetDropLevel(int level)
         {
+            if (level >= _dropLevels.Length)
+                return _dropLevels[_dropLevels.Length - 1];
+            
+            if (level < 0)
+                return _dropLevels[0];
+
             return _dropLevels[level];
         }
 

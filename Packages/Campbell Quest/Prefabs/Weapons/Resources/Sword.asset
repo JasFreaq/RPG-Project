@@ -22,7 +22,7 @@ MonoBehaviour:
   _properties:
     weaponsRange: 2
     timeBetweenAttacks: 1
-    weaponsDamage: 5
+    weaponsDamage: 7.5
     isProjectile: 0
   _weaponPrefab: {fileID: 7381080091830235212, guid: 31acb4618d46da64db62b31d7a120964,
     type: 3}

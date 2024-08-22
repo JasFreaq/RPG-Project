@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aa975b6e72390f4db516dfd61219966, type: 3}
+  m_Name: Thorn's Troublesome Tenants
+  m_EditorClassIdentifier: 
+  _questDescription: A gang of bandits has taken over Thorn Blackstone's home, located
+    northwest of Elderglen. As a trusted friend and frequent customer, Thorn is distressed
+    by this turn of events.
+  _questGoal: Defeat or destroy the bandits who have taken over Thorn Blackstone's
+    home.
+  _objectives:
+  - reference: 1
+    description: Speak with Thorn Blackstone in the Village of Elderglen to learn
+      about the situation.
+  - reference: 2
+    description: Travel northwest from the Village of Elderglen to reach Thorn Blackstone's
+      home, which has been taken over by the bandits.
+  - reference: 3
+    description: Defeat the bandits who have taken over Thorn Blackstone's home.
+  - reference: 4
+    description: Return to Thorn after dealing with the bandits.
+  _rewards:
+  - number: 1
+    item: {fileID: 11400000, guid: 01c1d6b3a299e38409429341bfaef947, type: 2}
+  _metadata:
+    formattedQuest: '{"title":"Quest","name":"Thorn''s Troublesome Tenants","description":"A
+      gang of bandits has taken over Thorn Blackstone''s home, located northwest
+      of Elderglen. As a trusted friend and frequent customer, Thorn is distressed
+      by this turn of events.","goal":"Defeat or destroy the bandits who have taken
+      over Thorn Blackstone''s home.","objectives":[{"reference":"1","description":"Speak
+      with Thorn Blackstone in the Village of Elderglen to learn about the situation."},{"reference":"2","description":"Travel
+      northwest from the Village of Elderglen to reach Thorn Blackstone''s home,
+      which has been taken over by the bandits."},{"reference":"3","description":"Defeat
+      the bandits who have taken over Thorn Blackstone''s home."},{"reference":"4","description":"Return
+      to Thorn after dealing with the bandits."}]}'
+    locationInformation: "{\r\n    \"locations\": [\r\n      {\r\n        \"Name\":
+      \"Village of Elderglen\",\r\n        \"Description\": \"A quaint and serene
+      village nestled in a lush valley, Elderglen is known for its thatched-roof
+      cottages and vibrant flower gardens. The villagers are a tight-knit community,
+      relying on farming and craftwork, and the village green is often filled with
+      children playing and adults trading stories.\"\r\n      }\n    ]\r\n  }\r\n  "
+    characterInformation: "{\r\n    \"characters\": [\r\n      {\r\n        \"Name\":
+      \"Thorn Blackstone, the Blacksmith\",\r\n        \"Location\": \"Village of
+      Elderglen\",\r\n        \"Description\": \"Thorn Blackstone is a rugged and
+      hardworking blacksmith whose skill in metalwork is renowned throughout Stonebridge.
+      He runs the busiest forge in town, producing high-quality weapons and tools.
+      Thorn is a former adventurer with a mysterious past, and he occasionally offers
+      quests or valuable information to those he deems worthy.\"\r\n      }\n   
+      ]\r\n  }\r\n  "

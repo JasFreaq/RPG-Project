@@ -24,7 +24,7 @@ namespace Campbell.Core
         public void CancelCurrentAction()
         {
             if(_action!=null)
-                _action.Cancel();
+                _action.CancelAction();
         }
 
         private void Kill()

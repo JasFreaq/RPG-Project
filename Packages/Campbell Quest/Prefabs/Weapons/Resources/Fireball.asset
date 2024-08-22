@@ -24,8 +24,7 @@ MonoBehaviour:
   _properties:
     weaponsRange: 10
     timeBetweenAttacks: 1.5
-    weaponsDamage: 5
-    weaponsDamageModifier: 1.5
+    weaponsDamage: 10
     isProjectile: 1
   _weaponPrefab: {fileID: 0}
   _weaponsOverrideController: {fileID: 22100000, guid: 21e2502e48b13314daebc6836d0d6fe3,
@@ -33,3 +32,5 @@ MonoBehaviour:
   _projectile: {fileID: 5996579337848969524, guid: bb6a4ec66f1cdac4585948116218e0d5,
     type: 3}
   _handIndex: 0
+  _additiveBonuses: []
+  _multiplicativeBonuses: []

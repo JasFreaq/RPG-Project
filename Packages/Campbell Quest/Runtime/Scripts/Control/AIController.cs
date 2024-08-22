@@ -66,7 +66,7 @@ namespace Campbell.Control
             }
             else if (_timeSinceLastSawPlayer - _suspicionTime <= Mathf.Epsilon)
             {
-                _mover.Cancel();
+                _mover.CancelAction();
             }
             else
             {

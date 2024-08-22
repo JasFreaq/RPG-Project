@@ -128,7 +128,7 @@ namespace Campbell.Movement
             _navMeshAgent.speed = speed;
         }
 
-        public void Cancel()
+        public void CancelAction()
         {
             _navMeshAgent.isStopped = true;
         }

@@ -510,7 +510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _toggleKey: 104
   _uIContainer: {fileID: 6579046635154652815}
-  _activeOnStart: 1
+  _activeOnStart: 0
 --- !u!1 &5145223864507405451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1157,7 +1157,7 @@ PrefabInstance:
     - target: {fileID: 224338124537362198, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -631.1255
+      value: -631.1251
       objectReference: {fileID: 0}
     - target: {fileID: 224928911778522548, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
         type: 3}
@@ -1472,12 +1472,12 @@ PrefabInstance:
     - target: {fileID: 1693024143934773398, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
         type: 3}
       propertyPath: m_Size
-      value: 0.98938936
+      value: 0.98939615
       objectReference: {fileID: 0}
     - target: {fileID: 1693024143934773398, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
         type: 3}
       propertyPath: m_Value
-      value: 0
+      value: -0.000026780215
       objectReference: {fileID: 0}
     - target: {fileID: 1702661474151556356, guid: 07dc30b6f1bbb4147acd5fd5555a18f5,
         type: 3}

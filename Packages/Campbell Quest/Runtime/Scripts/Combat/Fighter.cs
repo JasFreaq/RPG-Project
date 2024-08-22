@@ -51,6 +51,7 @@ namespace Campbell.Combat
             {
                 _baseStats.OnLevelUp += StatUpdate;
             }
+
             if (_equipment)
             {
                 _equipment.equipmentUpdated += UpdateWeapon;
@@ -71,17 +72,24 @@ namespace Campbell.Combat
         {
             _timeSinceLastAttack += Time.deltaTime;
 
-            if (_target && GetIsInRange())
+            if (_target != null)
             {
-                _mover.Cancel();
-
-                if (_target.IsAlive())
+                if (GetIsInRange())
                 {
-                    AttackBehaviour();
+                    _mover.CancelAction();
+
+                    if (_target.IsAlive())
+                    {
+                        AttackBehaviour();
+                    }
+                    else
+                    {
+                        CancelAction();
+                    }
                 }
                 else
                 {
-                    Cancel();
+                    StopAttacking();
                 }
             }
         }
@@ -92,6 +100,7 @@ namespace Campbell.Combat
             {
                 _baseStats.OnLevelUp -= StatUpdate;
             }
+
             if (_equipment)
             {
                 _equipment.equipmentUpdated -= UpdateWeapon;
@@ -171,15 +180,20 @@ namespace Campbell.Combat
         }
 
         //Disablers
-        public void Cancel()
+        public void StopAttacking()
         {
-            _target = null;
-
             _animator.ResetTrigger("attack");
             _animator.SetTrigger("stopAttack");
         }
 
-        private void Kill()
+        public void CancelAction()
+        {
+            _target = null;
+
+            StopAttacking();
+        }
+
+        public void Kill()
         {
             enabled = false;
         }

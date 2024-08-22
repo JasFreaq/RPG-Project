@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 2149903028423175550, guid: 3cccd9306ad94eb449a0670785312c06,
         type: 3}
       propertyPath: _chaseRange
-      value: 12.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5155479070648397201, guid: 3cccd9306ad94eb449a0670785312c06,
         type: 3}
@@ -19,6 +19,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: b3531c4a809a6164c94ae81889d99fdb,
         type: 2}
+    - target: {fileID: 6222329510605280852, guid: 3cccd9306ad94eb449a0670785312c06,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222329510605280852, guid: 3cccd9306ad94eb449a0670785312c06,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 3752520305378135867}
+    - target: {fileID: 6222329510605280852, guid: 3cccd9306ad94eb449a0670785312c06,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: Kill
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222329510605280852, guid: 3cccd9306ad94eb449a0670785312c06,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Campbell.Combat.Fighter, Campbell
+      objectReference: {fileID: 0}
     - target: {fileID: 6584815018423891448, guid: 3cccd9306ad94eb449a0670785312c06,
         type: 3}
       propertyPath: _class
@@ -89,3 +109,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3cccd9306ad94eb449a0670785312c06, type: 3}
+--- !u!114 &3752520305378135867 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5155479070648397201, guid: 3cccd9306ad94eb449a0670785312c06,
+    type: 3}
+  m_PrefabInstance: {fileID: 8329497328695403178}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82b94b482d96c54c86f1832ebe25f6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

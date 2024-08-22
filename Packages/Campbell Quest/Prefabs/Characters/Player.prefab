@@ -120,6 +120,71 @@ PrefabInstance:
       propertyPath: _healthPoints
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 6906852980461968984}
+    - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 5621188402327997494}
+    - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: Kill
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: set_enabled
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Campbell.Combat.Fighter, Campbell
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: UnityEngine.Behaviour, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1284044171436554684, guid: 00d7cf4d771565848bc088b67e50af4e,
+        type: 3}
+      propertyPath: _onDeath.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1993987367173071957, guid: 00d7cf4d771565848bc088b67e50af4e,
         type: 3}
       propertyPath: m_Name
@@ -375,5 +440,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8c756a4f32f0d945bb0d60bb0f29ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6906852980461968984 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1301889657, guid: 00d7cf4d771565848bc088b67e50af4e,
+    type: 3}
+  m_PrefabInstance: {fileID: 6906852981762808865}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4933133480506062964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82b94b482d96c54c86f1832ebe25f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
