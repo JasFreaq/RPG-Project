@@ -7,28 +7,38 @@ using UnityEngine;
 
 namespace Campbell.Editor.QuestGeneration
 {
-    public class QuestGenerator 
+    /// <summary>
+    /// Class for generating and managing quest assets based on JSON data.
+    /// </summary>
+    public class QuestGenerator
     {
+        /// <summary>
+        /// Checks if a quest asset already exists at the specified save path.
+        /// </summary>
+        /// <param name="questJson">The JSON string representing the quest data.</param>
+        /// <param name="savePath">The path where the quest asset should be saved.</param>
+        /// <returns>Returns true if the quest asset exists, otherwise false.</returns>
         public static bool DoesQuestAssetExist(string questJson, string savePath)
         {
             QuestData questData = UtilityLibrary.DeserializeJson<QuestData>(questJson);
-
             string path = savePath + "/" + questData.name + "/Resources";
             if (Directory.Exists(path))
             {
                 path += "/" + questData.name + ".asset";
                 return File.Exists(path);
             }
-
             return false;
         }
 
+        /// <summary>
+        /// Creates a quest asset from JSON data and saves it with the provided metadata.
+        /// </summary>
+        /// <param name="questJson">The JSON string representing the quest data.</param>
+        /// <param name="metadata">Metadata for the quest.</param>
         public static void CreateQuestFromJson(string questJson, Quest.QuestMetadata metadata)
         {
             QuestData questData = UtilityLibrary.DeserializeJson<QuestData>(questJson);
-
             Quest quest = ScriptableObject.CreateInstance<Quest>();
-
             quest.QuestDescription = questData.description;
             quest.QuestGoal = questData.goal;
 
@@ -51,19 +61,20 @@ namespace Campbell.Editor.QuestGeneration
             }
 
             quest.Metadata = metadata;
-
             string path = QuestEditorWindow.QuestAssetSavePath + "/" + questData.name + "/Resources";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
-
             path += "/" + questData.name + ".asset";
             UnityEditor.AssetDatabase.CreateAsset(quest, path);
             UnityEditor.AssetDatabase.SaveAssets();
         }
     }
 
+    /// <summary>
+    /// Serializable class to format quest metadata.
+    /// </summary>
     [System.Serializable]
     public class QuestMetadataFormat
     {
@@ -74,6 +85,9 @@ namespace Campbell.Editor.QuestGeneration
         public List<ObjectiveData> objectives;
     }
 
+    /// <summary>
+    /// Serializable class representing the data structure of a quest.
+    /// </summary>
     [System.Serializable]
     public class QuestData
     {
@@ -84,6 +98,9 @@ namespace Campbell.Editor.QuestGeneration
         public List<RewardData> rewards;
     }
 
+    /// <summary>
+    /// Serializable class for quest objective data.
+    /// </summary>
     [System.Serializable]
     public class ObjectiveData
     {
@@ -91,6 +108,9 @@ namespace Campbell.Editor.QuestGeneration
         public string description;
     }
 
+    /// <summary>
+    /// Serializable class for quest reward data.
+    /// </summary>
     [System.Serializable]
     public class RewardData
     {

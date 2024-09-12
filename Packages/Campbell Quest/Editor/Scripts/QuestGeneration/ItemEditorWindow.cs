@@ -1,36 +1,42 @@
 using Campbell.Editor.QuestGeneration.Utility;
 using Campbell.Quests;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Plastic.Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
 
 namespace Campbell.Editor.QuestGeneration
 {
+    /// <summary>
+    /// Editor window class for editing and managing quest items.
+    /// </summary>
     public class ItemEditorWindow : EditorWindow
     {
         private List<string> _formattedItems = new List<string>();
-
         private int _itemTab = 0;
-
         private Vector2 _itemsScrollPosition;
-
         private ItemProcessor _itemProcessor;
-
         private Quest _quest;
 
+        /// <summary>
+        /// Displays the Item Editor Window in the Unity Editor.
+        /// </summary>
         [MenuItem("Campbell/Item Editor Window", false, 2)]
         public static void ShowWindow()
         {
             GetWindow<ItemEditorWindow>("Campbell Item Editor");
         }
 
+        /// <summary>
+        /// Initializes the ItemProcessor when the window is enabled.
+        /// </summary>
         private void OnEnable()
         {
             _itemProcessor = new ItemProcessor();
         }
 
+        /// <summary>
+        /// Handles the GUI rendering logic for the editor window.
+        /// </summary>
         private void OnGUI()
         {
             Rect rect = EditorGUILayout.GetControlRect();
@@ -42,7 +48,6 @@ namespace Campbell.Editor.QuestGeneration
                 {
                     _formattedItems.Clear();
                 }
-
                 EditorGUILayout.HelpBox("Missing Quest Asset.", MessageType.Info);
             }
             else
@@ -57,6 +62,9 @@ namespace Campbell.Editor.QuestGeneration
             }
         }
 
+        /// <summary>
+        /// Formats and displays the item window with tabs for each item.
+        /// </summary>
         private void FormatItemWindow()
         {
             if (_itemProcessor.ClearItems(ref _formattedItems))
@@ -66,7 +74,6 @@ namespace Campbell.Editor.QuestGeneration
             }
 
             EditorGUILayout.Space();
-
             string[] itemTabNames = new string[_formattedItems.Count];
             for (int i = 0; i < _formattedItems.Count; i++)
             {
@@ -75,14 +82,13 @@ namespace Campbell.Editor.QuestGeneration
             }
 
             _itemTab = GUILayout.Toolbar(_itemTab, itemTabNames);
-
             DisplayGeneratedItems();
-
             EditorGUILayout.Space();
 
             Quest.QuestMetadata metadata = _quest.Metadata;
             string questName = UtilityLibrary.DeserializeJson<QuestData>(metadata.formattedQuest).name;
             string itemAssetSavePath = QuestEditorWindow.QuestAssetSavePath + "/" + questName;
+
             if (ItemGenerator.DoesItemAssetExist(_formattedItems[_itemTab], itemAssetSavePath))
             {
                 _itemProcessor.RecreateItemAsset(_formattedItems[_itemTab], _quest, itemAssetSavePath);
@@ -93,12 +99,13 @@ namespace Campbell.Editor.QuestGeneration
             }
         }
 
+        /// <summary>
+        /// Displays the information of the currently selected item in the scroll view.
+        /// </summary>
         private void DisplayGeneratedItems()
         {
             _itemsScrollPosition = EditorGUILayout.BeginScrollView(_itemsScrollPosition, GUILayout.ExpandHeight(true));
-
             _formattedItems[_itemTab] = _itemProcessor.DisplayItemInformation(_formattedItems[_itemTab]);
-
             EditorGUILayout.EndScrollView();
         }
     }
